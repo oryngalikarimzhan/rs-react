@@ -1,1 +1,19 @@
 @import "normalize.css";
+
+:root {
+  --main-color: lightcyan;
+  --primary-color: black;
+  --add-color: beige;
+}
+
+html {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+body {
+  background: var(--main-color);
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  min-height: 100vh;
+}
