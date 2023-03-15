@@ -1,7 +1,9 @@
 import React from 'react';
 
-function About() {
-  return <div>Страница о нас</div>;
+class About extends React.Component {
+  render(): React.ReactNode {
+    return <div>Страница о нас</div>;
+  }
 }
 
 export default About;

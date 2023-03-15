@@ -1,7 +1,9 @@
 import React from 'react';
 
-function NotFound() {
-  return <div>Страница не найдена</div>;
+class NotFound extends React.Component {
+  render(): React.ReactNode {
+    return <div>Страница не найдена</div>;
+  }
 }
 
 export default NotFound;

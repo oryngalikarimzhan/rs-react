@@ -1,7 +1,9 @@
 import React from 'react';
 
-function Home() {
-  return <div>Главная страница</div>;
+class Home extends React.Component {
+  render(): React.ReactNode {
+    return <div>Главная страница</div>;
+  }
 }
 
 export default Home;
