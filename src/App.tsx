@@ -1,24 +1,15 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import classes from './App.module.scss';
+// import classes from './App.module.scss';
 
-import About from './pages/about/About';
-import NotFound from './pages/notfound/NotFound';
-import Home from './pages/home/Home';
+import Main from './components/main/Main';
+import Header from './components/header/Header';
 
 class App extends React.Component {
   render(): React.ReactNode {
     return (
       <>
-        <header className={classes.header}>
-          <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
-        </header>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Header />
+        <Main />
       </>
     );
   }
