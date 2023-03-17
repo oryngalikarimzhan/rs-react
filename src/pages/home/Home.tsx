@@ -5,7 +5,7 @@ import data from '../../data/data.json';
 import marvel from '../../assets/Marvel_Logo.svg';
 import type { Character } from '../../types';
 
-class Home extends React.Component<{ datas: Character[]; image: string }> {
+class Home extends React.Component {
   state = {
     datas: data.characters as Character[],
     image: marvel,

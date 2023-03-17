@@ -7,7 +7,7 @@
       "species": "Human",
       "citizenship": "American",
       "dateofbirth": "May 29, 1970",
-      "affiliation": ["MIT", "Stark Industries", "S.H.I.E.L.D.", "Avengers", "Damage Control"],
+      "affiliation": ["Avengers", "MIT", "Stark Industries", "S.H.I.E.L.D.", "Damage Control"],
       "appearances": [
         "Iron Man",
         "The Incredible Hulk (post-credits scene)",
@@ -35,13 +35,13 @@
       "citizenship": "American",
       "dateofbirth": "July 4, 1918",
       "affiliation": [
+        "Avengers",
         "United States Army",
         "United Service Organizations",
         "United States Department of the Treasury",
         "SSR",
         "Howling Commandos",
-        "S.H.I.E.L.D.",
-        "Avengers"
+        "S.H.I.E.L.D."
       ],
       "appearances": [
         "Captain America: The First Avenger",
@@ -66,7 +66,7 @@
       "species": "Human",
       "citizenship": "American, Sakaaran (formerly)",
       "dateofbirth": "December 18, 1969",
-      "affiliation": ["Harvard University", "Culver University", "Avengers", "Revengers"],
+      "affiliation": ["Avengers", "Harvard University", "Culver University", "Revengers"],
       "appearances": [
         "The Incredible Hulk",
         "Thor (mentioned)",
@@ -89,7 +89,7 @@
       "species": "Asgardian",
       "citizenship": "Asgardian",
       "dateofbirth": "964 A.D. - 965 A.D.",
-      "affiliation": ["Asgardian Royal Family", "Avengers", "Revengers"],
+      "affiliation": ["Avengers", "Asgardian Royal Family", "Revengers"],
       "appearances": [
         "Thor",
         "Captain America: The First Avenger (drawing)",
@@ -114,12 +114,12 @@
       "citizenship": "Soviet, Russian, American",
       "dateofbirth": "November 22, 1984",
       "affiliation": [
+        "Avengers",
         "KGB",
         "Red Room",
         "S.H.I.E.L.D.",
         "STRIKE Team: Delta",
-        "Stark Industries",
-        "Avengers"
+        "Stark Industries"
       ],
       "appearances": [
         "Iron Man 2",
@@ -141,7 +141,7 @@
       "species": "Human",
       "citizenship": "American",
       "dateofbirth": "January 7, 1971",
-      "affiliation": ["S.H.I.E.L.D.", "STRIKE Team: Delta", "Avengers"],
+      "affiliation": ["Avengers", "S.H.I.E.L.D.", "STRIKE Team: Delta"],
       "appearances": [
         "Thor",
         "The Avengers",
