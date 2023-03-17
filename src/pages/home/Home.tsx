@@ -3,7 +3,7 @@ import Card from '../../components/card/Card';
 import styles from './home.module.scss';
 import data from '../../data/data.json';
 import marvel from '../../assets/Marvel_Logo.svg';
-import type { Character } from '../../types';
+import type { Character } from '../../types/Character';
 
 class Home extends React.Component {
   state = {
@@ -12,9 +12,7 @@ class Home extends React.Component {
   };
 
   render(): React.ReactNode {
-    const cards = this.state.datas.map((characterData) => (
-      <Card key={characterData.name} character={characterData} />
-    ));
+    const cards = this.state.datas.map((character) => <Card key={character.name} {...character} />);
     return (
       <section className={styles.home}>
         <article className={styles.cardsContainer}>

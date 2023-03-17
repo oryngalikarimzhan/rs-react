@@ -1,15 +1,9 @@
 import React from 'react';
-import type { Character } from '../../types';
+import type { Character } from '../../types/Character';
 import styles from './card.module.scss';
 
-export default class Card extends React.Component<
-  { character: Character },
-  { hovered: boolean; img: string }
-> {
-  constructor(props: { character: Character }) {
-    super(props);
-    this.state = { hovered: false, img: '' };
-  }
+export default class Card extends React.Component<Character> {
+  state = { hovered: false, img: '' };
 
   componentDidMount() {
     const reader = new FileReader();
@@ -18,53 +12,60 @@ export default class Card extends React.Component<
       this.setState({ img: reader.result as string });
     });
 
-    fetch(this.props.character.image)
+    fetch(this.props.image)
       .then((data) => data.blob())
       .then((blob) => reader.readAsDataURL(blob))
       .catch((err) => console.error(err));
   }
 
   render() {
-    const character = this.props.character;
+    const {
+      name,
+      realname,
+      actor,
+      dateofbirth,
+      citizenship,
+      species,
+      affiliation: [first],
+    } = this.props;
 
-    const cardStyle =
-      this.state.img !== ''
-        ? {
-            background: `url(${this.state.img}) no-repeat`,
-            backgroundSize: `${this.state.hovered ? 'auto 130%' : 'auto 100%'}`,
-            backgroundPosition: `${this.state.hovered ? 'left center' : 'center center}'}`,
-          }
-        : {
-            background: 'black',
-          };
+    const { card, border, title, infoBox, info } = styles;
+
+    const { img, hovered } = this.state;
+
+    const cardStyle = img !== '' && {
+      background: `url(${img}) no-repeat`,
+      backgroundSize: `${hovered ? 'auto 130%' : 'auto 100%'}`,
+      backgroundPosition: `${hovered ? 'left center' : 'center center}'}`,
+    };
 
     return (
       <div
-        className={styles.card}
+        className={card}
         onMouseOut={() => this.setState({ hovered: false })}
         onMouseOver={() => this.setState({ hovered: true })}
-        style={cardStyle}
+        style={cardStyle || {}}
       >
-        <div className={styles.border}>
-          <div className={styles.title}>{character.name}</div>
-          <div className={styles.info}>
-            <span>
-              Real name: <strong>{character.realname}</strong>
+        <div className={border}>
+          <div className={title}>{name}</div>
+          <div className={infoBox}>
+            <span className={info}>
+              Real name: <strong>{realname}</strong>
             </span>
-            <span>
-              Actor: <strong>{character.actor}</strong>
+            <span className={info}>
+              Date of birth: <strong>{dateofbirth}</strong>
             </span>
-            <span>
-              Date of birth: <strong>{character.dateofbirth}</strong>
+            <span className={info}>
+              Citizenship: <strong>{citizenship}</strong>
             </span>
-            <span>
-              Citizenship: <strong>{character.citizenship}</strong>
+            <span className={info}>
+              Species: <strong>{species}</strong>
             </span>
-            <span>
-              Species: <strong>{character.species}</strong>
+            <span className={info}>
+              Team: <strong>{first}</strong>
             </span>
-            <span>
-              Team: <strong>{character.affiliation[0]}</strong>
+            <span className={info}>
+              Actor: <strong>{actor}</strong>
             </span>
           </div>
         </div>

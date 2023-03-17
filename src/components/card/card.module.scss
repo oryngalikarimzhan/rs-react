@@ -1,6 +1,6 @@
 .card {
-  width: 320px;
-  height: 450px;
+  width: 300px;
+  height: 430px;
   box-shadow: 0 70px 63px -60px var(--primary-color);
   border-radius: 15px;
   background: var(--primary-color);
@@ -12,8 +12,8 @@
   transition: background 0.8s, filter 1s;
 
   .border {
-    width: 300px;
-    height: 430px;
+    width: 280px;
+    height: 410px;
     border-radius: 10px;
     transition: border 1s, backdrop-filter 1s;
     display: flex;
@@ -29,13 +29,17 @@
     transition: opacity 1s;
   }
 
-  .info {
+  .info-box {
     padding: 10px;
     display: flex;
     flex-direction: column;
     color: var(--add-color);
     opacity: 0;
     transition: opacity 1s;
+
+    .info {
+      padding: 0 0 5px;
+    }
   }
 
   &:hover {
@@ -50,7 +54,7 @@
       opacity: 1;
     }
 
-    .info {
+    .info-box {
       opacity: 1;
     }
   }
