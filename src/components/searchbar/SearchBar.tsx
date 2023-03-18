@@ -13,44 +13,16 @@ export default class SearchBar extends React.Component {
   private ref = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    this.setState({ history: this.getHistoryFromLS() });
+    this.setState({ historyList: this.getHistoryFromLS() });
     document.addEventListener('mousedown', this.handleClick);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick);
+  }
+
   render() {
-    const {
-      searchContainer,
-      searchBar,
-      searchInput,
-      searchButton,
-      histories,
-      history,
-      text,
-      deleteBtn,
-    } = styles;
-
-    const { historyList, searchValue, focused } = this.state;
-
-    const historiesContainer = historyList.length > 0 && focused && (
-      <div className={histories}>
-        {historyList.map((searchText) => (
-          <div key={searchText} className={history}>
-            <span
-              data-id={searchText}
-              className={text}
-              onClick={(e) => this.setState({ searchValue: e.currentTarget.dataset.id })}
-            >
-              {searchText}
-            </span>
-            <button
-              data-id={searchText}
-              className={deleteBtn}
-              onClick={(e) => this.deleteFromLS(e.currentTarget.dataset.id as string)}
-            ></button>
-          </div>
-        ))}
-      </div>
-    );
+    const { searchContainer, searchBar, searchInput, searchButton } = styles;
 
     return (
       <div className={searchContainer} ref={this.ref}>
@@ -63,7 +35,7 @@ export default class SearchBar extends React.Component {
             type="search"
             placeholder="..."
             className={searchInput}
-            value={searchValue}
+            value={this.state.searchValue}
             onClick={() => this.setState({ searchValue: '' })}
             onChange={(e) =>
               e.target.value !== '' && this.setState({ searchValue: e.target.value })
@@ -71,10 +43,40 @@ export default class SearchBar extends React.Component {
           ></input>
           <button className={searchButton}>Search</button>
         </form>
-        {historiesContainer}
+        {this.getHistoryContainer()}
       </div>
     );
   }
+
+  private getHistoryContainer = () => {
+    const { histories, history, text, deleteBtn } = styles;
+
+    const { historyList, focused } = this.state;
+
+    return (
+      historyList.length > 0 &&
+      focused && (
+        <div className={histories}>
+          {historyList.map((searchText) => (
+            <div key={searchText} className={history}>
+              <span
+                data-id={searchText}
+                className={text}
+                onClick={(e) => this.setState({ searchValue: e.currentTarget.dataset.id })}
+              >
+                {searchText}
+              </span>
+              <button
+                data-id={searchText}
+                className={deleteBtn}
+                onClick={(e) => this.deleteFromLS(e.currentTarget.dataset.id as string)}
+              ></button>
+            </div>
+          ))}
+        </div>
+      )
+    );
+  };
 
   private handleClick = (event: Event) => {
     if (this.ref.current && !this.ref.current.contains(event.target as HTMLElement)) {

@@ -9,15 +9,13 @@ import NotFound from '../pages/notfound/NotFound';
 class App extends React.Component {
   render() {
     return (
-      <>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
     );
   }
 }

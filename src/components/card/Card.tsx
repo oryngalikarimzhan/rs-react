@@ -41,6 +41,7 @@ export default class Card extends React.Component<Character> {
 
     return (
       <div
+        data-testid="card"
         className={card}
         onMouseOut={() => this.setState({ hovered: false })}
         onMouseOver={() => this.setState({ hovered: true })}
