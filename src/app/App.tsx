@@ -1,14 +1,22 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import Main from '../components/main/Main';
-import Header from '../components/header/Header';
+import Layout from '../components/layout/Layout';
+import Home from '../pages/home/Home';
+import About from '../pages/about/About';
+import NotFound from '../pages/notfound/NotFound';
 
 class App extends React.Component {
-  render(): React.ReactNode {
+  render() {
     return (
       <>
-        <Header />
-        <Main />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </>
     );
   }
