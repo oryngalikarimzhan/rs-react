@@ -2,7 +2,7 @@ import React, { FormEvent } from 'react';
 import styles from './searchbar.module.scss';
 
 export default class SearchBar extends React.Component {
-  private readonly LOCAL_STORAGE_KEY = 'search-history';
+  static readonly LOCAL_STORAGE_KEY = 'search-history';
 
   state = {
     searchValue: '',
@@ -27,6 +27,7 @@ export default class SearchBar extends React.Component {
     return (
       <div className={searchContainer} ref={this.ref}>
         <form
+          role="searchform"
           onFocus={() => this.setState({ focused: true })}
           className={searchBar}
           onSubmit={this.handleSubmit}
@@ -56,7 +57,7 @@ export default class SearchBar extends React.Component {
     return (
       historyList.length > 0 &&
       focused && (
-        <div className={histories}>
+        <div role="histories" className={histories}>
           {historyList.map((searchText) => (
             <div key={searchText} className={history}>
               <span
@@ -97,10 +98,10 @@ export default class SearchBar extends React.Component {
   };
 
   private getHistoryFromLS = (): string[] =>
-    JSON.parse(window.localStorage.getItem(this.LOCAL_STORAGE_KEY) || '[]');
+    JSON.parse(window.localStorage.getItem(SearchBar.LOCAL_STORAGE_KEY) || '[]');
 
   private setHistoryToLS = (history: string[]): void => {
-    window.localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(history));
+    window.localStorage.setItem(SearchBar.LOCAL_STORAGE_KEY, JSON.stringify(history));
     this.setState({ historyList: history });
   };
 

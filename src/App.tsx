@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Layout from '../components/layout/Layout';
-import Home from '../pages/home/Home';
-import About from '../pages/about/About';
-import NotFound from '../pages/notfound/NotFound';
+import Layout from './components/layout/Layout';
+import Home from './pages/home/Home';
+import About from './pages/about/About';
+import NotFound from './pages/notfound/NotFound';
 
 class App extends React.Component {
   render() {

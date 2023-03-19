@@ -17,7 +17,9 @@ class Home extends React.Component {
       <section className={styles.home}>
         <article className={styles.cardsContainer}>
           <img className={styles.logo} src={this.state.image} />
-          <div className={styles.cards}>{cards}</div>
+          <div role="cards" className={styles.cards}>
+            {cards}
+          </div>
         </article>
       </section>
     );

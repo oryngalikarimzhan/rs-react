@@ -20,6 +20,8 @@ describe('Card', () => {
     );
 
     const element = screen.getByTestId('card');
+
+    expect(element).toBeVisible();
     expect(element).toHaveStyle('display: flex');
   });
 });
