@@ -1,0 +1,36 @@
+.header {
+  width: 100vw;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 30px;
+
+  background: var(--primary-color);
+  color: var(--main-color);
+
+  .nav {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+  }
+
+  .link {
+    font-size: 2rem;
+    color: var(--main-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--add-color);
+    }
+
+    &:active {
+      color: var(--secondary-color);
+    }
+  }
+
+  .link-active {
+    color: var(--add-color);
+  }
+}

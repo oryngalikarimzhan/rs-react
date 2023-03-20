@@ -1,25 +1,14 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { NavLink, Outlet } from 'react-router-dom';
+import Header from '../../components/header/Header';
 import styles from './layout.module.scss';
 
 export default class Layout extends React.Component {
-  private setActive = ({ isActive }: { isActive: boolean }) =>
-    isActive ? `${styles.link} ${styles.linkActive}` : `${styles.link}`;
-
   render() {
     return (
       <>
-        <header className={styles.header}>
-          <nav className={styles.nav}>
-            <NavLink className={this.setActive} to="/">
-              Home
-            </NavLink>
-            <NavLink className={this.setActive} to="/about">
-              About Us
-            </NavLink>
-          </nav>
-        </header>
+        <Header />
         <main className={styles.main}>
           <Outlet />
         </main>
