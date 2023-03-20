@@ -12,15 +12,17 @@ class Header extends React.Component<WithRouterProps> {
 
     return (
       <header className={styles.header}>
-        <h1>{page}</h1>
-        <nav className={styles.nav}>
-          <NavLink className={this.setActive} to="/">
-            Home
-          </NavLink>
-          <NavLink className={this.setActive} to="/about">
-            About Us
-          </NavLink>
-        </nav>
+        <div className={styles.wrapper}>
+          <h1>{page}</h1>
+          <nav className={styles.nav}>
+            <NavLink className={this.setActive} to="/">
+              Home
+            </NavLink>
+            <NavLink className={this.setActive} to="/about">
+              About Us
+            </NavLink>
+          </nav>
+        </div>
       </header>
     );
   }

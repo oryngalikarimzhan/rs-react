@@ -20,13 +20,14 @@ class Home extends React.Component {
         <section className={styles.searchContainer}>
           <SearchBar />
         </section>
-
-        <article className={styles.cardsContainer}>
-          <img className={styles.logo} src={this.state.image} />
-          <div role="cards" className={styles.cards}>
-            {cards}
-          </div>
-        </article>
+        <div className={styles.wrapper}>
+          <article className={styles.cardsContainer}>
+            <img className={styles.logo} src={this.state.image} />
+            <div role="cards" className={styles.cards}>
+              {cards}
+            </div>
+          </article>
+        </div>
       </section>
     );
   }
