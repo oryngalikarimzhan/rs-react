@@ -24,6 +24,10 @@
     &:hover {
       color: var(--add-color);
     }
+
+    &:active {
+      color: var(--secondary-color);
+    }
   }
 
   .link-active {

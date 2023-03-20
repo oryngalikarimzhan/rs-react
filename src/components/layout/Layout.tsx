@@ -1,6 +1,6 @@
 import React from 'react';
+
 import { NavLink, Outlet } from 'react-router-dom';
-import SearchBar from '../searchbar/SearchBar';
 import styles from './layout.module.scss';
 
 export default class Layout extends React.Component {
@@ -19,7 +19,6 @@ export default class Layout extends React.Component {
               About Us
             </NavLink>
           </nav>
-          <SearchBar />
         </header>
         <main className={styles.main}>
           <Outlet />

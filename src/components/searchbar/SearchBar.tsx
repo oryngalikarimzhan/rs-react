@@ -1,11 +1,15 @@
 import React, { FormEvent } from 'react';
+
 import styles from './searchbar.module.scss';
+import { getFromLS, setToLS, deleteFromLS } from '../../utils/localStorageUtils';
 
 export default class SearchBar extends React.Component {
-  static readonly LOCAL_STORAGE_KEY = 'search-history';
+  static readonly LOCAL_STORAGE_HISTORY_KEY = 'search-history';
+
+  private readonly LOCAL_STORAGE_LAST_SEARCH_KEY = 'last-search';
 
   state = {
-    searchValue: '',
+    searchValue: getFromLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY)[0],
     historyList: [],
     focused: false,
   };
@@ -13,11 +17,17 @@ export default class SearchBar extends React.Component {
   private ref = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    this.setState({ historyList: this.getHistoryFromLS() });
+    this.setState({
+      historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY),
+    });
+
     document.addEventListener('mousedown', this.handleClick);
   }
 
   componentWillUnmount() {
+    setToLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY, [this.state.searchValue]);
+    this.setState({ searchValue: this.state.searchValue });
+
     document.removeEventListener('mousedown', this.handleClick);
   }
 
@@ -70,7 +80,13 @@ export default class SearchBar extends React.Component {
               <button
                 data-id={searchText}
                 className={deleteBtn}
-                onClick={(e) => this.deleteFromLS(e.currentTarget.dataset.id as string)}
+                onClick={(e) => {
+                  deleteFromLS(
+                    SearchBar.LOCAL_STORAGE_HISTORY_KEY,
+                    e.currentTarget.dataset.id as string
+                  );
+                  this.setState({ historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY) });
+                }}
               ></button>
             </div>
           ))}
@@ -87,27 +103,14 @@ export default class SearchBar extends React.Component {
 
   private handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const searchHistory: string[] = this.getHistoryFromLS();
+    const searchHistory = getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY);
 
     const { searchValue } = this.state;
     if (searchValue !== '' && searchHistory.indexOf(searchValue) === -1) {
       searchHistory.push(searchValue);
 
-      this.setHistoryToLS(searchHistory);
+      setToLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY, searchHistory);
+      this.setState({ historyList: searchHistory });
     }
-  };
-
-  private getHistoryFromLS = (): string[] =>
-    JSON.parse(window.localStorage.getItem(SearchBar.LOCAL_STORAGE_KEY) || '[]');
-
-  private setHistoryToLS = (history: string[]): void => {
-    window.localStorage.setItem(SearchBar.LOCAL_STORAGE_KEY, JSON.stringify(history));
-    this.setState({ historyList: history });
-  };
-
-  private deleteFromLS = (text: string) => {
-    const searchHistory = this.getHistoryFromLS();
-    searchHistory.splice(searchHistory.indexOf(text), 1);
-    this.setHistoryToLS(searchHistory);
   };
 }

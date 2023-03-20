@@ -1,6 +1,15 @@
 .home {
   width: 100%;
-  margin: 50px 0;
+  margin: 20px 0;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+
+  .search-container {
+    display: flex;
+    justify-content: flex-end;
+  }
 
   .cards-container {
     display: flex;
