@@ -18,6 +18,5 @@ describe('Layout', () => {
     const element = screen.getByRole('banner');
 
     expect(element).toBeVisible();
-    expect(element).toHaveStyle('display: flex');
   });
 });

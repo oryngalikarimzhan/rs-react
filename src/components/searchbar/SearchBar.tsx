@@ -2,19 +2,20 @@ import React, { FormEvent } from 'react';
 
 import styles from './searchbar.module.scss';
 import { getFromLS, setToLS, deleteFromLS } from '../../utils/localStorageUtils';
+import SearchHistory from './SearchHistory';
 
 export default class SearchBar extends React.Component {
   static readonly LOCAL_STORAGE_HISTORY_KEY = 'search-history';
 
   private readonly LOCAL_STORAGE_LAST_SEARCH_KEY = 'last-search';
 
+  private ref = React.createRef<HTMLDivElement>();
+
   state = {
-    searchValue: getFromLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY)[0],
+    searchValue: getFromLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY)[0] || '',
     historyList: [],
     focused: false,
   };
-
-  private ref = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
     this.setState({
@@ -54,45 +55,25 @@ export default class SearchBar extends React.Component {
           ></input>
           <button className={searchButton}>Search</button>
         </form>
-        {this.getHistoryContainer()}
+        <SearchHistory
+          historyList={this.state.historyList}
+          focused={this.state.focused}
+          onPick={this.handleHistoryClick}
+          onDelete={this.handleDelete}
+        />
       </div>
     );
   }
 
-  private getHistoryContainer = () => {
-    const { histories, history, text, deleteBtn } = styles;
+  private handleHistoryClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) =>
+    this.setState({ searchValue: e.currentTarget.dataset.id });
 
-    const { historyList, focused } = this.state;
-
-    return (
-      historyList.length > 0 &&
-      focused && (
-        <div role="histories" className={histories}>
-          {historyList.map((searchText) => (
-            <div key={searchText} className={history}>
-              <span
-                data-id={searchText}
-                className={text}
-                onClick={(e) => this.setState({ searchValue: e.currentTarget.dataset.id })}
-              >
-                {searchText}
-              </span>
-              <button
-                data-id={searchText}
-                className={deleteBtn}
-                onClick={(e) => {
-                  deleteFromLS(
-                    SearchBar.LOCAL_STORAGE_HISTORY_KEY,
-                    e.currentTarget.dataset.id as string
-                  );
-                  this.setState({ historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY) });
-                }}
-              ></button>
-            </div>
-          ))}
-        </div>
-      )
+  private handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    deleteFromLS(
+      SearchBar.LOCAL_STORAGE_HISTORY_KEY,
+      (event.target as HTMLButtonElement).dataset.id as string
     );
+    this.setState({ historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY) });
   };
 
   private handleClick = (event: Event) => {
