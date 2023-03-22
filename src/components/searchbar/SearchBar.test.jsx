@@ -45,9 +45,11 @@ describe('SearchBar', () => {
 
     const value = 'Some value';
     const searchBox = screen.getByRole('searchbox');
-    searchBox.value = value;
 
-    await user.click(searchBox);
+    await act(async () => {
+      await user.type(searchBox, value);
+      await user.click(searchBox);
+    });
 
     expect(searchBox).toBeVisible();
     expect(searchBox.value).not.toEqual(value);
@@ -67,9 +69,9 @@ describe('SearchBar', () => {
     const value = 'Some value';
     const searchBox = screen.getByRole('searchbox');
     const button = screen.getByRole('button');
-    await user.type(searchBox, value);
 
     await act(async () => {
+      await user.type(searchBox, value);
       await user.click(button);
       searchBox.focus();
     });
