@@ -1,0 +1,17 @@
+.form-page {
+  background: var(--primary-color);
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.user-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 50px;
+}

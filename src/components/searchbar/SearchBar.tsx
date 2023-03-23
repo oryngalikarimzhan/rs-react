@@ -3,6 +3,7 @@ import React, { FormEvent } from 'react';
 import styles from './searchbar.module.scss';
 import { getFromLS, setToLS, deleteFromLS } from '../../utils/localStorageUtils';
 import SearchHistory from './SearchHistory';
+import ButtonRegular from '../button/ButtonRegular';
 
 export default class SearchBar extends React.Component {
   static readonly LOCAL_STORAGE_HISTORY_KEY = 'search-history';
@@ -33,7 +34,7 @@ export default class SearchBar extends React.Component {
   }
 
   render() {
-    const { searchContainer, searchBar, searchInput, searchButton } = styles;
+    const { searchContainer, searchBar, input } = styles;
 
     return (
       <div className={searchContainer} ref={this.ref}>
@@ -46,14 +47,14 @@ export default class SearchBar extends React.Component {
           <input
             type="search"
             placeholder="..."
-            className={searchInput}
+            className={input}
             value={this.state.searchValue}
             onClick={() => this.setState({ searchValue: '' })}
             onChange={(e) =>
               e.target.value !== '' && this.setState({ searchValue: e.target.value })
             }
           ></input>
-          <button className={searchButton}>Search</button>
+          <ButtonRegular>Search</ButtonRegular>
         </form>
         <SearchHistory
           historyList={this.state.historyList}

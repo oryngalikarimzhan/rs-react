@@ -22,8 +22,9 @@ export const withRouter = <Props extends WithRouterProps>(
 };
 
 export const routes: { [key: string]: string } = {
-  '': 'HOME',
-  '/': 'HOME',
-  '/about': 'ABOUT US',
+  '': 'home',
+  '/': 'home',
+  '/about': 'about us',
+  '/form': 'form',
   '*': '404',
 };

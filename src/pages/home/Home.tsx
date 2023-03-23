@@ -7,6 +7,7 @@ import type { Character } from '../../types/Character';
 
 import data from '../../data/data.json';
 import marvel from '../../assets/Marvel_Logo.svg';
+import Wrapper from '../../components/wrapper/Wrapper';
 
 class Home extends React.Component {
   render(): React.ReactNode {
@@ -17,16 +18,26 @@ class Home extends React.Component {
     return (
       <section className={styles.home}>
         <section className={styles.searchContainer}>
-          <SearchBar />
+          <Wrapper
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <SearchBar />
+          </Wrapper>
         </section>
-        <div className={styles.wrapper}>
+
+        <Wrapper>
           <article className={styles.cardsContainer}>
             <img className={styles.logo} src={marvel} />
             <div role="cards" className={styles.cards}>
               {cards}
             </div>
           </article>
-        </div>
+        </Wrapper>
       </section>
     );
   }

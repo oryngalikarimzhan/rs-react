@@ -13,28 +13,4 @@
     justify-content: space-between;
     column-gap: 30px;
   }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    column-gap: 30px;
-  }
-
-  .link {
-    font-size: 2rem;
-    color: var(--main-color);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--add-color);
-    }
-
-    &:active {
-      color: var(--secondary-color);
-    }
-  }
-
-  .link-active {
-    color: var(--add-color);
-  }
 }
