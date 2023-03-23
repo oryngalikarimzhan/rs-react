@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import data from '../../data/data.json';
-import type { Character } from '../../types/Character';
+import type { Character } from '../../dto/Character';
 import Card from './Card';
 
 describe('Card', () => {

@@ -3,9 +3,9 @@ import React from 'react';
 import styles from './home.module.scss';
 import Card from '../../components/card/Card';
 import SearchBar from '../../components/searchbar/SearchBar';
-import type { Character } from '../../types/Character';
+import type { Character } from '../../dto/Character';
 
-import data from '../../data/data.json';
+import data from '../../data/marvel.json';
 import marvel from '../../assets/Marvel_Logo.svg';
 import Wrapper from '../../components/wrapper/Wrapper';
 

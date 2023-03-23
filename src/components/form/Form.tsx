@@ -1,66 +1,63 @@
-import React from 'react';
+import React, { createRef } from 'react';
 
 import styles from './form.module.scss';
 import ButtonRegular from '../button/ButtonRegular';
-import InputUncontrolled from './form-components/input/InputUncontrolled';
-import SelectUncontrolled from './form-components/select/SelectUncontrolled';
+import type { Country } from '../../dto/Country';
+import UncontrolledComponent from './form-components/UncontrolledComponent';
 
-class Form extends React.Component {
-  nameInput = React.createRef<HTMLInputElement>();
-  surnameInput = React.createRef<HTMLInputElement>();
-  birthdayInput = React.createRef<HTMLInputElement>();
-  marriedCheckbox = React.createRef<HTMLInputElement>();
-  maleRadioButton = React.createRef<HTMLInputElement>();
-  femaleRadioButton = React.createRef<HTMLInputElement>();
-  imageInput = React.createRef<HTMLInputElement>();
-  select = React.createRef<HTMLSelectElement>();
+class Form extends React.Component<{ countries: Country[] }> {
+  nameInput = createRef<HTMLInputElement>();
+  surnameInput = createRef<HTMLInputElement>();
+  birthdayInput = createRef<HTMLInputElement>();
+  marriedCheckbox = createRef<HTMLInputElement>();
+  maleRadioButton = createRef<HTMLInputElement>();
+  femaleRadioButton = createRef<HTMLInputElement>();
+  imageInput = createRef<HTMLInputElement>();
+  countrySelect = createRef<HTMLSelectElement>();
+
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (this.femaleRadioButton.current?.nextSibling)
+      (this.femaleRadioButton.current?.nextSibling?.nextSibling as HTMLElement).textContent =
+        'HHHHHHH';
+  };
 
   render() {
     return (
-      <form
-        className={styles.form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(this.select.current?.value);
-        }}
-      >
-        <InputUncontrolled refer={this.nameInput} id="name" type="text" placeholder="Name" />
-        <InputUncontrolled
-          refer={this.surnameInput}
+      <form className={styles.form} onSubmit={(e) => this.handleSubmit(e)}>
+        <UncontrolledComponent alterRef={this.nameInput} id="name" type="text" placeholder="Name" />
+        <UncontrolledComponent
+          alterRef={this.surnameInput}
           id="surname"
           type="text"
           placeholder="Surname"
         />
-        <InputUncontrolled refer={this.birthdayInput} id="date-of-birth" type="date" />
-        <InputUncontrolled
-          refer={this.marriedCheckbox}
-          id="married"
-          type="checkbox"
-          className="checkbox"
-        />
-        <InputUncontrolled
-          refer={this.maleRadioButton}
+        <UncontrolledComponent alterRef={this.birthdayInput} id="date-of-birth" type="date" />
+        <UncontrolledComponent
+          alterRef={this.maleRadioButton}
           id="male"
           name="gender"
           type="radio"
-          className="checkbox"
         />
-        <InputUncontrolled
-          refer={this.femaleRadioButton}
+        <UncontrolledComponent
+          alterRef={this.femaleRadioButton}
           id="female"
           name="gender"
           type="radio"
-          className="checkbox"
         />
-        <InputUncontrolled refer={this.imageInput} id="image" type="file" />
-
-        <SelectUncontrolled
-          refer={this.select}
-          id="select"
-          options={['1', '2', '3']}
+        <UncontrolledComponent alterRef={this.imageInput} id="image" type="file" accept="image/*" />
+        <UncontrolledComponent
+          alterRef={this.countrySelect}
+          id="country-select"
+          options={this.props.countries.map((country) => country.name)}
           placeholder="--- Choose your country ---"
         />
-
+        <UncontrolledComponent
+          alterRef={this.marriedCheckbox}
+          id="personal-data"
+          type="checkbox"
+          placeholder="I consent to my personal data"
+        />
         <ButtonRegular>Submit</ButtonRegular>
       </form>
     );

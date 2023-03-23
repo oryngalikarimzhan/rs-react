@@ -1,0 +1,16 @@
+.uncontrolled-wrapper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  position: absolute;
+  top: 47px;
+  left: 15px;
+  font-size: 1.4rem;
+  color: var(--error-color);
+}

@@ -5,35 +5,30 @@ import styles from './input.module.scss';
 type InputProps = {
   id: string;
   type: string;
-  refer: React.RefObject<HTMLInputElement>;
-  className?: string;
   name?: string;
   placeholder?: string;
 };
 
-class InputUncontrolled extends React.Component<InputProps> {
-  render() {
-    const { id, type, refer, className, name, placeholder } = this.props;
-
+const InputUncontrolled = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ id, type, name, placeholder }, ref) => {
+    const label = id.split('-').join(' ');
     return (
       <>
         <input
-          ref={refer}
-          id={id}
-          type={type}
+          ref={ref}
+          {...{ id, type, placeholder }}
           name={name || id}
-          placeholder={placeholder}
-          className={styles[className || 'input']}
+          className={styles[type]}
           {...(type === 'file' && { accept: 'image/*' })}
         />
         {(type === 'checkbox' || type === 'radio') && (
           <label style={{ color: 'var(--main-color)' }} htmlFor={id}>
-            {id}
+            {placeholder || label[0].toUpperCase() + label.slice(1)}
           </label>
         )}
       </>
     );
   }
-}
+);
 
 export default InputUncontrolled;

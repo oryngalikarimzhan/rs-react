@@ -4,21 +4,16 @@ import styles from './select.module.scss';
 
 type SelectProps = {
   id: string;
-  refer: React.RefObject<HTMLSelectElement>;
-  options: string[];
-  placeholder: string;
-  className?: string;
-  name?: string;
+  options?: string[];
+  placeholder?: string;
 };
 
-class SelectUncontrolled extends React.Component<SelectProps> {
-  render() {
-    const { id, refer, options, placeholder, className, name } = this.props;
-
+const SelectUncontrolled = React.forwardRef<HTMLSelectElement, SelectProps>(
+  ({ id, options, placeholder }, ref) => {
     return (
-      <select ref={refer} id={id} name={name || id} className={styles[className || 'input']}>
+      <select ref={ref} id={id} name={id} className={styles.select}>
         <option value="not selected">{placeholder}</option>
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <option key={`${option}_${index}`} value={option}>
             {option}
           </option>
@@ -26,6 +21,6 @@ class SelectUncontrolled extends React.Component<SelectProps> {
       </select>
     );
   }
-}
+);
 
 export default SelectUncontrolled;

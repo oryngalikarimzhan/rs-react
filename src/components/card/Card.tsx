@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Character } from '../../types/Character';
+import type { Character } from '../../dto/Character';
 import styles from './card.module.scss';
 
 export default class Card extends React.Component<Character> {
