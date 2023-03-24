@@ -1,18 +1,15 @@
 import React from 'react';
 
 import styles from './select.module.scss';
+import type { UncontrolledProps } from '../CustomUncontrolledFormComponent';
 
-type SelectProps = {
-  id: string;
-  options?: string[];
-  placeholder?: string;
-};
+type SelectProps = Pick<UncontrolledProps, 'id' | 'options' | 'placeholder'>;
 
-const SelectUncontrolled = React.forwardRef<HTMLSelectElement, SelectProps>(
+const SelectBasedComponent = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ id, options, placeholder }, ref) => {
     return (
       <select ref={ref} id={id} name={id} className={styles.select}>
-        <option value="not selected">{placeholder}</option>
+        <option value="">--- {placeholder} ---</option>
         {options?.map((option, index) => (
           <option key={`${option}_${index}`} value={option}>
             {option}
@@ -23,4 +20,4 @@ const SelectUncontrolled = React.forwardRef<HTMLSelectElement, SelectProps>(
   }
 );
 
-export default SelectUncontrolled;
+export default SelectBasedComponent;
