@@ -8,7 +8,7 @@ type SelectProps = Pick<UncontrolledProps, 'id' | 'options' | 'placeholder'>;
 const SelectBasedComponent = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ id, options, placeholder }, ref) => {
     return (
-      <select ref={ref} id={id} name={id} className={styles.select}>
+      <select ref={ref} {...{ id, name: id }} className={styles.select}>
         <option value="">--- {placeholder} ---</option>
         {options?.map((option, index) => (
           <option key={`${option}_${index}`} value={option}>

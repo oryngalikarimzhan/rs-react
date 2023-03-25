@@ -39,12 +39,12 @@ class Form extends React.Component<{ countries: Country[] }> {
       set: [
         {
           refer: this.maleRadioButton,
-          uniqueId: 'male',
+          id: 'male',
           name: 'gender',
         },
         {
           refer: this.femaleRadioButton,
-          uniqueId: 'female',
+          id: 'female',
           name: 'gender',
         },
       ],
@@ -67,8 +67,8 @@ class Form extends React.Component<{ countries: Country[] }> {
       set: [
         {
           refer: this.personalCheckbox,
-          uniqueId: 'personal-data',
-          labelText: 'I consent to my personal data',
+          id: 'personal-data',
+          label: 'I consent to my personal data',
         },
       ],
     },
@@ -77,8 +77,8 @@ class Form extends React.Component<{ countries: Country[] }> {
   render() {
     return (
       <form className={styles.form} onSubmit={(e) => this.handleSubmit(e)}>
-        {this.formFields.map((c, i) => (
-          <Uncontrolled key={`${c.type}-${i}`} {...c} />
+        {this.formFields.map((field, i) => (
+          <Uncontrolled key={`${field.type}-${i}`} {...field} />
         ))}
         <ButtonRegular>Submit</ButtonRegular>
       </form>

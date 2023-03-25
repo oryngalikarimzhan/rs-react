@@ -16,29 +16,19 @@ export type UncontrolledProps = {
   accept?: string;
   set?: {
     refer: React.RefObject<HTMLInputElement>;
-    uniqueId: string;
+    id: string;
     name?: string;
-    labelText?: string;
+    label?: string;
   }[];
 };
 
-const UncontrolledFormComponent = ({
-  id,
-  type,
-  refer,
-  set,
-  options,
-  placeholder,
-}: UncontrolledProps) => {
+const UncontrolledFormComponent = ({ type, refer, ...rest }: UncontrolledProps) => {
   return (
     <div className={styles.uncontrolledWrapper}>
       {type !== 'select' ? (
-        <InputBasedComponent {...{ id, type, set, placeholder, refer }} />
+        <InputBasedComponent {...{ type, refer, ...rest }} />
       ) : (
-        <SelectBasedComponent
-          ref={refer as React.RefObject<HTMLSelectElement>}
-          {...{ id, options, placeholder }}
-        />
+        <SelectBasedComponent ref={refer as React.RefObject<HTMLSelectElement>} {...{ ...rest }} />
       )}
       <span className={styles.errorMessage}></span>
     </div>

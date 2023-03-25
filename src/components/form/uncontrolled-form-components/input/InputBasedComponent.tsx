@@ -9,10 +9,14 @@ type InputProps = Pick<
   'id' | 'type' | 'placeholder' | 'set' | 'accept' | 'refer'
 >;
 
-const SimpleInput = React.forwardRef<HTMLInputElement, InputProps & { name: string }>(
-  ({ type, id, name, placeholder, accept }, ref) => {
+const SimpleInput = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ type, id, placeholder, accept }, ref) => {
     return (
-      <input ref={ref} {...{ type, id, name, placeholder, accept }} className={styles[type]} />
+      <input
+        ref={ref}
+        {...{ type, id, name: id, placeholder: placeholder || parseText(id as string), accept }}
+        className={styles[type]}
+      />
     );
   }
 );
@@ -30,25 +34,15 @@ const SimpleCheckable = React.forwardRef<HTMLInputElement, InputProps & { name: 
   }
 );
 
-const InputBasedComponent = ({
-  id,
-  type,
-  set,
-  placeholder,
-  accept,
-  refer,
-}: InputProps): ReactElement => {
+const InputBasedComponent = ({ type, set, refer, ...rest }: InputProps): ReactElement => {
   if (set && set.length > 1) {
     return (
       <>
-        {set.map(({ uniqueId, refer, name, labelText }) => (
+        {set.map(({ id: uniqueId, refer: uniqueRef, name, label }) => (
           <div key={uniqueId} className={styles.inputCheckableWrapper}>
             <SimpleCheckable
-              ref={refer}
-              id={uniqueId}
-              name={name || uniqueId}
-              type={type}
-              placeholder={labelText}
+              ref={uniqueRef}
+              {...{ id: uniqueId, name: name || uniqueId, type, placeholder: label }}
             />
           </div>
         ))}
@@ -57,27 +51,17 @@ const InputBasedComponent = ({
   }
 
   if (set && set.length === 1) {
-    const { uniqueId, refer, name, labelText } = set[0];
+    const [{ id: uniqueId, refer: uniqueRef, name, label }] = set;
 
     return (
       <SimpleCheckable
-        ref={refer}
-        id={uniqueId}
-        name={name || uniqueId}
-        type={type}
-        placeholder={labelText}
+        ref={uniqueRef}
+        {...{ id: uniqueId, name: name || uniqueId, type, placeholder: label }}
       />
     );
   }
 
-  return (
-    <SimpleInput
-      ref={refer as React.RefObject<HTMLInputElement>}
-      name={id as string}
-      {...{ id, type, accept }}
-      placeholder={placeholder || (id && parseText(id))}
-    />
-  );
+  return <SimpleInput ref={refer as React.RefObject<HTMLInputElement>} {...{ ...rest, type }} />;
 };
 
 export default InputBasedComponent;
