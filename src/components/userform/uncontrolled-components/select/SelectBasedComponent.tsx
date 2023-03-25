@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './select.module.scss';
-import type { UncontrolledProps } from '../CustomUncontrolledFormComponent';
+import type { UncontrolledProps } from '../CustomUncontrolledComponent';
 
 type SelectProps = Pick<UncontrolledProps, 'id' | 'options' | 'placeholder'>;
 

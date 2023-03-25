@@ -7,7 +7,7 @@
 .user-form {
   width: 100%;
 
-  padding: 30px 0;
+  padding: 30px 0 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,10 +24,16 @@
 
 .user-cards {
   width: 100%;
-
-  padding: 30px 0;
+  padding: 100px 0 200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 50px;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  gap: 40px 20px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }

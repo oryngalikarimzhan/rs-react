@@ -1,31 +1,18 @@
 import React from 'react';
-import type { Character } from '../../dto/Character';
-import styles from './card.module.scss';
+import type { User } from '../../dto/User';
+import styles from './user-card.module.scss';
 
-export default class Card extends React.Component<Character> {
+export default class UserCard extends React.Component<User> {
   state = { hovered: false, img: '' };
 
   componentDidMount() {
     const reader = new FileReader();
-
     reader.onload = () => this.setState({ img: reader.result as string });
-
-    fetch(this.props.image)
-      .then((data) => data.blob())
-      .then((blob) => reader.readAsDataURL(blob))
-      .catch((err) => console.error(err));
+    reader.readAsDataURL(this.props.image);
   }
 
   render() {
-    const {
-      name,
-      realname,
-      actor,
-      dateofbirth,
-      citizenship,
-      species,
-      affiliation: [first],
-    } = this.props;
+    const { name, surname, birthday, gender, country } = this.props;
 
     const { card, border, title, infoBox, info } = styles;
 
@@ -39,7 +26,7 @@ export default class Card extends React.Component<Character> {
 
     return (
       <div
-        data-testid="card"
+        data-testid="user-card"
         className={card}
         onMouseOut={() => this.setState({ hovered: false })}
         onMouseOver={() => this.setState({ hovered: true })}
@@ -49,22 +36,19 @@ export default class Card extends React.Component<Character> {
           <div className={title}>{name}</div>
           <div className={infoBox}>
             <span className={info}>
-              Real name: <strong>{realname}</strong>
+              Name: <strong>{name}</strong>
             </span>
             <span className={info}>
-              Date of birth: <strong>{dateofbirth}</strong>
+              Surname: <strong>{surname}</strong>
             </span>
             <span className={info}>
-              Citizenship: <strong>{citizenship}</strong>
+              Date of birth: <strong>{birthday}</strong>
             </span>
             <span className={info}>
-              Species: <strong>{species}</strong>
+              Gender: <strong>{gender}</strong>
             </span>
             <span className={info}>
-              Team: <strong>{first}</strong>
-            </span>
-            <span className={info}>
-              Actor: <strong>{actor}</strong>
+              Country: <strong>{country}</strong>
             </span>
           </div>
         </div>

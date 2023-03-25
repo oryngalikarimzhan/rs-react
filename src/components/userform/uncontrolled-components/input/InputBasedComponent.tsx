@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import styles from './input.module.scss';
-import type { UncontrolledProps } from '../CustomUncontrolledFormComponent';
+import type { UncontrolledProps } from '../CustomUncontrolledComponent';
 import { parseText } from '../../../../utils/utils';
 
 type InputProps = Pick<

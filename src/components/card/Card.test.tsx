@@ -3,7 +3,7 @@ import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import data from '../../data/data.json';
+import data from '../../data/marvel.json';
 import type { Character } from '../../dto/Character';
 import Card from './Card';
 

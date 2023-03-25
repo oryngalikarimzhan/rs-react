@@ -5,7 +5,7 @@ import React from 'react';
 
 import Home from './Home';
 import marvel from '../../assets/Marvel_Logo.svg';
-import data from '../../data/data.json';
+import data from '../../data/marvel.json';
 
 describe('Home', () => {
   it('should have an image', () => {

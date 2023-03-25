@@ -22,7 +22,7 @@ export type UncontrolledProps = {
   }[];
 };
 
-const UncontrolledFormComponent = ({ type, refer, ...rest }: UncontrolledProps) => {
+const CustomUncontrolledComponent = ({ type, refer, ...rest }: UncontrolledProps) => {
   return (
     <div className={styles.uncontrolledWrapper}>
       {type !== 'select' ? (
@@ -35,4 +35,4 @@ const UncontrolledFormComponent = ({ type, refer, ...rest }: UncontrolledProps) 
   );
 };
 
-export default UncontrolledFormComponent;
+export default CustomUncontrolledComponent;
