@@ -1,38 +1,57 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 import styles from './custom-uncontrolled-form-component.module.scss';
 
 import InputBasedComponent from './input/InputBasedComponent';
 import SelectBasedComponent from './select/SelectBasedComponent';
 
-type UncontrolledComponentTypes = 'text' | 'radio' | 'checkbox' | 'select' | 'date' | 'file';
-
-export type UncontrolledProps = {
-  type: UncontrolledComponentTypes;
-  id?: string;
-  refer?: React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>;
-  options?: string[];
+export type SingleUncontrolled = {
+  type: 'text' | 'date' | 'file';
+  id: string;
+  refer: RefObject<HTMLInputElement>;
+  msg: string;
   placeholder?: string;
   accept?: string;
-  set?: {
-    refer: React.RefObject<HTMLInputElement>;
+};
+
+export type SelectUncontrolled = {
+  type: 'select';
+  refer: RefObject<HTMLSelectElement>;
+  msg: string;
+  options: string[];
+  id: string;
+  placeholder: string;
+};
+
+export type SetUncontrolled = {
+  type: 'radio' | 'checkbox';
+  msg: string;
+  set: {
+    refer: RefObject<HTMLInputElement>;
     id: string;
     name?: string;
     label?: string;
   }[];
 };
 
-const CustomUncontrolledComponent = ({ type, refer, ...rest }: UncontrolledProps) => {
+export type Uncontrolled = SingleUncontrolled | SetUncontrolled | SelectUncontrolled;
+
+const CustomUncontrolledComponent = (props: Uncontrolled) => {
+  const { msg, refer } = props as SelectUncontrolled;
   return (
     <div className={styles.uncontrolledWrapper}>
-      {type !== 'select' ? (
-        <InputBasedComponent {...{ type, refer, ...rest }} />
+      {isSelectUncontrolled(props) ? (
+        <SelectBasedComponent ref={refer} {...props} />
       ) : (
-        <SelectBasedComponent ref={refer as React.RefObject<HTMLSelectElement>} {...{ ...rest }} />
+        <InputBasedComponent {...props} />
       )}
-      <span className={styles.errorMessage}></span>
+      <span className={styles.errorMessage}>{msg}</span>
     </div>
   );
+};
+
+const isSelectUncontrolled = (props: Uncontrolled): props is SelectUncontrolled => {
+  return props.type === 'select';
 };
 
 export default CustomUncontrolledComponent;

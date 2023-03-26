@@ -4,21 +4,35 @@ import styles from './user-form.module.scss';
 import ButtonRegular from '../button/ButtonRegular';
 import type { Country } from '../../dto/Country';
 import CustomUncontrolledComponent, {
-  type UncontrolledProps,
+  type SetUncontrolled,
+  type SingleUncontrolled,
+  type SelectUncontrolled,
 } from './uncontrolled-components/CustomUncontrolledComponent';
 import type { User } from '../../dto/User';
 
 type UserFormProps = { countries: Country[]; onSubmit: (data: User) => void };
 
-// type FormRefs = {
-//   name: HTMLInputElement;
-// };
-
-// const refs = createRef<FormRefs>();
+type RefValues = {
+  name: string | undefined;
+  surname: string | undefined;
+  birthday: string | undefined;
+  male: boolean | undefined;
+  female: boolean | undefined;
+  image: string | undefined;
+  country: string | undefined;
+  personal: boolean | undefined;
+};
 
 class UserForm extends React.Component<UserFormProps> {
   state = {
-    isActive: false,
+    showSuccess: false,
+    nameMsg: '',
+    surnameMsg: '',
+    birthdayMsg: '',
+    genderMsg: '',
+    imageMsg: '',
+    countryMsg: '',
+    personalMsg: '',
   };
 
   nameInput = createRef<HTMLInputElement>();
@@ -30,76 +44,104 @@ class UserForm extends React.Component<UserFormProps> {
   countrySelect = createRef<HTMLSelectElement>();
   personalCheckbox = createRef<HTMLInputElement>();
 
-  formFields: UncontrolledProps[] = [
-    {
+  render() {
+    const {
+      nameMsg,
+      surnameMsg,
+      birthdayMsg,
+      genderMsg,
+      imageMsg,
+      countryMsg,
+      personalMsg,
+      showSuccess,
+    } = this.state;
+
+    const { countries } = this.props;
+
+    const nameProps: SingleUncontrolled = {
       type: 'text',
       id: 'name',
       refer: this.nameInput,
-    },
-    {
+      msg: nameMsg,
+    };
+
+    const surnameProps: SingleUncontrolled = {
       type: 'text',
       id: 'surname',
       refer: this.surnameInput,
-    },
-    {
+      msg: surnameMsg,
+    };
+
+    const birthdayProps: SingleUncontrolled = {
       type: 'date',
       id: 'date-of-birth',
       refer: this.birthdayInput,
-    },
-    {
+      msg: birthdayMsg,
+    };
+
+    const genderProps: SetUncontrolled = {
       type: 'radio',
       set: [
         {
-          refer: this.maleRadioButton,
-          id: 'male',
           name: 'gender',
+          id: 'male',
+          refer: this.maleRadioButton,
         },
         {
-          refer: this.femaleRadioButton,
-          id: 'female',
           name: 'gender',
+          id: 'female',
+          refer: this.femaleRadioButton,
         },
       ],
-    },
-    {
+      msg: genderMsg,
+    };
+
+    const imageProps: SingleUncontrolled = {
       type: 'file',
       id: 'image',
       accept: 'image/*',
       refer: this.imageInput,
-    },
-    {
+      msg: imageMsg,
+    };
+
+    const countryProps: SelectUncontrolled = {
       type: 'select',
       id: 'country',
       refer: this.countrySelect,
-      options: this.props.countries.map((country) => country.name),
+      options: countries.map((country) => country.name),
       placeholder: 'Choose your country',
-    },
-    {
+      msg: countryMsg,
+    };
+
+    const personalProps: SetUncontrolled = {
       type: 'checkbox',
       set: [
         {
-          refer: this.personalCheckbox,
           id: 'personal-data',
           label: 'I consent to my personal data',
+          refer: this.personalCheckbox,
         },
       ],
-    },
-  ];
+      msg: personalMsg,
+    };
 
-  render() {
     return (
       <>
         <form className={styles.form} onSubmit={(e) => this.handleSubmit(e)}>
-          {this.formFields.map((field, i) => (
-            <CustomUncontrolledComponent key={`${field.type}-${i}`} {...field} />
-          ))}
+          <CustomUncontrolledComponent {...nameProps} />
+          <CustomUncontrolledComponent {...surnameProps} />
+          <CustomUncontrolledComponent {...birthdayProps} />
+          <CustomUncontrolledComponent {...genderProps} />
+          <CustomUncontrolledComponent {...imageProps} />
+          <CustomUncontrolledComponent {...countryProps} />
+          <CustomUncontrolledComponent {...personalProps} />
           <ButtonRegular>Submit</ButtonRegular>
         </form>
         <span
           className={styles.successMessage}
-          style={this.state.isActive ? { display: 'block' } : { display: 'none' }}
+          style={showSuccess ? { display: 'block' } : { display: 'none' }}
         >
-          user created successfully
+          user has been created successfully
         </span>
       </>
     );
@@ -108,14 +150,25 @@ class UserForm extends React.Component<UserFormProps> {
   private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (this.validateAll()) {
+    const values = {
+      name: this.nameInput.current?.value,
+      surname: this.surnameInput.current?.value,
+      birthday: this.birthdayInput.current?.value,
+      male: this.maleRadioButton.current?.checked,
+      female: this.femaleRadioButton.current?.checked,
+      image: this.imageInput.current?.value,
+      country: this.countrySelect.current?.value,
+      personal: this.personalCheckbox.current?.checked,
+    };
+
+    if (this.validateAll(values)) {
       this.props.onSubmit({
-        name: this.nameInput.current?.value as string,
-        surname: this.surnameInput.current?.value as string,
-        birthday: this.birthdayInput.current?.value as string,
-        gender: this.maleRadioButton.current?.checked ? 'male' : 'female',
+        name: values.name as string,
+        surname: values.surname as string,
+        birthday: values.birthday as string,
+        gender: values.male ? 'male' : 'female',
         image: this.imageInput.current?.files?.[0] as File,
-        country: this.countrySelect.current?.value as string,
+        country: values.country as string,
       });
 
       this.resetValues();
@@ -123,18 +176,27 @@ class UserForm extends React.Component<UserFormProps> {
     }
   };
 
-  private validateAll = (): boolean => {
-    const nameValidity = this.validateNameOrSurname(this.nameInput, 'name');
-    const surnameValidity = this.validateNameOrSurname(this.surnameInput, 'surname');
-    const birthdayValidity = this.validateBirthDay(this.birthdayInput);
+  private validateAll = ({
+    name,
+    surname,
+    birthday,
+    image,
+    country,
+    personal,
+    male,
+    female,
+  }: RefValues): boolean => {
+    const nameValidity = this.validateNameOrSurname('name', name);
+    const surnameValidity = this.validateNameOrSurname('surname', surname);
+    const birthdayValidity = this.validateBirthDay(birthday);
     const personalValidity = this.validateField(
-      this.personalCheckbox,
       'should be checked to continue',
-      this.personalCheckbox.current?.nextSibling?.nextSibling as Node
+      'personal',
+      personal
     );
-    const genderValidity = this.validateGender(this.maleRadioButton, this.femaleRadioButton);
-    const imageValidity = this.validateField(this.imageInput, 'image not selected');
-    const countryValidity = this.validateField(this.countrySelect, 'country not selected');
+    const genderValidity = this.validateGender(male, female);
+    const imageValidity = this.validateField('image not selected', 'image', image);
+    const countryValidity = this.validateField('country not selected', 'country', country);
 
     return (
       nameValidity &&
@@ -147,103 +209,75 @@ class UserForm extends React.Component<UserFormProps> {
     );
   };
 
-  private toggleErrorMessage = (node: Node | null, message: string) => {
-    if (!node) throw new Error(`Element not found`);
-    node.textContent = message;
-    return message === '';
-  };
-
   private resetValues = () => {
     (this.nameInput.current as HTMLInputElement).value = '';
     (this.surnameInput.current as HTMLInputElement).value = '';
     (this.birthdayInput.current as HTMLInputElement).value = '';
-    (this.imageInput.current as HTMLInputElement).value = '';
-    (this.personalCheckbox.current as HTMLInputElement).checked = false;
     (this.maleRadioButton.current as HTMLInputElement).checked = false;
     (this.femaleRadioButton.current as HTMLInputElement).checked = false;
+    (this.imageInput.current as HTMLInputElement).value = '';
     (this.countrySelect.current as HTMLSelectElement).value = '';
+    (this.personalCheckbox.current as HTMLInputElement).checked = false;
   };
 
   private toggleSuccessMessage = () => {
-    this.setState({ isActive: true });
+    this.setState({ showSuccess: true });
     setTimeout(() => {
-      this.setState({ isActive: false });
+      this.setState({ showSuccess: false });
     }, 5000);
   };
 
-  private validateNameOrSurname = (
-    ref: React.RefObject<HTMLInputElement>,
-    elementName: 'name' | 'surname'
-  ) => {
-    if (!ref.current) throw new Error(`${elementName} input ref do not have current`);
+  private validateNameOrSurname = (fieldName: 'name' | 'surname', value?: string) => {
+    const regex = /^[A-Z][a-z]+$/;
+    let errorMsg = '';
 
-    if (ref.current.value.length === 0) {
-      return this.toggleErrorMessage(
-        ref.current.nextSibling,
-        `${elementName} field can not be empty`
-      );
+    if (!value) {
+      errorMsg = `${fieldName} field can not be empty`;
+    } else if (!regex.test(value)) {
+      errorMsg = `${fieldName} should start with capital letter and should not contain numbers and signs`;
     }
 
-    if (!/^[A-Z][a-z]+$/.test(ref.current.value)) {
-      return this.toggleErrorMessage(
-        ref.current.nextSibling,
-        `${elementName} should start with capital letter and should not contain numbers and signs`
-      );
-    }
-
-    return this.toggleErrorMessage(ref.current.nextSibling, '');
+    this.setState({ [`${fieldName}Msg`]: errorMsg });
+    return !errorMsg;
   };
 
-  private validateBirthDay = (ref: React.RefObject<HTMLInputElement>) => {
-    if (!ref.current) throw new Error('date input ref do not have current');
+  private validateBirthDay = (value?: string) => {
+    const dateRegex = /^([0-9]{4})-(0[1-9]|1[0-2])-([0-2][0-9]|3[0-1])$/;
+    let errorMsg = '';
 
-    if (/^([0-9]{4})-(0[1-9]|1[0-2])-([0-2][0-9]|3[0-1])$/.test(ref.current.value)) {
-      const [year, month, day] = ref.current.value.split('-');
+    if (!value) {
+      errorMsg = 'birthday field can not be empty';
+    } else if (dateRegex.test(value)) {
+      const [year, month, day] = value.split('-');
       const date = new Date(+year, +month - 1, +day);
-      let message = '';
 
       if (date > new Date()) {
-        message = 'date cannot be in the future';
+        errorMsg = 'date cannot be in the future';
       }
-
-      return this.toggleErrorMessage(ref.current.nextSibling, message);
+    } else {
+      errorMsg = 'Invalid date format. Expected format: yyyy-mm-dd';
     }
 
-    return this.toggleErrorMessage(ref.current.nextSibling, 'birthday field can not be empty');
+    this.setState({ birthdayMsg: errorMsg });
+    return errorMsg === '';
   };
 
-  private validateField = (
-    ref: React.RefObject<HTMLInputElement | HTMLSelectElement>,
-    warningMessage: string,
-    to?: Node
-  ) => {
-    const node = ref.current;
+  private validateField = (warningMessage: string, fieldName: string, value?: boolean | string) => {
+    let errorMsg = '';
 
-    if (!node) {
-      throw new Error(`${ref}: do not have current`);
+    if (value === false || (typeof value === 'string' && value.trim() === '')) {
+      errorMsg = warningMessage;
     }
 
-    const message =
-      node instanceof HTMLInputElement && node.type === 'checkbox'
-        ? !node.checked && warningMessage
-        : !node.value && warningMessage;
-
-    const toNode = to || node.nextSibling;
-
-    return this.toggleErrorMessage(toNode, message || '');
+    this.setState({ [`${fieldName}Msg`]: errorMsg });
+    return errorMsg === '';
   };
 
-  private validateGender = (
-    maleRef: React.RefObject<HTMLInputElement>,
-    femaleRef: React.RefObject<HTMLInputElement>
-  ) => {
-    if (!maleRef.current) throw new Error(`male radio input ref do not have current`);
-    if (!femaleRef.current) throw new Error(`female radio input ref do not have current`);
+  private validateGender = (maleValue?: boolean, femaleValue?: boolean) => {
+    const message = maleValue || femaleValue ? '' : 'gender not selected';
 
-    const message =
-      femaleRef.current.checked || maleRef.current.checked ? '' : 'gender not selected';
-
-    return this.toggleErrorMessage((femaleRef.current.parentNode as Node).nextSibling, message);
+    this.setState({ genderMsg: message });
+    return message === '';
   };
 }
 

@@ -1,13 +1,16 @@
 import React, { ReactElement } from 'react';
 
 import styles from './input.module.scss';
-import type { UncontrolledProps } from '../CustomUncontrolledComponent';
+import type { SetUncontrolled, SingleUncontrolled } from '../CustomUncontrolledComponent';
 import { parseText } from '../../../../utils/utils';
 
-type InputProps = Pick<
-  UncontrolledProps,
-  'id' | 'type' | 'placeholder' | 'set' | 'accept' | 'refer'
->;
+type InputProps = {
+  type: string;
+  id?: string;
+  placeholder?: string;
+  accept?: string;
+  name?: string;
+};
 
 const SimpleInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ type, id, placeholder, accept }, ref) => {
@@ -21,8 +24,8 @@ const SimpleInput = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-const SimpleCheckable = React.forwardRef<HTMLInputElement, InputProps & { name: string }>(
-  ({ type, id, name, placeholder }, ref) => {
+const SimpleCheckable = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ type, id, name = id, placeholder }, ref) => {
     return (
       <>
         <input ref={ref} {...{ id, name, type }} className={styles[type]} />
@@ -34,34 +37,34 @@ const SimpleCheckable = React.forwardRef<HTMLInputElement, InputProps & { name: 
   }
 );
 
-const InputBasedComponent = ({ type, set, refer, ...rest }: InputProps): ReactElement => {
-  if (set && set.length > 1) {
-    return (
-      <>
-        {set.map(({ id: uniqueId, refer: uniqueRef, name, label }) => (
-          <div key={uniqueId} className={styles.inputCheckableWrapper}>
-            <SimpleCheckable
-              ref={uniqueRef}
-              {...{ id: uniqueId, name: name || uniqueId, type, placeholder: label }}
-            />
-          </div>
-        ))}
-      </>
-    );
+const InputBasedComponent = (props: SetUncontrolled | SingleUncontrolled): ReactElement => {
+  const { type } = props;
+
+  if (type === 'checkbox' || type === 'radio') {
+    const { set } = props as SetUncontrolled;
+
+    if (set.length > 1) {
+      return (
+        <>
+          {set.map(({ id, refer, name = id, label }) => (
+            <div key={id} className={styles.inputCheckableWrapper}>
+              <SimpleCheckable ref={refer} {...{ id, name, type, placeholder: label }} />
+            </div>
+          ))}
+        </>
+      );
+    }
+
+    if (set.length === 1) {
+      const [{ id, refer, name = id, label }] = set;
+
+      return <SimpleCheckable ref={refer} {...{ id, name, type, placeholder: label }} />;
+    }
   }
 
-  if (set && set.length === 1) {
-    const [{ id: uniqueId, refer: uniqueRef, name, label }] = set;
+  const { refer } = props as SingleUncontrolled;
 
-    return (
-      <SimpleCheckable
-        ref={uniqueRef}
-        {...{ id: uniqueId, name: name || uniqueId, type, placeholder: label }}
-      />
-    );
-  }
-
-  return <SimpleInput ref={refer as React.RefObject<HTMLInputElement>} {...{ ...rest, type }} />;
+  return <SimpleInput ref={refer as React.RefObject<HTMLInputElement>} {...props} />;
 };
 
 export default InputBasedComponent;
