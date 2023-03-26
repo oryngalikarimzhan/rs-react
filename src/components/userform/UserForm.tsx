@@ -10,6 +10,12 @@ import type { User } from '../../dto/User';
 
 type UserFormProps = { countries: Country[]; onSubmit: (data: User) => void };
 
+// type FormRefs = {
+//   name: HTMLInputElement;
+// };
+
+// const refs = createRef<FormRefs>();
+
 class UserForm extends React.Component<UserFormProps> {
   state = {
     isActive: false,

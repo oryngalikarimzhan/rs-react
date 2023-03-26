@@ -10,7 +10,7 @@ export class UserContextProvider extends React.Component<{ children: ReactNode }
     super(props);
 
     this.state = {
-      users: [] as User[],
+      users: [],
       addUser: this.addUser,
     };
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from '../../components/header/Header';
+import UserContextProvider from '../UserContextProvider';
 
 export default class Layout extends React.Component {
   render() {
@@ -9,7 +10,9 @@ export default class Layout extends React.Component {
       <>
         <Header />
         <main>
-          <Outlet />
+          <UserContextProvider>
+            <Outlet />
+          </UserContextProvider>
         </main>
       </>
     );
