@@ -4,7 +4,7 @@ import styles from './form-page.module.scss';
 import countries from '../../data/countries.json';
 import Wrapper from '../../components/wrapper/Wrapper';
 import UserForm from '../../components/userform/UserForm';
-import UserCard from '../../components/usercards/UserCard';
+import { UserCard } from '../../components/card/Card';
 import { UsersContext } from '../../components/UserContextProvider';
 
 class FormPage extends React.Component {
@@ -30,7 +30,7 @@ class FormPage extends React.Component {
                 <div role="user-cards" className={styles.cards}>
                   {users.length > 0 &&
                     users.map((user) => (
-                      <UserCard key={`${user.name}_${user.surname}`} {...user} />
+                      <UserCard key={`${user.name}_${user.surname}`} data={user} />
                     ))}
                 </div>
               </Wrapper>

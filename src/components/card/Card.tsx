@@ -1,38 +1,42 @@
 import React from 'react';
-import type { Character } from '../../dto/Character';
-import styles from './card.module.scss';
 
-export default class Card extends React.Component<Character> {
+import styles from './card.module.scss';
+import User from '../../dto/User';
+import type { CharacterCutted } from '../../pages/home/Home';
+import { isUrl } from '../../utils/utils';
+
+interface CardProps<T extends CharacterCutted | User> {
+  data: T;
+}
+
+export default class Card<T extends CharacterCutted | User> extends React.Component<CardProps<T>> {
   state = { hovered: false, img: '' };
 
   componentDidMount() {
-    const reader = new FileReader();
+    const { image } = this.props.data;
+    if (isUrl(image)) {
+      const reader = new FileReader();
 
-    reader.onload = () => this.setState({ img: reader.result as string });
+      reader.onload = () => this.setState({ img: reader.result as string });
 
-    fetch(this.props.image)
-      .then((data) => data.blob())
-      .then((blob) => reader.readAsDataURL(blob))
-      .catch((err) => console.error(err));
+      fetch(image)
+        .then((data) => data.blob())
+        .then((blob) => reader.readAsDataURL(blob))
+        .catch((err) => console.error(err));
+    }
   }
 
   render() {
-    const {
-      name,
-      realname,
-      actor,
-      dateofbirth,
-      citizenship,
-      species,
-      affiliation: [first],
-    } = this.props;
+    const { img, hovered } = this.state;
+    const { image, ...rest } = this.props.data;
 
     const { card, border, title, infoBox, info } = styles;
 
-    const { img, hovered } = this.state;
+    const backgroundImg =
+      img === '' && !isUrl(image) ? image : img !== '' && isUrl(image) ? img : false;
 
-    const cardStyle = img !== '' && {
-      background: `url(${img}) no-repeat`,
+    const cardStyle = backgroundImg && {
+      background: `url(${backgroundImg}) no-repeat`,
       backgroundSize: `${hovered ? 'auto 130%' : 'auto 100%'}`,
       backgroundPosition: `${hovered ? 'left center' : 'center center}'}`,
     };
@@ -46,29 +50,19 @@ export default class Card extends React.Component<Character> {
         style={cardStyle || {}}
       >
         <div className={border}>
-          <div className={title}>{name}</div>
+          <div className={title}>{rest.name}</div>
           <div className={infoBox}>
-            <span className={info}>
-              Real name: <strong>{realname}</strong>
-            </span>
-            <span className={info}>
-              Date of birth: <strong>{dateofbirth}</strong>
-            </span>
-            <span className={info}>
-              Citizenship: <strong>{citizenship}</strong>
-            </span>
-            <span className={info}>
-              Species: <strong>{species}</strong>
-            </span>
-            <span className={info}>
-              Team: <strong>{first}</strong>
-            </span>
-            <span className={info}>
-              Actor: <strong>{actor}</strong>
-            </span>
+            {Object.entries(rest).map(([key, value]) => (
+              <span className={info} key={key}>
+                {key}: <strong>{value}</strong>
+              </span>
+            ))}
           </div>
         </div>
       </div>
     );
   }
 }
+
+export class CharacterCard extends Card<CharacterCutted> {}
+export class UserCard extends Card<User> {}

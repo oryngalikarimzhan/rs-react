@@ -1,4 +1,4 @@
-export type Character = {
+export default interface Character {
   name: string;
   actor: string;
   realname: string;
@@ -8,4 +8,4 @@ export type Character = {
   affiliation: string[];
   appearances: string[];
   image: string;
-};
+}

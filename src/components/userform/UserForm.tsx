@@ -2,25 +2,26 @@ import React, { createRef } from 'react';
 
 import styles from './user-form.module.scss';
 import ButtonRegular from '../button/ButtonRegular';
-import type { Country } from '../../dto/Country';
-import CustomUncontrolledComponent, {
-  type SetUncontrolled,
-  type SingleUncontrolled,
-  type SelectUncontrolled,
+import CustomUncontrolledComponent from './uncontrolled-components/CustomUncontrolledComponent';
+import type {
+  SetUncontrolled,
+  SingleUncontrolled,
+  SelectUncontrolled,
 } from './uncontrolled-components/CustomUncontrolledComponent';
-import type { User } from '../../dto/User';
+import Country from '../../dto/Country';
+import User from '../../dto/User';
 
 type UserFormProps = { countries: Country[]; onSubmit: (data: User) => void };
 
 type RefValues = {
-  name: string | undefined;
-  surname: string | undefined;
-  birthday: string | undefined;
-  male: boolean | undefined;
-  female: boolean | undefined;
-  image: string | undefined;
-  country: string | undefined;
-  personal: boolean | undefined;
+  name?: string;
+  surname?: string;
+  birthday?: string;
+  male?: boolean;
+  female?: boolean;
+  image?: string;
+  country?: string;
+  personal?: boolean;
 };
 
 class UserForm extends React.Component<UserFormProps> {
@@ -150,26 +151,34 @@ class UserForm extends React.Component<UserFormProps> {
   private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const imageCurrent = this.imageInput.current;
+
     const values = {
       name: this.nameInput.current?.value,
       surname: this.surnameInput.current?.value,
       birthday: this.birthdayInput.current?.value,
       male: this.maleRadioButton.current?.checked,
       female: this.femaleRadioButton.current?.checked,
-      image: this.imageInput.current?.value,
+      image: imageCurrent?.value,
       country: this.countrySelect.current?.value,
       personal: this.personalCheckbox.current?.checked,
     };
 
     if (this.validateAll(values)) {
-      this.props.onSubmit({
-        name: values.name as string,
-        surname: values.surname as string,
-        birthday: values.birthday as string,
-        gender: values.male ? 'male' : 'female',
-        image: this.imageInput.current?.files?.[0] as File,
-        country: values.country as string,
-      });
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.props.onSubmit({
+          name: values.name as string,
+          surname: values.surname as string,
+          birthday: values.birthday as string,
+          gender: values.male ? 'male' : 'female',
+          image: reader.result as string,
+          country: values.country as string,
+        });
+      };
+
+      reader.readAsDataURL(imageCurrent?.files?.[0] as File);
 
       this.resetValues();
       this.toggleSuccessMessage();

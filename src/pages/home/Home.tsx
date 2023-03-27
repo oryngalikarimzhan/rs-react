@@ -1,19 +1,29 @@
 import React from 'react';
 
 import styles from './home.module.scss';
-import Card from '../../components/card/Card';
 import SearchBar from '../../components/searchbar/SearchBar';
-import type { Character } from '../../dto/Character';
+import Wrapper from '../../components/wrapper/Wrapper';
+import Character from '../../dto/Character';
+import { CharacterCard } from '../../components/card/Card';
 
 import data from '../../data/marvel.json';
 import marvel from '../../assets/Marvel_Logo.svg';
-import Wrapper from '../../components/wrapper/Wrapper';
+
+export type CharacterCutted = Pick<
+  Character,
+  'name' | 'actor' | 'image' | 'citizenship' | 'realname' | 'dateofbirth' | 'species'
+>;
 
 class Home extends React.Component {
   render(): React.ReactNode {
-    const cards = (data.characters as Character[]).map((character) => (
-      <Card key={character.name} {...character} />
-    ));
+    const cards = (data.characters as Character[]).map(
+      ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
+        <CharacterCard
+          key={name}
+          data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
+        />
+      )
+    );
 
     return (
       <section className={styles.home}>

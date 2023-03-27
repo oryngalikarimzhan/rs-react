@@ -4,8 +4,8 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import data from '../../data/marvel.json';
-import type { Character } from '../../dto/Character';
-import Card from './Card';
+import Character from '../../dto/Character';
+import { CharacterCard } from './Card';
 
 describe('Card', () => {
   it('has style display flex', () => {
@@ -15,7 +15,7 @@ describe('Card', () => {
 
     render(
       <MemoryRouter initialEntries={[route]}>
-        <Card key={character.name} {...character} />
+        <CharacterCard key={character.name} data={character} />
       </MemoryRouter>
     );
 

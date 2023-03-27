@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { User } from '../dto/User';
+import User from '../dto/User';
 
 type UserContextType = { users: User[]; addUser: (user: User) => void };
 
