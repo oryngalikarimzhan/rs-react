@@ -1,5 +1,6 @@
 import React from 'react';
-import Wrapper from '../../components/wrapper/Wrapper';
+
+import Wrapper from 'components/ui/wrapper/Wrapper';
 
 class About extends React.Component {
   render(): React.ReactNode {

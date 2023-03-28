@@ -1,15 +1,13 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-export interface WithRouterProps {
+interface WithRouterProps {
   location: ReturnType<typeof useLocation>;
   params: Record<string, string>;
   navigate: ReturnType<typeof useNavigate>;
 }
 
-export const withRouter = <Props extends WithRouterProps>(
-  Component: React.ComponentType<Props>
-) => {
+const withRouter = <Props extends WithRouterProps>(Component: React.ComponentType<Props>) => {
   return (props: Omit<Props, keyof WithRouterProps>) => {
     const location = useLocation();
     const params = useParams();
@@ -21,10 +19,12 @@ export const withRouter = <Props extends WithRouterProps>(
   };
 };
 
-export const routes: { [key: string]: string } = {
+const routes: { [key: string]: string } = {
   '': 'home',
   '/': 'home',
   '/about': 'about us',
   '/form': 'form',
   '*': '404',
 };
+
+export { type WithRouterProps, withRouter, routes };

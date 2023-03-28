@@ -10,9 +10,9 @@
     "lint": "npx eslint src --max-warnings=0",
     "lint:fix": "npx eslint src --fix",
     "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
-    "git": "git add . && git commit",
     "coverage": "vitest run --coverage",
-    "test": "vitest"
+    "test": "vitest",
+    "commit": "git add . && read -p 'DO YOU WANT TO CREARE A NEW COMMIT (n) OR AMEND THE PREVIOUS COMMIT (a)?\n=> ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit -m $1; fi"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",

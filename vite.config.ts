@@ -4,7 +4,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   css: {
@@ -12,10 +11,24 @@ export default defineConfig({
       localsConvention: 'camelCase',
     },
   },
+  resolve: {
+    alias: {
+      assets: '/src/assets',
+      'components/ui': '/src/components/ui',
+      'components/shared': '/src/components/shared',
+      'components/layout': '/src/components/layout',
+      contexts: '/src/contexts',
+      data: '/src/data',
+      hoc: '/src/hoc',
+      models: '/src/models',
+      pages: '/src/pages',
+      utils: '/src/utils',
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './test.setup.ts',
+    setupFiles: 'src/setupTest.ts',
     css: true,
     coverage: {
       all: true,
