@@ -1,8 +1,14 @@
 import React from 'react';
 
+import { Wrapper } from 'components/ui/index';
+
 class NotFound extends React.Component {
   render(): React.ReactNode {
-    return <h2>Страница не найдена</h2>;
+    return (
+      <Wrapper>
+        <h2>Страница не найдена</h2>
+      </Wrapper>
+    );
   }
 }
 

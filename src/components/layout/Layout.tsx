@@ -1,7 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from '../../components/header/Header';
+import Header from 'components/layout/header/Header';
+import { UsersContextProvider } from 'contexts/index';
 
 export default class Layout extends React.Component {
   render() {
@@ -9,7 +10,9 @@ export default class Layout extends React.Component {
       <>
         <Header />
         <main>
-          <Outlet />
+          <UsersContextProvider>
+            <Outlet />
+          </UsersContextProvider>
         </main>
       </>
     );

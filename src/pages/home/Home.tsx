@@ -1,32 +1,47 @@
 import React from 'react';
 
-import styles from './home.module.scss';
-import Card from '../../components/card/Card';
-import SearchBar from '../../components/searchbar/SearchBar';
-import type { Character } from '../../types/Character';
+import { home, searchContainer, cardsContainer, logo, cards } from './Home.module.scss';
+import { marvelLogo } from 'assets/index';
+import { marvel } from 'data/index';
 
-import data from '../../data/data.json';
-import marvel from '../../assets/Marvel_Logo.svg';
+import { Character } from 'models/index';
+import { Wrapper } from 'components/ui/index';
+import { SearchBar, CharacterCard } from 'components/shared/index';
 
 class Home extends React.Component {
-  render(): React.ReactNode {
-    const cards = (data.characters as Character[]).map((character) => (
-      <Card key={character.name} {...character} />
-    ));
+  render() {
+    const cardsList = (marvel.characters as Character[]).map(
+      ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
+        <CharacterCard
+          key={name}
+          data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
+        />
+      )
+    );
 
     return (
-      <section className={styles.home}>
-        <section className={styles.searchContainer}>
-          <SearchBar />
+      <section className={home}>
+        <section className={searchContainer}>
+          <Wrapper
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <SearchBar />
+          </Wrapper>
         </section>
-        <div className={styles.wrapper}>
-          <article className={styles.cardsContainer}>
-            <img className={styles.logo} src={marvel} />
-            <div role="cards" className={styles.cards}>
-              {cards}
+
+        <Wrapper>
+          <article className={cardsContainer}>
+            <img className={logo} src={marvelLogo} />
+            <div role="cards" className={cards}>
+              {cardsList}
             </div>
           </article>
-        </div>
+        </Wrapper>
       </section>
     );
   }

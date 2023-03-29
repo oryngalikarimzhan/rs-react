@@ -12,9 +12,31 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": "./src",
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "baseUrl": "src",
+    "paths": {
+      "assets": ["assets/*"],
+      "components/ui": ["components/ui/*"],
+      "components/shared": ["components/shared/*"],
+      "components/layout": ["components/layout/*"],
+      "contexts": ["contexts/*"],
+      "data": ["data/*"],
+      "hocs": ["hocs/*"],
+      "layout": ["layout/*"],
+      "models": ["models/*"],
+      "pages": ["pages/*"],
+      "utils": ["utils/*"]
+    },
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "dashes",
+          "allowUnknownClassnames": true
+        }
+      }
+    ]
   },
-  "include": ["./src/**/*", "styled.d.ts", "test.setup.ts"]
+  "include": ["src"]
 }
