@@ -3,13 +3,17 @@ import CSS from 'csstype';
 
 import { buttonRegular } from './ButtonRegular.module.scss';
 
-class ButtonRegular extends React.Component<{
+type ButtonRegularProps = {
   children: string;
   style?: CSS.Properties;
-}> {
-  render() {
-    return <button className={buttonRegular}>{this.props.children}</button>;
-  }
+};
+
+function ButtonRegular({ children, style }: ButtonRegularProps) {
+  return (
+    <button className={buttonRegular} style={style}>
+      {children}
+    </button>
+  );
 }
 
 export default ButtonRegular;
