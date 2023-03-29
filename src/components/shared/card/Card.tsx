@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Card.module.scss';
+import { card, border, title, infoBox, info } from './Card.module.scss';
 import { CardModel, CharacterCutted, User } from 'models/index';
 import { isUrl } from 'utils/index';
 
@@ -28,8 +28,6 @@ class Card<T extends CardModel> extends React.Component<CardProps<T>> {
   render() {
     const { img, hovered } = this.state;
     const { image, ...rest } = this.props.data;
-
-    const { card, border, title, infoBox, info } = styles;
 
     const backgroundImg =
       img === '' && !isUrl(image) ? image : img !== '' && isUrl(image) ? img : false;

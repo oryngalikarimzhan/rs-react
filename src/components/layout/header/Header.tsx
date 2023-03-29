@@ -1,7 +1,7 @@
 import React from 'react';
 
-import styles from './Header.module.scss';
-import { WithRouterProps, withRouter, routes } from 'hoc/index';
+import { header, wrapper } from './Header.module.scss';
+import { WithRouterProps, withRouter, routes } from 'hocs/index';
 import { NavBar } from 'components/shared/index';
 
 class Header extends React.Component<WithRouterProps> {
@@ -11,8 +11,8 @@ class Header extends React.Component<WithRouterProps> {
     const page = (route in routes ? routes[route] : routes['*']).toUpperCase();
 
     return (
-      <header className={styles.header}>
-        <div className={styles.wrapper}>
+      <header className={header}>
+        <div className={wrapper}>
           <h1>{page}</h1>
           <NavBar />
         </div>

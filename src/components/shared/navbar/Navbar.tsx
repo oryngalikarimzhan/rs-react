@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import styles from './Navbar.module.scss';
+import { nav, link, linkActive } from './Navbar.module.scss';
 
 class NavBar extends React.Component {
   render() {
     return (
-      <nav className={styles.nav}>
+      <nav className={nav}>
         <NavLink className={this.setActive} to="/">
           Home
         </NavLink>
@@ -21,7 +21,6 @@ class NavBar extends React.Component {
   }
 
   private setActive = ({ isActive }: { isActive: boolean }) => {
-    const { link, linkActive } = styles;
     return isActive ? `${link} ${linkActive}` : `${link}`;
   };
 }

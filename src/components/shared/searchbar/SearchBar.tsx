@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 
-import styles from './SearchBar.module.scss';
+import { searchContainer, searchBar, input } from './SearchBar.module.scss';
 import SearchHistory from './components/SearchHistory';
 import { getFromLS, setToLS, deleteFromLS } from 'utils/index';
 import { ButtonRegular } from 'components/ui/index';
@@ -34,8 +34,6 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { searchContainer, searchBar, input } = styles;
-
     return (
       <div className={searchContainer} ref={this.ref}>
         <form

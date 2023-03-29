@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Home.module.scss';
+import { home, searchContainer, cardsContainer, logo, cards } from './Home.module.scss';
 import { marvelLogo } from 'assets/index';
 import { marvel } from 'data/index';
 
@@ -18,8 +18,6 @@ class Home extends React.Component {
         />
       )
     );
-
-    const { home, searchContainer, cardsContainer, logo, cards } = styles;
 
     return (
       <section className={home}>

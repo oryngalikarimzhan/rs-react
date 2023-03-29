@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../Searchbar.module.scss';
+import { histories, history, text, deleteBtn } from './SearchHistory.module.scss';
 
 type SeachHistoryProps = {
   historyList: string[];
@@ -19,7 +19,6 @@ class SearchHistory extends React.Component<SeachHistoryProps> {
   };
 
   render() {
-    const { histories, history, text, deleteBtn } = styles;
     const { historyList, focused } = this.props;
 
     return (

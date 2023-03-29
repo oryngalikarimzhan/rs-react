@@ -22,12 +22,21 @@
       "components/layout": ["components/layout/*"],
       "contexts": ["contexts/*"],
       "data": ["data/*"],
-      "hoc": ["hoc/*"],
+      "hocs": ["hocs/*"],
       "layout": ["layout/*"],
       "models": ["models/*"],
       "pages": ["pages/*"],
       "utils": ["utils/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "dashes",
+          "allowUnknownClassnames": true
+        }
+      }
+    ]
   },
   "include": ["src"]
 }

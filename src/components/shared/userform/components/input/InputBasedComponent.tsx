@@ -1,7 +1,11 @@
 import React, { ReactElement } from 'react';
 
-import styles from './InputBasedComponent.module.scss';
-import { CheckableUncontrolled, SingleUncontrolled } from '../CustomUncontrolledComponent';
+import styles, { inputCheckableWrapper } from './InputBasedComponent.module.scss';
+
+import {
+  CheckableUncontrolled,
+  SingleUncontrolled,
+} from 'components/shared/userform/helpers/types';
 import { capitalizeText } from 'utils/index';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -49,7 +53,7 @@ const InputBasedComponent = (props: CheckableUncontrolled | SingleUncontrolled):
       return (
         <>
           {set.map(({ id, refer, name = id, label }) => (
-            <div key={id} className={styles.inputCheckableWrapper}>
+            <div key={id} className={inputCheckableWrapper}>
               <SimpleCheckable ref={refer} {...{ id, name, type, placeholder: label }} />
             </div>
           ))}

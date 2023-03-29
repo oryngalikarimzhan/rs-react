@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import CSS from 'csstype';
 
-import styles from './Wrapper.module.scss';
+import { wrapper } from './Wrapper.module.scss';
 
 class Wrapper extends React.Component<{
   children: ReactNode;
@@ -9,7 +9,7 @@ class Wrapper extends React.Component<{
 }> {
   render() {
     return (
-      <div style={this.props.style} className={styles.wrapper}>
+      <div style={this.props.style} className={wrapper}>
         {this.props.children}
       </div>
     );

@@ -9,10 +9,10 @@
     "preview": "vite preview",
     "lint": "npx eslint src --max-warnings=0",
     "lint:fix": "npx eslint src --fix",
-    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\" && npx husky add .husky/pre-push \"npx vitest --run\"",
     "coverage": "vitest run --coverage",
     "test": "vitest",
-    "commit": "git add . && read -p 'DO YOU WANT TO CREARE A NEW COMMIT (n) OR AMEND THE PREVIOUS COMMIT (a)?\n=> ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit -m $1; fi"
+    "commit": "git add . && read -p 'DO YOU WANT TO CREARE A NEW COMMIT (n) OR AMEND THE PREVIOUS COMMIT (a)?\n=> ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit; fi"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
@@ -45,12 +45,14 @@
     "prettier": "^2.8.4",
     "sass": "^1.59.2",
     "typescript": "^4.9.3",
+    "typescript-plugin-css-modules": "^5.0.0",
     "vite": "^4.1.0",
     "vitest": "^0.29.2"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx lint-staged"
+      "pre-commit": "npx lint-staged",
+      "pre-push": "npx vitest --run"
     }
   },
   "lint-staged": {

@@ -1,14 +1,14 @@
 import React from 'react';
 import CSS from 'csstype';
 
-import styles from './ButtonRegular.module.scss';
+import { buttonRegular } from './ButtonRegular.module.scss';
 
 class ButtonRegular extends React.Component<{
   children: string;
   style?: CSS.Properties;
 }> {
   render() {
-    return <button className={styles.buttonRegular}>{this.props.children}</button>;
+    return <button className={buttonRegular}>{this.props.children}</button>;
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'csstype';
 
-import styles from './Form.module.scss';
+import { formPage, userForm, title, userCards, cards } from './Form.module.scss';
 import { countries } from 'data/index';
 import { UsersContext } from 'contexts/index';
 import { Wrapper } from 'components/ui/index';
@@ -10,7 +10,6 @@ import { UserCard, UserForm } from 'components/shared/index';
 class Form extends React.Component {
   render() {
     const wrapperStyle = { rowGap: '20px', justifyContent: 'center' };
-    const { formPage, userForm, title, userCards, cards } = styles;
 
     return (
       <UsersContext.Consumer>

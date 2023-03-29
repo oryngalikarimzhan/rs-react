@@ -1,26 +1,17 @@
 import React, { createRef } from 'react';
 
-import styles from './UserForm.module.scss';
+import { form, successMessage } from './UserForm.module.scss';
 import { ButtonRegular } from 'components/ui/index';
-import CustomUncontrolledComponent, {
+import CustomUncontrolledComponent from './components/CustomUncontrolledComponent';
+import {
   CheckableUncontrolled,
   SingleUncontrolled,
   SelectUncontrolled,
-} from './components/CustomUncontrolledComponent';
+  RefValues,
+} from 'components/shared/userform/helpers/types';
 import { Country, User } from 'models/index';
 
 type UserFormProps = { countries: Country[]; onSubmit: (data: User) => void };
-
-type RefValues = {
-  name?: string;
-  surname?: string;
-  birthday?: string;
-  male?: boolean;
-  female?: boolean;
-  image?: string;
-  country?: string;
-  personal?: boolean;
-};
 
 class UserForm extends React.Component<UserFormProps> {
   state = {
@@ -34,6 +25,7 @@ class UserForm extends React.Component<UserFormProps> {
     personalMsg: '',
   };
 
+  formRef = createRef<HTMLFormElement>();
   nameInput = createRef<HTMLInputElement>();
   surnameInput = createRef<HTMLInputElement>();
   birthdayInput = createRef<HTMLInputElement>();
@@ -124,11 +116,11 @@ class UserForm extends React.Component<UserFormProps> {
       msg: personalMsg,
     };
 
-    const successMessage = 'user has been created successfully';
+    const successMessageText = 'user has been created successfully';
 
     return (
       <>
-        <form className={styles.form} onSubmit={(e) => this.handleSubmit(e)}>
+        <form className={form} ref={this.formRef} onSubmit={(e) => this.handleSubmit(e)}>
           <CustomUncontrolledComponent {...nameProps} />
           <CustomUncontrolledComponent {...surnameProps} />
           <CustomUncontrolledComponent {...birthdayProps} />
@@ -139,10 +131,10 @@ class UserForm extends React.Component<UserFormProps> {
           <ButtonRegular>Submit</ButtonRegular>
         </form>
         <span
-          className={styles.successMessage}
+          className={successMessage}
           style={showSuccess ? { display: 'block' } : { display: 'none' }}
         >
-          {successMessage}
+          {successMessageText}
         </span>
       </>
     );
@@ -180,7 +172,7 @@ class UserForm extends React.Component<UserFormProps> {
 
       reader.readAsDataURL(imageCurrent?.files?.[0] as File);
 
-      this.resetValues();
+      this.formRef.current?.reset();
       this.toggleSuccessMessage();
     }
   };
@@ -216,17 +208,6 @@ class UserForm extends React.Component<UserFormProps> {
       imageValidity &&
       countryValidity
     );
-  };
-
-  private resetValues = () => {
-    (this.nameInput.current as HTMLInputElement).value = '';
-    (this.surnameInput.current as HTMLInputElement).value = '';
-    (this.birthdayInput.current as HTMLInputElement).value = '';
-    (this.maleRadioButton.current as HTMLInputElement).checked = false;
-    (this.femaleRadioButton.current as HTMLInputElement).checked = false;
-    (this.imageInput.current as HTMLInputElement).value = '';
-    (this.countrySelect.current as HTMLSelectElement).value = '';
-    (this.personalCheckbox.current as HTMLInputElement).checked = false;
   };
 
   private toggleSuccessMessage = () => {
