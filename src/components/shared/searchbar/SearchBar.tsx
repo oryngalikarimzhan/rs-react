@@ -1,99 +1,107 @@
-import React, { FormEvent } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { searchContainer, searchBar, input } from './SearchBar.module.scss';
 import SearchHistory from './components/SearchHistory';
-import { getFromLS, setToLS, deleteFromLS } from 'utils/index';
+import {
+  getFromLS,
+  setToLS,
+  deleteFromLS,
+  LOCAL_STORAGE_LAST_SEARCH_KEY,
+  LOCAL_STORAGE_HISTORY_KEY,
+} from 'utils/index';
 import { ButtonRegular } from 'components/ui/index';
 
-class SearchBar extends React.Component {
-  static readonly LOCAL_STORAGE_HISTORY_KEY = 'search-history';
+function SearchBar() {
+  const [searchValue, setSearchValue] = useState(getFromLS(LOCAL_STORAGE_LAST_SEARCH_KEY)[0] || '');
+  const [historyList, setHistoryList] = useState(getFromLS(LOCAL_STORAGE_HISTORY_KEY) || []);
+  const [isFocusing, setIsFocusing] = useState(false);
 
-  private readonly LOCAL_STORAGE_LAST_SEARCH_KEY = 'last-search';
+  const ref = useRef<HTMLDivElement>(null);
 
-  private ref = React.createRef<HTMLDivElement>();
+  const handleWindowClick = useCallback((event: Event) => {
+    if (ref.current && !ref.current.contains(event.target as HTMLElement)) setIsFocusing(false);
+  }, []);
 
-  state = {
-    searchValue: getFromLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY)[0] || '',
-    historyList: [],
-    focused: false,
-  };
+  const handleHistoryClick = useCallback(
+    (e: MouseEvent<HTMLSpanElement>) => setSearchValue(e.currentTarget.dataset.id as string),
+    []
+  );
 
-  componentDidMount() {
-    this.setState({
-      historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY),
-    });
-
-    document.addEventListener('mousedown', this.handleClick);
-  }
-
-  componentWillUnmount() {
-    setToLS(this.LOCAL_STORAGE_LAST_SEARCH_KEY, [this.state.searchValue]);
-    this.setState({ searchValue: this.state.searchValue });
-
-    document.removeEventListener('mousedown', this.handleClick);
-  }
-
-  render() {
-    return (
-      <div className={searchContainer} ref={this.ref}>
-        <form
-          role="searchform"
-          onFocus={() => this.setState({ focused: true })}
-          className={searchBar}
-          onSubmit={this.handleSubmit}
-        >
-          <input
-            type="search"
-            placeholder="..."
-            className={input}
-            value={this.state.searchValue}
-            onClick={() => this.setState({ searchValue: '' })}
-            onChange={(e) =>
-              e.target.value !== '' && this.setState({ searchValue: e.target.value })
-            }
-          ></input>
-          <ButtonRegular>Search</ButtonRegular>
-        </form>
-        <SearchHistory
-          historyList={this.state.historyList}
-          focused={this.state.focused}
-          onPick={this.handleHistoryClick}
-          onDelete={this.handleDelete}
-        />
-      </div>
+  const handleDelete = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    setHistoryList(
+      deleteFromLS(
+        LOCAL_STORAGE_HISTORY_KEY,
+        (event.target as HTMLButtonElement).dataset.id as string
+      )
     );
-  }
+  }, []);
 
-  private handleHistoryClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) =>
-    this.setState({ searchValue: e.currentTarget.dataset.id });
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      const searchHistory = getFromLS(LOCAL_STORAGE_HISTORY_KEY);
 
-  private handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    deleteFromLS(
-      SearchBar.LOCAL_STORAGE_HISTORY_KEY,
-      (event.target as HTMLButtonElement).dataset.id as string
-    );
-    this.setState({ historyList: getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY) });
-  };
+      if (searchValue !== '' && searchHistory.indexOf(searchValue) === -1) {
+        searchHistory.push(searchValue);
 
-  private handleClick = (event: Event) => {
-    if (this.ref.current && !this.ref.current.contains(event.target as HTMLElement)) {
-      this.setState({ focused: false });
-    }
-  };
+        setHistoryList(setToLS(LOCAL_STORAGE_HISTORY_KEY, searchHistory));
+      }
+    },
+    [searchValue]
+  );
 
-  private handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const searchHistory = getFromLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY);
+  const handleChange = useCallback(
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      e.target.value !== '' && setSearchValue(e.target.value);
+    },
+    []
+  );
 
-    const { searchValue } = this.state;
+  useEffect(() => {
+    window.addEventListener('mousedown', handleWindowClick);
 
-    if (searchValue !== '' && searchHistory.indexOf(searchValue) === -1) {
-      searchHistory.push(searchValue);
+    return function cleanup() {
+      setToLS(LOCAL_STORAGE_LAST_SEARCH_KEY, [searchValue]);
+      window.removeEventListener('mousedown', handleWindowClick);
+    };
+  }, [handleWindowClick, searchValue]);
 
-      setToLS(SearchBar.LOCAL_STORAGE_HISTORY_KEY, searchHistory);
-      this.setState({ historyList: searchHistory });
-    }
-  };
+  return (
+    <div className={searchContainer} ref={ref}>
+      <form
+        role="searchform"
+        onFocus={() => setIsFocusing(true)}
+        className={searchBar}
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="search"
+          placeholder="..."
+          className={input}
+          value={searchValue}
+          onClick={() => setSearchValue('')}
+          onChange={handleChange()}
+        ></input>
+
+        <ButtonRegular>Search</ButtonRegular>
+      </form>
+
+      <SearchHistory
+        historyList={historyList}
+        isFocusing={isFocusing}
+        onPick={handleHistoryClick}
+        onDelete={handleDelete}
+      />
+    </div>
+  );
 }
 
 export default SearchBar;

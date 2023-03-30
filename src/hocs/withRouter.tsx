@@ -19,12 +19,4 @@ const withRouter = <Props extends WithRouterProps>(Component: React.ComponentTyp
   };
 };
 
-const routes: { [key: string]: string } = {
-  '': 'home',
-  '/': 'home',
-  '/about': 'about us',
-  '/form': 'form',
-  '*': '404',
-};
-
-export { type WithRouterProps, withRouter, routes };
+export { type WithRouterProps, withRouter };

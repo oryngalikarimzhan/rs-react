@@ -1,46 +1,44 @@
-import React from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 
 import { histories, history, text, deleteBtn } from './SearchHistory.module.scss';
 
 type SeachHistoryProps = {
   historyList: string[];
-  focused: boolean;
-  onPick: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-  onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  isFocusing: boolean;
+  onPick: (e: MouseEvent<HTMLSpanElement>) => void;
+  onDelete: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-class SearchHistory extends React.Component<SeachHistoryProps> {
-  private handleClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    this.props.onPick(event);
-  };
+function SearchHistory(props: SeachHistoryProps) {
+  const { historyList, isFocusing, onPick, onDelete } = props;
 
-  private handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    this.props.onDelete(event);
-  };
+  const handleClick = useCallback(
+    () => (event: MouseEvent<HTMLSpanElement>) => onPick(event),
+    [onPick]
+  );
 
-  render() {
-    const { historyList, focused } = this.props;
+  const handleDelete = useCallback(
+    () => (event: MouseEvent<HTMLButtonElement>) => onDelete(event),
+    [onDelete]
+  );
 
-    return (
-      historyList.length > 0 &&
-      focused && (
+  return (
+    <>
+      {historyList.length > 0 && isFocusing && (
         <div role="histories" className={histories}>
           {historyList.map((searchText) => (
             <div key={searchText} className={history}>
-              <span data-id={searchText} className={text} onClick={(e) => this.handleClick(e)}>
+              <span data-id={searchText} className={text} onClick={handleClick()}>
                 {searchText}
               </span>
-              <button
-                data-id={searchText}
-                className={deleteBtn}
-                onClick={(e) => this.handleDelete(e)}
-              />
+
+              <button data-id={searchText} className={deleteBtn} onClick={handleDelete()} />
             </div>
           ))}
         </div>
-      )
-    );
-  }
+      )}
+    </>
+  );
 }
 
 export default SearchHistory;

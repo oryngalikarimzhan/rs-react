@@ -8,12 +8,10 @@ type ButtonRegularProps = {
   style?: CSS.Properties;
 };
 
-function ButtonRegular({ children, style }: ButtonRegularProps) {
-  return (
-    <button className={buttonRegular} style={style}>
-      {children}
-    </button>
-  );
-}
+const ButtonRegular = ({ children, style = {} }: ButtonRegularProps) => (
+  <button className={buttonRegular} style={style}>
+    {children}
+  </button>
+);
 
 export default ButtonRegular;

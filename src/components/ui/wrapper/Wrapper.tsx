@@ -8,12 +8,9 @@ type WrapperProps = {
   style?: CSS.Properties;
 };
 
-function Wrapper({ children, style }: WrapperProps) {
-  return (
-    <div style={style} className={wrapper}>
-      <>{children}</>
-    </div>
-  );
-}
-
+const Wrapper = ({ children, style = {} }: WrapperProps) => (
+  <div style={style} className={wrapper}>
+    <>{children}</>
+  </div>
+);
 export default Wrapper;

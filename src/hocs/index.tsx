@@ -1,1 +1,1 @@
-export { type WithRouterProps, withRouter, routes } from 'hocs/withRouter';
+export { type WithRouterProps, withRouter } from 'hocs/withRouter';

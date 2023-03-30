@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { home, searchContainer, cardsContainer, logo, cards } from './Home.module.scss';
 import { marvelLogo } from 'assets/index';
@@ -9,13 +9,17 @@ import { Wrapper } from 'components/ui/index';
 import { SearchBar, CharacterCard } from 'components/shared/index';
 
 function Home() {
-  const cardsList = (marvel.characters as Character[]).map(
-    ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
-      <CharacterCard
-        key={name}
-        data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
-      />
-    )
+  const cardsList = useMemo(
+    () =>
+      (marvel.characters as Character[]).map(
+        ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
+          <CharacterCard
+            key={name}
+            data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
+          />
+        )
+      ),
+    []
   );
 
   return (
@@ -36,6 +40,7 @@ function Home() {
       <Wrapper>
         <article className={cardsContainer}>
           <img className={logo} src={marvelLogo} />
+
           <div role="cards" className={cards}>
             {cardsList}
           </div>
