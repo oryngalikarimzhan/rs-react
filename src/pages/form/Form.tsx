@@ -1,16 +1,17 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 
-import { formPage, userForm, title, userCards, cards } from './Form.module.scss';
+import { formPage, userForm, title, userCards } from './Form.module.scss';
 import { countries } from 'data/index';
 import { UsersContext } from 'contexts/index';
-import { Wrapper } from 'components/ui/index';
+import { CardList, Wrapper } from 'components/ui/index';
 import { UserCard, UserForm } from 'components/shared/index';
 
-function Form() {
-  const { users, addUser } = useContext(UsersContext);
+const wrapperStyle = { rowGap: '20px', justifyContent: 'center' };
 
-  const wrapperStyle = useMemo(() => ({ rowGap: '20px', justifyContent: 'center' }), []);
-  const hasUsers = useMemo(() => users.length > 0, [users]);
+function Form() {
+  const { users } = useContext(UsersContext);
+
+  const hasUsers = users.length > 0;
 
   return (
     <article className={formPage}>
@@ -18,24 +19,21 @@ function Form() {
         <Wrapper style={wrapperStyle}>
           <h3 className={title}>User form</h3>
 
-          <UserForm countries={countries} onSubmit={addUser} />
+          <UserForm countries={countries} />
         </Wrapper>
       </section>
 
       <section className={userCards} style={!hasUsers ? { padding: '0' } : {}}>
         <Wrapper style={wrapperStyle}>
           {hasUsers && (
-            <h3 className={title} style={{ color: 'var(--primary-color)' }}>
-              User cards
-            </h3>
-          )}
+            <>
+              <h3 className={title} style={{ color: 'var(--primary-color)' }}>
+                User cards
+              </h3>
 
-          <div role="user-cards" className={cards}>
-            {hasUsers &&
-              users.map((user, index) => (
-                <UserCard key={`${user.name}_${user.surname}_${index}`} data={user} />
-              ))}
-          </div>
+              <CardList items={users} render={(item) => <UserCard data={item} />} />
+            </>
+          )}
         </Wrapper>
       </section>
     </article>

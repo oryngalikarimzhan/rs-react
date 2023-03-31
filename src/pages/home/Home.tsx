@@ -1,38 +1,31 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import CSS from 'csstype';
 
-import { home, searchContainer, cardsContainer, logo, cards } from './Home.module.scss';
+import { home, searchContainer, cardsContainer, logo } from './Home.module.scss';
 import { marvelLogo } from 'assets/index';
 import { marvel } from 'data/index';
 
 import { Character } from 'models/index';
-import { Wrapper } from 'components/ui/index';
+import { Wrapper, CardList } from 'components/ui/index';
 import { SearchBar, CharacterCard } from 'components/shared/index';
+import { omitObjectKeys } from 'utils/index';
+
+const cuttedMarvelData = (marvel.characters as Character[]).map((data) =>
+  omitObjectKeys(data, 'affiliation', 'appearances')
+);
+
+const wrapperStyle: CSS.Properties = {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  width: '100%',
+};
 
 function Home() {
-  const cardsList = useMemo(
-    () =>
-      (marvel.characters as Character[]).map(
-        ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
-          <CharacterCard
-            key={name}
-            data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
-          />
-        )
-      ),
-    []
-  );
-
   return (
     <section className={home}>
       <section className={searchContainer}>
-        <Wrapper
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
+        <Wrapper style={wrapperStyle}>
           <SearchBar />
         </Wrapper>
       </section>
@@ -41,9 +34,11 @@ function Home() {
         <article className={cardsContainer}>
           <img className={logo} src={marvelLogo} />
 
-          <div role="cards" className={cards}>
-            {cardsList}
-          </div>
+          <CardList
+            items={cuttedMarvelData}
+            render={(item) => <CharacterCard data={item} />}
+            style={{ gap: '100px' }}
+          />
         </article>
       </Wrapper>
     </section>

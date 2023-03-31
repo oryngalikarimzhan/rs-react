@@ -1,13 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { nav, link, linkActive } from './Navbar.module.scss';
 
 function NavBar() {
-  const setActive = useCallback(
-    ({ isActive }: { isActive: boolean }) => (isActive ? `${link} ${linkActive}` : `${link}`),
-    []
-  );
+  const setActive = ({ isActive }: { isActive: boolean }) =>
+    isActive ? `${link} ${linkActive}` : `${link}`;
 
   return (
     <nav className={nav}>

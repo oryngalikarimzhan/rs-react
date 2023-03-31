@@ -8,32 +8,32 @@ interface CardProps<T extends CardModel> {
   data: T;
 }
 
+const fetchRawImage = async (
+  image: string,
+  setState: (value: React.SetStateAction<string>) => void
+) => {
+  try {
+    const blob = await fetch(image).then((data) => data.blob());
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = () => setState(reader.result as string);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 function Card<T extends CardModel>({ data }: CardProps<T>) {
   const [isHovered, setIsHovered] = useState(false);
   const [rawImage, setRawImage] = useState('');
 
   const { image, ...rest } = data;
 
-  const isUrlImage = isUrl(image);
-
   useEffect(() => {
-    if (isUrlImage) {
-      const reader = new FileReader();
+    isUrl(image) ? fetchRawImage(image, setRawImage) : setRawImage(image);
+  }, [image]);
 
-      reader.onload = () => setRawImage(reader.result as string);
-
-      fetch(image)
-        .then((data) => data.blob())
-        .then((blob) => reader.readAsDataURL(blob))
-        .catch((err) => console.error(err));
-    }
-  }, [isUrlImage, image]);
-
-  const backgroundImg =
-    rawImage === '' && !isUrlImage ? image : rawImage !== '' && isUrlImage ? rawImage : false;
-
-  const cardStyle = backgroundImg && {
-    background: `url(${backgroundImg}) no-repeat`,
+  const cardStyle = rawImage !== '' && {
+    background: `url(${rawImage}) no-repeat`,
     backgroundSize: `${isHovered ? 'auto 130%' : 'auto 100%'}`,
     backgroundPosition: `${isHovered ? 'left center' : 'center center}'}`,
   };
@@ -47,7 +47,7 @@ function Card<T extends CardModel>({ data }: CardProps<T>) {
       style={cardStyle || {}}
     >
       <div className={border}>
-        <div className={title}>{rest.name}</div>
+        <div className={title}>{rest.name || ''}</div>
         <div className={infoBox}>
           {Object.entries(rest).map(([key, value]) => (
             <span className={info} key={key}>

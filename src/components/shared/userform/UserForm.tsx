@@ -9,9 +9,10 @@ import {
   SelectUncontrolled,
   RefValues,
 } from 'components/shared/userform/helpers/types';
-import { Country, User } from 'models/index';
+import { Country } from 'models/index';
+import { UsersContext } from 'contexts/index';
 
-type UserFormProps = { countries: Country[]; onSubmit: (data: User) => void };
+type UserFormProps = { countries: Country[] };
 
 class UserForm extends React.Component<UserFormProps> {
   state = {
@@ -24,6 +25,9 @@ class UserForm extends React.Component<UserFormProps> {
     countryMsg: '',
     personalMsg: '',
   };
+
+  static contextType = UsersContext;
+  declare context: React.ContextType<typeof UsersContext>;
 
   formRef = createRef<HTMLFormElement>();
   nameInput = createRef<HTMLInputElement>();
@@ -120,7 +124,7 @@ class UserForm extends React.Component<UserFormProps> {
 
     return (
       <>
-        <form className={form} ref={this.formRef} onSubmit={(e) => this.handleSubmit(e)}>
+        <form noValidate className={form} ref={this.formRef} onSubmit={(e) => this.handleSubmit(e)}>
           <CustomUncontrolledComponent {...nameProps} />
           <CustomUncontrolledComponent {...surnameProps} />
           <CustomUncontrolledComponent {...birthdayProps} />
@@ -160,8 +164,10 @@ class UserForm extends React.Component<UserFormProps> {
     if (this.validateAll(values)) {
       const reader = new FileReader();
 
+      const { addUser } = this.context;
+
       reader.onload = () => {
-        this.props.onSubmit({
+        addUser({
           name: values.name as string,
           surname: values.surname as string,
           birthday: values.birthday as string,

@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import { User } from 'models/index';
 
@@ -9,7 +9,7 @@ const UsersContext = React.createContext<UserContextType>({} as UserContextType)
 function UsersContextProvider({ children }: { children: ReactNode }) {
   const [users, setUsers] = useState([] as User[]);
 
-  const addUser = useCallback((user: User) => setUsers([...users, user]), [users]);
+  const addUser = (user: User) => setUsers([...users, user]);
 
   return <UsersContext.Provider value={{ users, addUser }}>{children}</UsersContext.Provider>;
 }

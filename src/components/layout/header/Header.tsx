@@ -1,8 +1,8 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import CSS from 'csstype';
 
 import { header } from './Header.module.scss';
-import { WithRouterProps, withRouter } from 'hocs/index';
 import { routes } from 'utils/index';
 import { NavBar } from 'components/shared/index';
 import { Wrapper } from 'components/ui/index';
@@ -13,10 +13,9 @@ const wrapperStyle: CSS.Properties = {
   alignItems: 'center',
 };
 
-function Header(props: WithRouterProps) {
-  const { location } = props;
-  const route = location.pathname;
-  const pageName = (route in routes ? routes[route] : routes['*']).toUpperCase();
+function Header() {
+  const { pathname } = useLocation();
+  const pageName = (pathname in routes ? routes[pathname] : routes['*']).toUpperCase();
 
   return (
     <header className={header}>
@@ -29,4 +28,4 @@ function Header(props: WithRouterProps) {
   );
 }
 
-export default withRouter(Header);
+export default Header;

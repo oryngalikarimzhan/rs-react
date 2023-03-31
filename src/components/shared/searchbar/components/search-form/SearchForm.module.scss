@@ -1,0 +1,33 @@
+.search-form {
+  min-width: 300px;
+  width: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+
+  .input {
+    flex: 1;
+    height: 35px;
+    padding: 0 15px;
+
+    border-radius: 20px;
+    outline-offset: 0;
+    outline: 2px solid var(--primary-color);
+    border: 2px solid var(--secondary-color);
+
+    background: var(--primary-color);
+    color: var(--main-color);
+    transition: color 0.3s ease-in, border 0.3s ease-in;
+
+    &:focus {
+      border: 2px solid var(--main-color);
+    }
+
+    &:hover {
+      color: var(--add-color);
+      border: 2px solid var(--add-color);
+    }
+  }
+}
