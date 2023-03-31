@@ -7,21 +7,22 @@ import SelectBasedComponent from './select/SelectBasedComponent';
 import { Uncontrolled, SelectUncontrolled } from 'components/shared/userform/helpers/types';
 
 const CustomUncontrolledComponent = (props: Uncontrolled) => {
-  const { msg, refer } = props as SelectUncontrolled;
+  const { msg } = props;
+
   return (
     <div className={uncontrolledWrapper}>
       {isSelectUncontrolled(props) ? (
-        <SelectBasedComponent ref={refer} {...props} />
+        <SelectBasedComponent ref={props.refer} {...props} />
       ) : (
         <InputBasedComponent {...props} />
       )}
+
       <span className={errorMessage}>{msg}</span>
     </div>
   );
 };
 
-const isSelectUncontrolled = (props: Uncontrolled): props is SelectUncontrolled => {
-  return props.type === 'select';
-};
+const isSelectUncontrolled = (props: Uncontrolled): props is SelectUncontrolled =>
+  props.type === 'select';
 
 export default CustomUncontrolledComponent;

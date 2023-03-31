@@ -130,6 +130,7 @@ class UserForm extends React.Component<UserFormProps> {
           <CustomUncontrolledComponent {...personalProps} />
           <ButtonRegular>Submit</ButtonRegular>
         </form>
+
         <span
           className={successMessage}
           style={showSuccess ? { display: 'block' } : { display: 'none' }}

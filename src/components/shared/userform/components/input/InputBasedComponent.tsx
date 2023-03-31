@@ -13,34 +13,31 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const SimpleInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ type, id, placeholder, accept }, ref) => {
-    return (
-      <input
-        ref={ref}
-        {...{
-          type,
-          id,
-          name: id,
-          placeholder: placeholder || capitalizeText(id as string),
-          accept,
-        }}
-        className={styles[type]}
-      />
-    );
-  }
+  ({ type, id, placeholder, accept }, ref) => (
+    <input
+      ref={ref}
+      {...{
+        type,
+        id,
+        name: id,
+        placeholder: placeholder || capitalizeText(id as string),
+        accept,
+      }}
+      className={styles[type]}
+    />
+  )
 );
 
 const SimpleCheckable = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ type, id, name = id, placeholder }, ref) => {
-    return (
-      <>
-        <input ref={ref} {...{ id, name, type }} className={styles[type]} />
-        <label style={{ color: 'var(--main-color)' }} htmlFor={id}>
-          {placeholder || capitalizeText(id as string)}
-        </label>
-      </>
-    );
-  }
+  ({ type, id, name = id, placeholder }, ref) => (
+    <>
+      <input ref={ref} {...{ id, name, type }} className={styles[type]} />
+
+      <label style={{ color: 'var(--main-color)' }} htmlFor={id}>
+        {placeholder || capitalizeText(id as string)}
+      </label>
+    </>
+  )
 );
 
 const InputBasedComponent = (props: CheckableUncontrolled | SingleUncontrolled): ReactElement => {

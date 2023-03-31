@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\" && npx husky add .husky/pre-push \"npx vitest --run\"",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "npx eslint src --max-warnings=0",
     "lint:fix": "npx eslint src --fix",
-    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\" && npx husky add .husky/pre-push \"npx vitest --run\"",
-    "coverage": "vitest run --coverage",
-    "test": "vitest",
+    "test": "vitest --run --coverage",
+    "test:run": "vitest",
     "commit": "git add . && read -p 'DO YOU WANT TO CREARE A NEW COMMIT (n) OR AMEND THE PREVIOUS COMMIT (a)?\n=> ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit; fi"
   },
   "dependencies": {
