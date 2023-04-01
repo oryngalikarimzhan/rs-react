@@ -5,7 +5,8 @@
 
 .user-form {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - var(--header-height));
+  padding-top: 100px;
 
   display: flex;
   flex-direction: column;

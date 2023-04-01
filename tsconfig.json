@@ -22,7 +22,7 @@
       "components/layout": ["components/layout/*"],
       "contexts": ["contexts/*"],
       "data": ["data/*"],
-      "hocs": ["hocs/*"],
+      "hooks": ["hooks/*"],
       "layout": ["layout/*"],
       "models": ["models/*"],
       "pages": ["pages/*"],

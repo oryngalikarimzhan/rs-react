@@ -19,7 +19,7 @@ export default defineConfig({
       'components/layout': '/src/components/layout',
       contexts: '/src/contexts',
       data: '/src/data',
-      hocs: '/src/hocs',
+      hooks: '/src/hooks',
       models: '/src/models',
       pages: '/src/pages',
       utils: '/src/utils',

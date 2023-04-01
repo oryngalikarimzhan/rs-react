@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 
-import { formPage, userForm, title, userCards } from './Form.module.scss';
-import { countries } from 'data/index';
+import { formPage, userForm, title, userCards } from './User.module.scss';
+import UserForm from './components/UserForm';
+
 import { UsersContext } from 'contexts/index';
 import { CardList, Wrapper } from 'components/ui/index';
-import { UserCard, UserForm } from 'components/shared/index';
+import { UserCard } from 'components/shared/index';
 
-const wrapperStyle = { rowGap: '20px', justifyContent: 'center' };
+const wrapperStyle = { rowGap: '20px', width: '40%' };
 
-function Form() {
+function User() {
   const { users } = useContext(UsersContext);
 
   const hasUsers = users.length > 0;
@@ -17,9 +18,7 @@ function Form() {
     <article className={formPage}>
       <section className={userForm}>
         <Wrapper style={wrapperStyle}>
-          <h3 className={title}>User form</h3>
-
-          <UserForm countries={countries} />
+          <UserForm />
         </Wrapper>
       </section>
 
@@ -40,4 +39,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default User;

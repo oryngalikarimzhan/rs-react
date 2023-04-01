@@ -17,7 +17,7 @@ function NavBar() {
         About Us
       </NavLink>
 
-      <NavLink className={setActive} to="/form">
+      <NavLink className={setActive} to="/userform">
         Form
       </NavLink>
     </nav>

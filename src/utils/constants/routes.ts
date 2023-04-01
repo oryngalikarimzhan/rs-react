@@ -1,7 +1,7 @@
 export const routes: { [key: string]: string } = {
-  '': 'home',
-  '/': 'home',
+  '': 'cards',
+  '/': 'cards',
   '/about': 'about us',
-  '/form': 'form',
+  '/userform': 'user form & cards',
   '*': '404',
 };
