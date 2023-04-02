@@ -2,9 +2,9 @@ import React, { ReactNode, useState } from 'react';
 
 import { User } from 'models/index';
 
-type UserContextType = { users: User[]; addUser: (user: User) => void };
+type UserContextType = { users: User[]; addUser: null | ((user: User) => void) };
 
-const UsersContext = React.createContext<UserContextType>({} as UserContextType);
+const UsersContext = React.createContext<UserContextType>({ users: [], addUser: null });
 
 function UsersContextProvider({ children }: { children: ReactNode }) {
   const [users, setUsers] = useState([] as User[]);

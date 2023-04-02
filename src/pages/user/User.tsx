@@ -12,7 +12,7 @@ const wrapperStyle = { rowGap: '20px', width: '40%' };
 function User() {
   const { users } = useContext(UsersContext);
 
-  const hasUsers = users.length > 0;
+  const hasUsers = users && users.length > 0;
 
   return (
     <article className={formPage}>

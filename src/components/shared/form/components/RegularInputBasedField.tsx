@@ -22,6 +22,7 @@ const RegularInputBasedField = ({
         accept={accept}
         placeholder={title}
         className={styles[type]}
+        role={`${type}-${name}`}
         {...registerReturn}
       />
       <span className={styles.errorMessage}>{errorMessage}</span>

@@ -15,7 +15,14 @@ const CheckableInputBasedField = ({
     <div className={styles.fieldContent}>
       {Object.entries(ids).map(([k, v]) => (
         <Fragment key={k}>
-          <input type={type} id={k} value={k} className={styles[type]} {...registerReturn} />
+          <input
+            type={type}
+            id={k}
+            value={k}
+            className={styles[type]}
+            {...registerReturn}
+            role={`${type}-${k}`}
+          />
 
           <label htmlFor={k}>{v}</label>
         </Fragment>

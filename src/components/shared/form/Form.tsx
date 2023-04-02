@@ -39,7 +39,7 @@ export default function Form({ template, onSubmit }: FormProps) {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit(onValid)} className={styles.form}>
+    <form noValidate onSubmit={handleSubmit(onValid)} className={styles.form} role="reusable-form">
       {<h3 className={styles.title}>{title}</h3>}
       <FormFields {...{ fields, register, errors }} />
       <ButtonRegular style={{ width: '30%', alignSelf: 'center' }}>Submit</ButtonRegular>

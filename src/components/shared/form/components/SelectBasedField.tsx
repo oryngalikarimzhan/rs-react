@@ -16,7 +16,7 @@ const SelectBasedField = ({
       {title}
     </label>
     <div className={styles.fieldContent}>
-      <select id={name} className={styles[type]} {...registerReturn}>
+      <select id={name} className={styles[type]} {...registerReturn} role={`${type}-${name}`}>
         <option value="">--- Not selected ---</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
