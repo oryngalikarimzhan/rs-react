@@ -3,17 +3,14 @@ import CSS from 'csstype';
 
 import { wrapper } from './Wrapper.module.scss';
 
-class Wrapper extends React.Component<{
+type WrapperProps = {
   children: ReactNode;
   style?: CSS.Properties;
-}> {
-  render() {
-    return (
-      <div style={this.props.style} className={wrapper}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+};
 
+const Wrapper = ({ children, style = {} }: WrapperProps) => (
+  <div style={style} className={wrapper}>
+    <>{children}</>
+  </div>
+);
 export default Wrapper;

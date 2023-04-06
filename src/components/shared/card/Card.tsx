@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { card, border, title, infoBox, info } from './Card.module.scss';
 import { CardModel, CharacterCutted, User } from 'models/index';
@@ -8,58 +8,62 @@ interface CardProps<T extends CardModel> {
   data: T;
 }
 
-class Card<T extends CardModel> extends React.Component<CardProps<T>> {
-  state = { hovered: false, img: '' };
-
-  componentDidMount() {
-    const { image } = this.props.data;
-    if (isUrl(image)) {
-      const reader = new FileReader();
-
-      reader.onload = () => this.setState({ img: reader.result as string });
-
-      fetch(image)
-        .then((data) => data.blob())
-        .then((blob) => reader.readAsDataURL(blob))
-        .catch((err) => console.error(err));
-    }
+const fetchRawImage = async (
+  image: string,
+  setState: (value: React.SetStateAction<string>) => void
+) => {
+  try {
+    const blob = await fetch(image).then((data) => data.blob());
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = () => setState(reader.result as string);
+  } catch (err) {
+    console.error(err);
   }
+};
 
-  render() {
-    const { img, hovered } = this.state;
-    const { image, ...rest } = this.props.data;
+function Card<T extends CardModel>({ data }: CardProps<T>) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [rawImage, setRawImage] = useState('');
 
-    const backgroundImg =
-      img === '' && !isUrl(image) ? image : img !== '' && isUrl(image) ? img : false;
+  const { image, ...rest } = data;
 
-    const cardStyle = backgroundImg && {
-      background: `url(${backgroundImg}) no-repeat`,
-      backgroundSize: `${hovered ? 'auto 130%' : 'auto 100%'}`,
-      backgroundPosition: `${hovered ? 'left center' : 'center center}'}`,
-    };
+  useEffect(() => {
+    isUrl(image) ? fetchRawImage(image, setRawImage) : setRawImage(image);
+  }, [image]);
 
-    return (
-      <div
-        data-testid="card"
-        className={card}
-        onMouseOut={() => this.setState({ hovered: false })}
-        onMouseOver={() => this.setState({ hovered: true })}
-        style={cardStyle || {}}
-      >
-        <div className={border}>
-          <div className={title}>{rest.name}</div>
-          <div className={infoBox}>
-            {Object.entries(rest).map(([key, value]) => (
-              <span className={info} key={key}>
-                {key}: <strong>{value}</strong>
-              </span>
-            ))}
-          </div>
+  const cardStyle = rawImage !== '' && {
+    background: `url(${rawImage}) no-repeat`,
+    backgroundSize: `${isHovered ? 'auto 130%' : 'auto 100%'}`,
+    backgroundPosition: `${isHovered ? 'left center' : 'center center}'}`,
+  };
+
+  return (
+    <div
+      data-testid="card"
+      className={card}
+      onMouseOut={() => setIsHovered(false)}
+      onMouseOver={() => setIsHovered(true)}
+      style={cardStyle || {}}
+    >
+      <div className={border}>
+        <div className={title}>{rest.name || ''}</div>
+        <div className={infoBox}>
+          {Object.entries(rest).map(([key, value]) => (
+            <span className={info} key={key}>
+              {key}: <strong>{value}</strong>
+            </span>
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export class CharacterCard extends Card<CharacterCutted> {}
-export class UserCard extends Card<User> {}
+export function CharacterCard(props: CardProps<CharacterCutted>) {
+  return <Card<CharacterCutted> {...props} />;
+}
+
+export function UserCard(props: CardProps<User>) {
+  return <Card<User> {...props} />;
+}

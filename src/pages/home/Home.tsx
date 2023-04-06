@@ -1,50 +1,48 @@
 import React from 'react';
+import CSS from 'csstype';
 
-import { home, searchContainer, cardsContainer, logo, cards } from './Home.module.scss';
+import { home, searchContainer, cardsContainer, logo } from './Home.module.scss';
 import { marvelLogo } from 'assets/index';
 import { marvel } from 'data/index';
 
 import { Character } from 'models/index';
-import { Wrapper } from 'components/ui/index';
+import { Wrapper, CardList } from 'components/ui/index';
 import { SearchBar, CharacterCard } from 'components/shared/index';
+import { omitObjectKeys } from 'utils/index';
 
-class Home extends React.Component {
-  render() {
-    const cardsList = (marvel.characters as Character[]).map(
-      ({ name, actor, image, citizenship, realname, dateofbirth, species }) => (
-        <CharacterCard
-          key={name}
-          data={{ name, actor, image, citizenship, realname, dateofbirth, species }}
-        />
-      )
-    );
+const cuttedMarvelData = (marvel.characters as Character[]).map((data) =>
+  omitObjectKeys(data, 'affiliation', 'appearances')
+);
 
-    return (
-      <section className={home}>
-        <section className={searchContainer}>
-          <Wrapper
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
-            <SearchBar />
-          </Wrapper>
-        </section>
+const wrapperStyle: CSS.Properties = {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  width: '100%',
+};
 
-        <Wrapper>
-          <article className={cardsContainer}>
-            <img className={logo} src={marvelLogo} />
-            <div role="cards" className={cards}>
-              {cardsList}
-            </div>
-          </article>
+function Home() {
+  return (
+    <section className={home}>
+      <section className={searchContainer}>
+        <Wrapper style={wrapperStyle}>
+          <SearchBar />
         </Wrapper>
       </section>
-    );
-  }
+
+      <Wrapper>
+        <article className={cardsContainer}>
+          <img className={logo} src={marvelLogo} />
+
+          <CardList
+            items={cuttedMarvelData}
+            render={(item) => <CharacterCard data={item} />}
+            style={{ gap: '100px' }}
+          />
+        </article>
+      </Wrapper>
+    </section>
+  );
 }
 
 export default Home;
