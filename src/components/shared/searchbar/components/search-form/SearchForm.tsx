@@ -5,15 +5,15 @@ import { ButtonRegular } from 'components/ui/index';
 
 interface SearchFormProps {
   handleSubmit: (e: FormEvent) => void;
-  searchValue: string;
-  setSearchValue: Dispatch<React.SetStateAction<string>>;
+  searchText: string;
+  setSearchText: Dispatch<React.SetStateAction<string>>;
   setIsFocusing: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchForm = ({
   handleSubmit,
-  searchValue,
-  setSearchValue,
+  searchText,
+  setSearchText,
   setIsFocusing,
 }: SearchFormProps) => (
   <form
@@ -26,9 +26,9 @@ const SearchForm = ({
       type="search"
       placeholder="..."
       className={input}
-      value={searchValue}
-      onClick={() => setSearchValue('')}
-      onChange={(e) => e.target.value !== '' && setSearchValue(e.target.value)}
+      value={searchText}
+      onClick={() => setSearchText('')}
+      onChange={(e) => e.target.value !== '' && setSearchText(e.target.value)}
     ></input>
 
     <ButtonRegular>Search</ButtonRegular>

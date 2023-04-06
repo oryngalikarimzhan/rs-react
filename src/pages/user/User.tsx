@@ -4,8 +4,7 @@ import { formPage, userForm, title, userCards } from './User.module.scss';
 import UserForm from './components/UserForm';
 
 import { UsersContext } from 'contexts/index';
-import { CardList, Wrapper } from 'components/ui/index';
-import { UserCard } from 'components/shared/index';
+import { Catalog, Wrapper } from 'components/ui/index';
 
 const wrapperStyle = { rowGap: '20px', width: '40%' };
 
@@ -30,7 +29,7 @@ function User() {
                 User cards
               </h3>
 
-              <CardList items={users} render={(item) => <UserCard data={item} />} />
+              <Catalog items={users} />
             </>
           )}
         </Wrapper>

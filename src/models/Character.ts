@@ -1,5 +1,6 @@
-export interface Character {
-  name: string;
+import { CardModel } from 'models/index';
+
+export interface Character extends CardModel {
   actor: string;
   realname: string;
   species: string;
@@ -7,7 +8,6 @@ export interface Character {
   dateofbirth: string;
   affiliation: string[];
   appearances: string[];
-  image: string;
 }
 
 export type CharacterCutted = Omit<Character, 'affiliation' | 'appearances'>;

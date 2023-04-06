@@ -1,8 +1,8 @@
-export interface User {
-  name: string;
+import { CardModel } from 'models/index';
+
+export interface User extends CardModel {
   surname: string;
   birthday: string;
   gender: string;
-  image: string;
   country: string;
 }

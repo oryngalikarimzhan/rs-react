@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { marvel } from 'data/index';
 import { Character } from 'models/index';
-import { CharacterCard } from 'components/shared/index';
+import { Card } from 'components/shared/index';
 
 describe('Card', () => {
   it('has style display flex', () => {
@@ -15,7 +15,7 @@ describe('Card', () => {
 
     render(
       <MemoryRouter initialEntries={[route]}>
-        <CharacterCard key={character.name} data={character} />
+        <Card key={character.name} data={character} />
       </MemoryRouter>
     );
 
