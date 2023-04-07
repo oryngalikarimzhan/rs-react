@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 
-import { User } from 'pages/index';
+import { User } from 'pages';
 
 describe('User form page', () => {
   it('should have heading', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { InputRegular } from 'components/shared/index';
-import styles from '../Form.module.scss';
+import { InputRegular } from 'components/shared';
+import styles from './FormFields.module.scss';
 
 const RegularInputBasedField = ({
   name,

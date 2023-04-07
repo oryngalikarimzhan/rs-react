@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 import React from 'react';
 
-import { About } from 'pages/index';
+import { About } from 'pages';
 
 describe('About', () => {
   it('should have heading', () => {

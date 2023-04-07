@@ -1,4 +1,4 @@
-import { CardModel } from 'models/index';
+import { CardModel } from 'models';
 
 export interface Movie {
   adult: boolean;
@@ -18,7 +18,8 @@ export interface Movie {
 }
 
 export interface MovieCutted extends CardModel {
-  genres: string[];
-  releaseDate: string;
-  voteAverage: number;
+  Жанры: string;
+  'Дата релиза': string;
+  'Средняя оценка зрителей': string;
+  Описание: string;
 }

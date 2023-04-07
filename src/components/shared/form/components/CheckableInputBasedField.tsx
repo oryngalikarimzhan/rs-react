@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { InputCheckable } from 'components/shared/index';
-import styles from '../Form.module.scss';
+import { InputCheckable } from 'components/shared';
+import styles from './FormFields.module.scss';
 
 const CheckableInputBasedField = ({
   title,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Wrapper from 'components/ui/wrapper/Wrapper';
+import { Wrapper } from 'components/ui';
 
 function About() {
   return (

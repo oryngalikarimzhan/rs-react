@@ -1,1 +1,1 @@
-export { default as Layout } from 'components/layout/Layout';
+export { Layout } from './Layout';

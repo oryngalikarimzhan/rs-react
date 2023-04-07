@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { formPage, userForm, title, userCards } from './User.module.scss';
 import UserForm from './components/UserForm';
 
-import { UsersContext } from 'contexts/index';
-import { Catalog, Wrapper } from 'components/ui/index';
+import { UsersContext } from 'contexts';
+import { Catalog, Wrapper } from 'components/ui';
 
 const wrapperStyle = { rowGap: '20px', width: '40%' };
 

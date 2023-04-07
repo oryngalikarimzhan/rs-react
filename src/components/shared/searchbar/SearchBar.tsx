@@ -5,9 +5,9 @@ import { searchBar } from './SearchBar.module.scss';
 import SearchHistoryList from './components/search-history-list/SearchHistoryList';
 import SearchForm from './components/search-form/SearchForm';
 
-import { LOCAL_STORAGE_HISTORY_KEY } from 'utils/index';
-import { LoadingProgress } from 'components/ui/index';
-import { useOuterClick, useLocalStorage, useSearch } from 'hooks/index';
+import { LOCAL_STORAGE_HISTORY_KEY } from 'utils/constants';
+import { LoadingProgress } from 'components/ui';
+import { useOuterClick, useLocalStorage, useSearch } from 'hooks';
 
 interface SearchBarProps<T> {
   onSearch: (data: T[]) => void;
@@ -17,29 +17,28 @@ interface SearchBarProps<T> {
   defaultUrl: string;
 }
 
-function SearchBar<T>({
+export const SearchBar = <T,>({
   onSearch,
   isReady,
   fetchResultField,
   searchUrl,
   defaultUrl,
-}: SearchBarProps<T>) {
+}: SearchBarProps<T>) => {
   const { isFocusing, setIsFocusing, ref } = useOuterClick();
   const [historyList, updateHistoryList] = useLocalStorage(LOCAL_STORAGE_HISTORY_KEY);
-  const [searchText, setSearchText, fetchData, isPending, data] = useSearch<T>();
+  const [searchText, setSearchText, fetchData, isPending, data] = useSearch<T>(
+    searchUrl,
+    fetchResultField,
+    defaultUrl,
+    isReady
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (searchText !== '') {
-      fetchData(searchUrl + searchText, fetchResultField);
-      updateHistoryList(searchText);
-    }
+    fetchData(searchText);
+    updateHistoryList(searchText);
   };
-
-  useEffect(() => {
-    fetchData(defaultUrl, fetchResultField);
-  }, [isReady]);
 
   useEffect(() => {
     onSearch(data);
@@ -54,12 +53,8 @@ function SearchBar<T>({
       <SearchHistoryList
         {...{ historyList, isFocusing }}
         onPick={(e) => setSearchText(e.currentTarget.dataset.id as string)}
-        onDelete={(e) =>
-          updateHistoryList((e.target as HTMLButtonElement).dataset.id as string, true)
-        }
+        onDelete={(e) => updateHistoryList(e.currentTarget.dataset.id as string, true)}
       />
     </div>
   );
-}
-
-export default SearchBar;
+};

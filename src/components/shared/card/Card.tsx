@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { card, border, title, infoBox, info } from './Card.module.scss';
-import { CardModel } from 'models/index';
-import { camelCaseToWords, capitalizeText } from 'utils/index';
+
+import { CardModel } from 'models';
+import { camelCaseToWords, capitalizeText } from 'utils/helpers';
 
 interface CardProps {
   data: CardModel;
 }
 
-export function Card({ data }: CardProps) {
+export const Card: FC<CardProps> = ({ data }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { image, name, ...rest } = data;
 
@@ -29,13 +30,17 @@ export function Card({ data }: CardProps) {
         <div className={title}>{name || ''}</div>
 
         <div className={infoBox}>
-          {Object.entries(rest).map(([key, value]) => (
-            <span className={info} key={key}>
-              {capitalizeText(camelCaseToWords(key))}: <strong>{value as string}</strong>
-            </span>
-          ))}
+          {Object.entries(rest).map(([key, value]) => {
+            return (
+              ((typeof value === 'string' && value.length < 50) || typeof value === 'number') && (
+                <span className={info} key={key}>
+                  {capitalizeText(camelCaseToWords(key))}: <strong>{value}</strong>
+                </span>
+              )
+            );
+          })}
         </div>
       </div>
     </div>
   );
-}
+};

@@ -1,7 +1,7 @@
 import React, { Dispatch, FormEvent } from 'react';
 
 import { searchForm, input } from './SearchForm.module.scss';
-import { ButtonRegular } from 'components/ui/index';
+import { ButtonRegular } from 'components/ui';
 
 interface SearchFormProps {
   handleSubmit: (e: FormEvent) => void;
@@ -28,7 +28,7 @@ const SearchForm = ({
       className={input}
       value={searchText}
       onClick={() => setSearchText('')}
-      onChange={(e) => e.target.value !== '' && setSearchText(e.target.value)}
+      onChange={(e) => setSearchText(e.target.value)}
     ></input>
 
     <ButtonRegular>Search</ButtonRegular>

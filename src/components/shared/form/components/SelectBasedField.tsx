@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SelectRegular } from 'components/shared/index';
-import styles from '../Form.module.scss';
+import { SelectRegular } from 'components/shared';
+import styles from './FormFields.module.scss';
 
 const SelectBasedField = ({
   name,

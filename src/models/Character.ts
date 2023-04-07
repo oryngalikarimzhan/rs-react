@@ -1,4 +1,4 @@
-import { CardModel } from 'models/index';
+import { CardModel } from 'models';
 
 export interface Character extends CardModel {
   actor: string;

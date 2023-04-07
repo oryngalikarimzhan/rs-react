@@ -3,7 +3,7 @@ import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { Layout } from 'components/layout/index';
+import { Layout } from 'components/layout';
 
 describe('Layout', () => {
   it('has header with style display flex', () => {

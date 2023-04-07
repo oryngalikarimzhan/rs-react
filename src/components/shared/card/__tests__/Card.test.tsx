@@ -3,9 +3,9 @@ import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { marvel } from 'data/index';
-import { Character } from 'models/index';
-import { Card } from 'components/shared/index';
+import { marvel } from 'data';
+import { Character } from 'models';
+import { Card } from 'components/shared';
 
 describe('Card', () => {
   it('has style display flex', () => {

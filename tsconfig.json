@@ -16,17 +16,19 @@
     "types": ["vitest/globals", "@testing-library/jest-dom"],
     "baseUrl": "src",
     "paths": {
-      "assets": ["assets/*"],
-      "components/ui": ["components/ui/*"],
-      "components/shared": ["components/shared/*"],
-      "components/layout": ["components/layout/*"],
-      "contexts": ["contexts/*"],
-      "data": ["data/*"],
-      "hooks": ["hooks/*"],
+      "assets": ["assets/index"],
+      "components/ui": ["components/ui/index"],
+      "components/shared": ["components/shared/index"],
+      "components/layout": ["components/layout/index"],
+      "contexts": ["contexts/index"],
+      "data": ["data/index"],
+      "hooks": ["hooks/index"],
       "layout": ["layout/*"],
-      "models": ["models/*"],
-      "pages": ["pages/*"],
-      "utils": ["utils/*"]
+      "models": ["models/index"],
+      "pages": ["pages/index"],
+      "utils/helpers": ["utils/helpers/index"],
+      "utils/constants": ["utils/constants/index"],
+      "utils/types": ["utils/types/index"]
     },
     "plugins": [
       {

@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 
-import { User } from 'models/index';
+import { User } from 'models';
 
 type UserContextType = { users: User[]; addUser: null | ((user: User) => void) };
 
