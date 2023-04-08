@@ -13,7 +13,7 @@ const RegularInputBasedField = ({
 }: InputRegular) => (
   <div className={styles.field}>
     <label htmlFor={name} className={styles.fieldTitle}>
-      {title}
+      {title.toUpperCase()}
     </label>
     <div className={styles.fieldContent}>
       <input

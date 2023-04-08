@@ -13,7 +13,7 @@ const SelectBasedField = ({
 }: SelectRegular) => (
   <div className={styles.field}>
     <label htmlFor={name} className={styles.fieldTitle}>
-      {title}
+      {title.toUpperCase()}
     </label>
     <div className={styles.fieldContent}>
       <select id={name} className={styles[type]} {...registerReturn} role={`${type}-${name}`}>

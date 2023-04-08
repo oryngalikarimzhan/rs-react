@@ -40,9 +40,9 @@ export const Form: FC<FormProps> = ({ template, onSubmit }) => {
 
   return (
     <form noValidate onSubmit={handleSubmit(onValid)} className={styles.form} role="reusable-form">
-      {<h3 className={styles.title}>{title}</h3>}
+      {<h3 className={styles.title}>{title.toUpperCase()}</h3>}
       <FormFields {...{ fields, register, errors }} />
-      <ButtonRegular styles={{ width: '30%', alignSelf: 'center' }}>Submit</ButtonRegular>
+      <ButtonRegular styles={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
       <p
         className={styles.successMessage}
         style={isSucces ? { display: 'block' } : { display: 'none' }}
