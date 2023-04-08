@@ -36,7 +36,7 @@ export default defineConfig({
       all: true,
       src: ['src'],
       reporter: ['text', 'html'],
-      exclude: ['**/*.ts'],
+      exclude: ['**/*.ts', 'index.tsx'],
     },
   },
 });

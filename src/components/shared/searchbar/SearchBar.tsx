@@ -26,7 +26,7 @@ export const SearchBar = <T,>({
 }: SearchBarProps<T>) => {
   const { isFocusing, setIsFocusing, ref } = useOuterClick();
   const [historyList, updateHistoryList] = useLocalStorage(LOCAL_STORAGE_HISTORY_KEY);
-  const [searchText, setSearchText, fetchData, isPending, data] = useSearch<T>(
+  const [searchText, setSearchText, fetchData, isPending, data, error] = useSearch<T>(
     searchUrl,
     fetchResultField,
     defaultUrl,
@@ -46,9 +46,10 @@ export const SearchBar = <T,>({
 
   return (
     <div className={searchBar} ref={ref as React.RefObject<HTMLDivElement>}>
+      {error && <span>{error}</span>}
       <LoadingProgress style={isPending ? { display: 'block' } : { display: 'none' }} />
 
-      <SearchForm {...{ handleSubmit, searchText, setSearchText, setIsFocusing }} />
+      <SearchForm {...{ handleSubmit, searchText, setSearchText, setIsFocusing, isPending }} />
 
       <SearchHistoryList
         {...{ historyList, isFocusing }}

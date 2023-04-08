@@ -1,12 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import CSS from 'csstype';
 
-import { overlay, modal, closeButton } from './Modal.module.scss';
+import { overlay, modal, closeButton, modalContent, modalClose } from './Modal.module.scss';
 
-import { ButtonRegular } from 'components/ui';
-
-const portal = document.getElementById('portal');
+import { ButtonRounded } from 'components/ui';
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,33 +12,37 @@ interface ModalProps {
   children: ReactNode | string;
 }
 
-const closeButtonStyles: CSS.Properties = {
-  position: 'absolute',
-  top: '15px',
-  right: '-53px',
-  width: '35px',
-  padding: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
 export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    portal &&
-    ReactDOM.createPortal(
-      <>
-        <div className={overlay} onClick={onClose}></div>
-        <div className={modal}>
-          <ButtonRegular styles={closeButtonStyles} onClick={onClose}>
+    <Portal>
+      <div className={overlay} onClick={onClose} role="modal" />
+      <div className={modal}>
+        <div className={modalContent}>{children}</div>
+        <div className={modalClose}>
+          <ButtonRounded onClick={onClose}>
             <div className={closeButton} />
-          </ButtonRegular>
-          {children}
+          </ButtonRounded>
         </div>
-      </>,
-      portal
-    )
+      </div>
+    </Portal>
   );
+};
+
+interface PortalProps {
+  children: ReactNode | string;
+}
+
+const Portal: FC<PortalProps> = ({ children }) => {
+  const [portal] = useState(() => document.createElement('div'));
+
+  useEffect(() => {
+    document.body.appendChild(portal);
+    return () => {
+      document.body.removeChild(portal);
+    };
+  }, []);
+
+  return ReactDOM.createPortal(children, portal);
 };

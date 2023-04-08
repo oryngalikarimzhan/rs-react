@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useCallback } from 'react';
 
 import { getFromLS, setToLS } from 'utils/helpers';
@@ -13,30 +14,38 @@ const useSearch = <T>(
   const [searchText, setSearchText] = useState(getFromLS(LOCAL_STORAGE_LAST_SEARCH_KEY)[0] || '');
   const [isPending, toggleIsPending] = useToggle(false);
   const [searchedData, setSearchedData] = useState<T[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(
     (text?: string) => {
       toggleIsPending();
-      fetch(text ? searchUrl + text : defaultUrl)
-        .then((response) => response.json())
-        .then((data) => data[fetchResultField])
+      fetch(text && text.length > 0 ? searchUrl + text : defaultUrl)
+        .then((response) => {
+          if (!response.ok) throw Error('could not fetch the data for that resource');
+          return response.json();
+        })
+        .then((data) => {
+          setError(null);
+          return data[fetchResultField];
+        })
         .then((rsl) => {
           setSearchedData(rsl);
-          toggleIsPending();
-        });
+        })
+        .catch((err) => setError(err.message))
+        .finally(() => toggleIsPending());
     },
     [defaultUrl, fetchResultField, searchUrl, toggleIsPending]
   );
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData, isReady]);
+    fetchData(searchText);
+  }, [isReady]);
 
   useEffect(() => {
     setToLS(LOCAL_STORAGE_LAST_SEARCH_KEY, [searchText]);
   }, [searchText]);
 
-  return [searchText, setSearchText, fetchData, isPending, searchedData] as const;
+  return [searchText, setSearchText, fetchData, isPending, searchedData, error] as const;
 };
 
 export default useSearch;

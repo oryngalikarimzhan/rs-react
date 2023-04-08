@@ -4,7 +4,7 @@ import CSS from 'csstype';
 import { moviesContainer, searchContainer, views, listView, gridView } from './Movies.module.scss';
 
 import { Movie, MovieCutted, Genre } from 'models';
-import { Wrapper, Catalog, ButtonRegular } from 'components/ui';
+import { Wrapper, Catalog, ButtonRounded } from 'components/ui';
 import { SearchBar } from 'components/shared';
 import {
   POPULAR_MOVIES_URL,
@@ -74,16 +74,6 @@ function Movies() {
   );
 }
 
-const viewButtonStyle: CSS.Properties = {
-  width: '35px',
-  padding: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-const activeViewButtonStyle: CSS.Properties = { ...viewButtonStyle, borderColor: 'lightcyan' };
-
 function ViewButtons({
   view,
   setView,
@@ -93,18 +83,12 @@ function ViewButtons({
 }) {
   return (
     <div className={views}>
-      <ButtonRegular
-        styles={view === 'list' ? activeViewButtonStyle : viewButtonStyle}
-        onClick={() => setView('list')}
-      >
+      <ButtonRounded isActive={view === 'list'} onClick={() => setView('list')}>
         <div className={listView} />
-      </ButtonRegular>
-      <ButtonRegular
-        styles={view === 'grid' ? activeViewButtonStyle : viewButtonStyle}
-        onClick={() => setView('grid')}
-      >
+      </ButtonRounded>
+      <ButtonRounded isActive={view === 'grid'} onClick={() => setView('grid')}>
         <div className={gridView} />
-      </ButtonRegular>
+      </ButtonRounded>
     </div>
   );
 }

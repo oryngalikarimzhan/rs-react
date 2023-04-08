@@ -12,7 +12,7 @@ const PostModal: FC<PostModalProps> = ({ data }) => {
   const { image, name, ...rest } = data;
 
   return (
-    <div className={postModal}>
+    <div className={postModal} data-testid="postmodal">
       <img className={postImage} src={image} alt={name} />
       <div className={postContent}>
         <h3 className={postName}>{name}</h3>

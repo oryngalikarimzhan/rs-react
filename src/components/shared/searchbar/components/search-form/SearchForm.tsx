@@ -6,6 +6,7 @@ import { ButtonRegular } from 'components/ui';
 interface SearchFormProps {
   handleSubmit: (e: FormEvent) => void;
   searchText: string;
+  isPending: boolean;
   setSearchText: Dispatch<React.SetStateAction<string>>;
   setIsFocusing: Dispatch<React.SetStateAction<boolean>>;
 }
@@ -13,6 +14,7 @@ interface SearchFormProps {
 const SearchForm = ({
   handleSubmit,
   searchText,
+  isPending,
   setSearchText,
   setIsFocusing,
 }: SearchFormProps) => (
@@ -29,9 +31,10 @@ const SearchForm = ({
       value={searchText}
       onClick={() => setSearchText('')}
       onChange={(e) => setSearchText(e.target.value)}
+      disabled={isPending}
     ></input>
 
-    <ButtonRegular>Search</ButtonRegular>
+    <ButtonRegular isPending={isPending}>Search</ButtonRegular>
   </form>
 );
 
