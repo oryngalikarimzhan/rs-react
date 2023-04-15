@@ -4,12 +4,12 @@ import { histories } from './SearchHistoryList.module.scss';
 import SearchHistoryItem from '../history-item/SearchHistoryItem';
 import { useAppSelector } from 'store';
 
-type SeachHistoryProps = {
+type SearchHistoryProps = {
   isFocusing: boolean;
 };
 
-const SearchHistoryList = ({ isFocusing }: SeachHistoryProps) => {
-  const historyList = useAppSelector((state) => state.searchHistory.value);
+const SearchHistoryList: React.FC<SearchHistoryProps> = ({ isFocusing }) => {
+  const historyList = useAppSelector((state) => state.searchHistory.list);
 
   return (
     <>

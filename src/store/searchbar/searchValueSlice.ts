@@ -1,11 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+type SearchValueState = {
+  value: string;
+};
+
+const initialState: SearchValueState = {
+  value: '',
+};
 
 const searchValueSlice = createSlice({
   name: 'searchValue',
-  initialState: { value: '' },
+  initialState,
   reducers: {
-    changeSearchValue(state, action) {
-      state.value = action.payload;
+    changeSearchValue(state, action: PayloadAction<{ searchValue: string }>) {
+      state.value = action.payload.searchValue;
     },
   },
 });

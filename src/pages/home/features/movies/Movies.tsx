@@ -37,7 +37,7 @@ const transformRowMovies = (moviesData: Movie[], genres: Genre[]) => {
   );
 };
 
-function Movies() {
+const Movies: React.FC = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const { data: genresData } = useGetMovieGenresQuery(undefined, { skip: genres.length > 0 });
   const searchValue = useAppSelector((state) => state.searchValue.value);
@@ -59,6 +59,10 @@ function Movies() {
   useEffect(() => {
     genresData && setGenres(genresData);
   }, [genresData]);
+
+  useEffect(() => {
+    isAvailable && searchData();
+  }, [isAvailable]);
 
   useEffect(() => {
     if (!hasSearchValue && popularMoviesData) {
@@ -101,6 +105,6 @@ function Movies() {
       </Wrapper>
     </article>
   );
-}
+};
 
 export default Movies;

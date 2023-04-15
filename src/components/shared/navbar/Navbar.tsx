@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { nav, link, linkActive } from './Navbar.module.scss';
 
-export const NavBar: FC = () => {
+export const NavBar: React.FC = () => {
   const setActive = ({ isActive }: { isActive: boolean }) =>
     isActive ? `${link} ${linkActive}` : `${link}`;
 

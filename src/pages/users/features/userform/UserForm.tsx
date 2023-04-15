@@ -16,7 +16,7 @@ interface UserFormValues extends FormValues {
 
 const countryNames = countries.map((country) => country.name);
 
-export default function UserForm() {
+export const UserForm: React.FC = () => {
   const { addUser } = useActions();
 
   const onSubmit = (data: FormValues) => {
@@ -130,4 +130,4 @@ export default function UserForm() {
   };
 
   return <Form {...{ template, onSubmit }} />;
-}
+};

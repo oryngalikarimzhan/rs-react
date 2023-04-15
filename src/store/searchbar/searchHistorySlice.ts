@@ -1,18 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+type SearchHistoryState = {
+  list: string[];
+};
+
+const initialState: SearchHistoryState = {
+  list: [],
+};
 
 const searchHistorySlice = createSlice({
   name: 'searchHistory',
-  initialState: { value: [] as string[] },
+  initialState,
   reducers: {
-    addToHistory(state, action) {
-      if (!state.value.includes(action.payload) && action.payload.length) {
-        state.value.push(action.payload);
+    addToHistory(state, action: PayloadAction<{ searchValue: string }>) {
+      const { searchValue } = action.payload;
+      if (!state.list.includes(searchValue) && searchValue) {
+        state.list.push(searchValue);
       }
     },
 
-    deleteFromHistory(state, action) {
-      const newHistory = state.value.filter((text) => text !== action.payload);
-      state.value = newHistory;
+    deleteFromHistory(state, action: PayloadAction<{ searchValue: string }>) {
+      const newHistory = state.list.filter((text) => text !== action.payload.searchValue);
+      state.list = newHistory;
     },
   },
 });

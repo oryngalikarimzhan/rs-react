@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { post, order, thumbnail, title } from './Post.module.scss';
 import PostModal from './components/PostModal';
@@ -11,7 +11,7 @@ interface PostProps {
   index: number;
 }
 
-export const Post: FC<PostProps> = ({ data, index }) => {
+export const Post: React.FC<PostProps> = ({ data, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { image, name } = data;
 

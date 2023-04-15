@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 
-import { User } from 'pages';
+import { Users } from 'pages';
 
 describe('User form page', () => {
   it('should have heading', () => {
@@ -11,7 +11,7 @@ describe('User form page', () => {
 
     render(
       <MemoryRouter initialEntries={[route]}>
-        <User />
+        <Users />
       </MemoryRouter>
     );
 
@@ -29,7 +29,7 @@ describe('Form', () => {
 
     render(
       <MemoryRouter initialEntries={[route]}>
-        <User />
+        <Users />
       </MemoryRouter>
     );
 

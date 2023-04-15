@@ -7,7 +7,7 @@ interface SearchHistoryItemProps {
   searchValue: string;
 }
 
-const SearchHistoryItem = ({ searchValue }: SearchHistoryItemProps) => {
+const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({ searchValue }) => {
   const { deleteFromHistory, changeSearchValue } = useActions();
 
   return (
@@ -15,7 +15,7 @@ const SearchHistoryItem = ({ searchValue }: SearchHistoryItemProps) => {
       <span
         data-id={searchValue}
         className={text}
-        onClick={(e) => changeSearchValue(e.currentTarget.dataset.id)}
+        onClick={() => changeSearchValue({ searchValue })}
       >
         {searchValue}
       </span>
@@ -23,7 +23,7 @@ const SearchHistoryItem = ({ searchValue }: SearchHistoryItemProps) => {
       <button
         data-id={searchValue}
         className={deleteBtn}
-        onClick={(e) => deleteFromHistory(e.currentTarget.dataset.id)}
+        onClick={() => deleteFromHistory({ searchValue })}
       />
     </div>
   );

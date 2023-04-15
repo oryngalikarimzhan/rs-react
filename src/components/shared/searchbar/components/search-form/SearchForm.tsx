@@ -10,7 +10,7 @@ interface SearchFormProps {
   setIsFocusing: Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchForm = ({ handleSubmit, isLoading, setIsFocusing }: SearchFormProps) => {
+const SearchForm: React.FC<SearchFormProps> = ({ handleSubmit, isLoading, setIsFocusing }) => {
   const searchValue = useAppSelector((state) => state.searchValue.value);
   const { changeSearchValue } = useActions();
 
@@ -26,7 +26,7 @@ const SearchForm = ({ handleSubmit, isLoading, setIsFocusing }: SearchFormProps)
         placeholder="..."
         className={input}
         value={searchValue}
-        onChange={(e) => changeSearchValue(e.target.value)}
+        onChange={(e) => changeSearchValue({ searchValue: e.target.value })}
         disabled={isLoading}
       ></input>
 

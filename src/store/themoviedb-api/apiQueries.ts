@@ -11,7 +11,7 @@ import {
   LANGUAGE_QUERY_KEY,
   LANGUAGE_RU_QUERY_VALUE,
   POPULAR_MOVIES_ROUTE,
-} from './apiConstants';
+} from './constants';
 
 export const theMovieDbApi = createApi({
   reducerPath: 'themoviedb/api',

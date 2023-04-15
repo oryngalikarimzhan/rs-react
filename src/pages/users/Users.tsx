@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { formPage, userForm, title, userCards } from './Users.module.scss';
-import UserForm from './features/userform/UserForm';
+import { UserForm } from './features/userform/UserForm';
 
 import { Catalog, Wrapper } from 'components/ui';
-import { useAppSelector } from '../../store';
+import { useAppSelector } from 'store';
 
 const wrapperStyle = { rowGap: '20px', width: '40%' };
 
-export function Users() {
+export const Users: React.FC = () => {
   const users = useAppSelector((state) => state.users.list);
 
   const hasUsers = users && users.length > 0;
@@ -36,4 +36,4 @@ export function Users() {
       </section>
     </article>
   );
-}
+};

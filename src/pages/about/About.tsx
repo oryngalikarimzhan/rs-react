@@ -3,7 +3,7 @@ import React from 'react';
 import { about, lorem } from './About.module.scss';
 import { loremIpsum } from 'data';
 
-export function About() {
+export const About: React.FC = () => {
   return (
     <section className={about}>
       <p data-testid="lorem" className={lorem}>
@@ -11,4 +11,4 @@ export function About() {
       </p>
     </section>
   );
-}
+};

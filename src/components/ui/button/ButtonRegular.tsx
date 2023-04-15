@@ -10,12 +10,12 @@ type ButtonRegularProps = {
   isLoading?: boolean;
 };
 
-export const ButtonRegular = ({
+export const ButtonRegular: React.FC<ButtonRegularProps> = ({
   children = '',
   styles = {},
   onClick,
   isLoading,
-}: ButtonRegularProps) => (
+}) => (
   <button className={buttonRegular} style={styles} onClick={onClick} disabled={isLoading}>
     {children}
   </button>

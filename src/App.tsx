@@ -7,7 +7,7 @@ import { Layout } from 'components/layout';
 import { About, Users, Home, NotFound } from 'pages';
 import { store, persistor } from './store/store';
 
-function App() {
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -24,6 +24,6 @@ function App() {
       </PersistGate>
     </Provider>
   );
-}
+};
 
 export default App;

@@ -5,7 +5,7 @@ import { searchBar } from './SearchBar.module.scss';
 import SearchHistoryList from './components/search-history-list/SearchHistoryList';
 import SearchForm from './components/search-form/SearchForm';
 
-import { LoadingProgress } from 'components/ui';
+import { Progress } from 'components/ui';
 import { useOuterClick } from 'hooks';
 import { useActions, useAppSelector } from 'store';
 
@@ -16,7 +16,12 @@ interface SearchBarProps {
   errorMessage: string | false;
 }
 
-export const SearchBar = ({ isAvailable, searchData, isLoading, errorMessage }: SearchBarProps) => {
+export const SearchBar: React.FC<SearchBarProps> = ({
+  isAvailable,
+  searchData,
+  isLoading,
+  errorMessage,
+}) => {
   const searchValue = useAppSelector((state) => state.searchValue.value);
   const { addToHistory } = useActions();
 
@@ -27,7 +32,7 @@ export const SearchBar = ({ isAvailable, searchData, isLoading, errorMessage }: 
 
     if (isAvailable) {
       searchData();
-      addToHistory(searchValue);
+      addToHistory({ searchValue });
     }
   };
 
@@ -35,7 +40,7 @@ export const SearchBar = ({ isAvailable, searchData, isLoading, errorMessage }: 
     <div className={searchBar} ref={ref as React.RefObject<HTMLDivElement>}>
       {errorMessage && <span>{errorMessage}</span>}
 
-      <LoadingProgress isLoading={isLoading} />
+      <Progress isLoading={isLoading} />
 
       <SearchForm {...{ handleSubmit, setIsFocusing, isLoading }} />
 

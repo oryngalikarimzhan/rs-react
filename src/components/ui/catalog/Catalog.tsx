@@ -12,7 +12,7 @@ interface ListProps<T extends CardModel> {
   style?: CSS.Properties;
 }
 
-function Catalog<T extends CardModel>({ items, style, view = 'grid' }: ListProps<T>) {
+export function Catalog<T extends CardModel>({ items, style, view = 'grid' }: ListProps<T>) {
   let render: (item: T, index?: number) => ReactNode;
 
   if (view === 'grid') render = (item: T) => <Card data={item} />;
@@ -26,5 +26,3 @@ function Catalog<T extends CardModel>({ items, style, view = 'grid' }: ListProps
     </div>
   );
 }
-
-export default Catalog;
