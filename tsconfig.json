@@ -17,17 +17,18 @@
     "baseUrl": "src",
     "paths": {
       "assets": ["assets/index"],
-      "components/ui": ["components/ui/index"],
-      "components/shared": ["components/shared/index"],
-      "components/layout": ["components/layout/index"],
       "contexts": ["contexts/index"],
+      "components/layout": ["components/layout/index"],
+      "components/shared": ["components/shared/index"],
+      "components/ui": ["components/ui/index"],
       "data": ["data/index"],
       "hooks": ["hooks/index"],
       "layout": ["layout/*"],
       "models": ["models/index"],
       "pages": ["pages/index"],
-      "utils/helpers": ["utils/helpers/index"],
+      "store": ["store/index"],
       "utils/constants": ["utils/constants/index"],
+      "utils/helpers": ["utils/helpers/index"],
       "utils/types": ["utils/types/index"]
     },
     "plugins": [

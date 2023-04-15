@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Movies from './components/Movies';
+import Movies from './features/movies/Movies';
 
 function Home() {
   return <Movies />;

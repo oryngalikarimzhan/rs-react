@@ -1,4 +1,2 @@
-const capitalizeText = (text: string) =>
+export const capitalizeText = (text: string) =>
   (text[0].toUpperCase() + text.slice(1)).split('-').join(' ');
-
-export default capitalizeText;

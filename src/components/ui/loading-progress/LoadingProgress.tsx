@@ -1,10 +1,12 @@
 import React from 'react';
-import CSS from 'csstype';
 
 import { loadingProgress } from './LoadingProgress.module.scss';
 
-const LoadingProgress = ({ style }: { style?: CSS.Properties }) => (
-  <div className={loadingProgress} style={style}></div>
+const LoadingProgress = ({ isLoading }: { isLoading?: boolean }) => (
+  <div
+    className={loadingProgress}
+    style={isLoading ? { display: 'block' } : { display: 'none' }}
+  ></div>
 );
 
 export default LoadingProgress;
