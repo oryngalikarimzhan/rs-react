@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { Layout } from 'components/layout';
-import { About, User, Home, NotFound } from 'pages';
+import { About, Users, Home, NotFound } from 'pages';
 import { store, persistor } from './store/store';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
-              <Route path="userform" element={<User />} />
+              <Route path="userform" element={<Users />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

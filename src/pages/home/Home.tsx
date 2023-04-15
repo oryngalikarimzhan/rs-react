@@ -2,8 +2,6 @@ import React from 'react';
 
 import Movies from './features/movies/Movies';
 
-function Home() {
+export function Home() {
   return <Movies />;
 }
-
-export default Home;

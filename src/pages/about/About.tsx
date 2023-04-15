@@ -3,7 +3,7 @@ import React from 'react';
 import { about, lorem } from './About.module.scss';
 import { loremIpsum } from 'data';
 
-function About() {
+export function About() {
   return (
     <section className={about}>
       <p data-testid="lorem" className={lorem}>
@@ -12,5 +12,3 @@ function About() {
     </section>
   );
 }
-
-export default About;
