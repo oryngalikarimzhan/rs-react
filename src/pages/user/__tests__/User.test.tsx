@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 
-import { User } from 'pages/index';
+import { User } from 'pages';
 
 describe('User form page', () => {
   it('should have heading', () => {
@@ -15,7 +15,7 @@ describe('User form page', () => {
       </MemoryRouter>
     );
 
-    const headingValue = 'User Form';
+    const headingValue = 'USER FORM';
     const heading = screen.getByRole('heading', { level: 3 });
 
     expect(heading).toBeVisible();
@@ -56,6 +56,6 @@ describe('Form', () => {
     expect(button).toBeVisible();
     expect(form).toContainElement(checkbox);
     expect(form).toContainElement(button);
-    expect(button).toHaveTextContent('Submit');
+    expect(button).toHaveTextContent('SUBMIT');
   });
 });

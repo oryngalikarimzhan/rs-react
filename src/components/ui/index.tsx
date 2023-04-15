@@ -1,3 +1,5 @@
-export { default as ButtonRegular } from 'components/ui/button/ButtonRegular';
-export { default as Wrapper } from 'components/ui/wrapper/Wrapper';
-export { default as CardList } from 'components/ui/card-list/CardList';
+export { ButtonRegular } from './button/ButtonRegular';
+export { ButtonRounded } from './button/ButtonRounded';
+export { default as Wrapper } from './wrapper/Wrapper';
+export { default as Catalog } from './catalog/Catalog';
+export { default as LoadingProgress } from './loading-progress/LoadingProgress';

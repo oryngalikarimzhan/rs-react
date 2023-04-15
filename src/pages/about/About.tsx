@@ -1,12 +1,15 @@
 import React from 'react';
 
-import Wrapper from 'components/ui/wrapper/Wrapper';
+import { about, lorem } from './About.module.scss';
+import { loremIpsum } from 'data';
 
 function About() {
   return (
-    <Wrapper>
-      <h2>Страница о нас</h2>
-    </Wrapper>
+    <section className={about}>
+      <p data-testid="lorem" className={lorem}>
+        {loremIpsum.text.repeat(50)}
+      </p>
+    </section>
   );
 }
 

@@ -1,3 +1,4 @@
-import { User, CharacterCutted } from 'models/index';
-
-export type CardModel = User | CharacterCutted;
+export interface CardModel {
+  image: string;
+  name: string;
+}

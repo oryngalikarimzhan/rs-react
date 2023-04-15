@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Wrapper } from 'components/ui/index';
+import { Wrapper } from 'components/ui';
 
 function NotFound() {
   return (

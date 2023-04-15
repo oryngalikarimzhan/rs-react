@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from 'components/layout/header/Header';
-import { UsersContextProvider } from 'contexts/index';
+import { Header } from './header/Header';
+import { UsersContextProvider } from 'contexts';
 
-function Layout() {
+export const Layout: FC = () => {
   return (
     <>
       <Header />
@@ -16,6 +16,4 @@ function Layout() {
       </main>
     </>
   );
-}
-
-export default Layout;
+};

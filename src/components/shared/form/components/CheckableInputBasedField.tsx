@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { InputCheckable } from 'components/shared/index';
-import styles from '../Form.module.scss';
+import { InputCheckable } from 'components/shared';
+import styles from './FormFields.module.scss';
 
 const CheckableInputBasedField = ({
   title,
@@ -11,7 +11,7 @@ const CheckableInputBasedField = ({
   errorMessage,
 }: InputCheckable) => (
   <div className={styles.field}>
-    <p className={styles.fieldTitle}>{title}</p>
+    <p className={styles.fieldTitle}>{title.toUpperCase()}</p>
     <div className={styles.fieldContent}>
       {Object.entries(ids).map(([k, v]) => (
         <Fragment key={k}>
@@ -24,7 +24,7 @@ const CheckableInputBasedField = ({
             role={`${type}-${k}`}
           />
 
-          <label htmlFor={k}>{v}</label>
+          <label htmlFor={k}>{v.toUpperCase()}</label>
         </Fragment>
       ))}
       <span className={styles.errorMessage} style={{ top: '30px' }}>

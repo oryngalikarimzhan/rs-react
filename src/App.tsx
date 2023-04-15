@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Layout } from 'components/layout/index';
-import { About, User, Home, NotFound } from 'pages/index';
+import { Layout } from 'components/layout';
+import { About, User, Home, NotFound } from 'pages';
 
 function App() {
   return (

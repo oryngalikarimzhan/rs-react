@@ -3,10 +3,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 import React from 'react';
 
-import { About } from 'pages/index';
+import { About } from 'pages';
 
 describe('About', () => {
-  it('should have heading', () => {
+  it('should have text photo element', () => {
     const route = '/about';
 
     render(
@@ -15,10 +15,8 @@ describe('About', () => {
       </MemoryRouter>
     );
 
-    const headingValue = 'Страница о нас';
-    const heading = screen.getByRole('heading', { level: 2 });
+    const loremTextElement = screen.getByTestId('lorem');
 
-    expect(heading).toBeVisible();
-    expect(heading).toHaveTextContent(headingValue);
+    expect(loremTextElement).toBeVisible();
   });
 });

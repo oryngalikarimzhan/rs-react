@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SelectRegular } from 'components/shared/index';
-import styles from '../Form.module.scss';
+import { SelectRegular } from 'components/shared';
+import styles from './FormFields.module.scss';
 
 const SelectBasedField = ({
   name,
@@ -13,7 +13,7 @@ const SelectBasedField = ({
 }: SelectRegular) => (
   <div className={styles.field}>
     <label htmlFor={name} className={styles.fieldTitle}>
-      {title}
+      {title.toUpperCase()}
     </label>
     <div className={styles.fieldContent}>
       <select id={name} className={styles[type]} {...registerReturn} role={`${type}-${name}`}>

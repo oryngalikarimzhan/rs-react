@@ -1,1 +1,1 @@
-export { UsersContext, UsersContextProvider } from 'contexts/UsersContext';
+export { UsersContext, UsersContextProvider } from './UsersContext';

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import { Form, type FormFieldProps, type FormValues } from 'components/shared/index';
-import { countries } from 'data/index';
-import { UsersContext } from 'contexts/index';
+import { Form, type FormFieldProps, type FormValues } from 'components/shared';
+import { countries } from 'data';
+import { UsersContext } from 'contexts';
 
-export interface UserFormValues extends FormValues {
+interface UserFormValues extends FormValues {
   firstname: string;
   lastname: string;
   birthday: string;
@@ -25,6 +25,7 @@ export default function UserForm() {
     const reader = new FileReader();
 
     reader.onload = () =>
+      addUser &&
       addUser({
         name: firstname,
         surname: lastname,

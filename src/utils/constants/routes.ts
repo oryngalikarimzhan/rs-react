@@ -1,6 +1,6 @@
 export const routes: { [key: string]: string } = {
-  '': 'cards',
-  '/': 'cards',
+  '': 'movies',
+  '/': 'movies',
   '/about': 'about us',
   '/userform': 'user form & cards',
   '*': '404',

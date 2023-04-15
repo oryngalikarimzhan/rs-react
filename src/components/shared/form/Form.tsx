@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import styles from './Form.module.scss';
-import { FormFieldProps, FormValues } from './helpers/interfaces';
-
-import { ButtonRegular } from 'components/ui/index';
 import FormFields from './components/FormFields';
+import type { FormFieldProps, FormValues } from './helpers/interfaces';
+
+import { ButtonRegular } from 'components/ui';
 
 interface FormProps {
   template: {
@@ -16,7 +16,7 @@ interface FormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-export default function Form({ template, onSubmit }: FormProps) {
+export const Form: FC<FormProps> = ({ template, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -40,9 +40,9 @@ export default function Form({ template, onSubmit }: FormProps) {
 
   return (
     <form noValidate onSubmit={handleSubmit(onValid)} className={styles.form} role="reusable-form">
-      {<h3 className={styles.title}>{title}</h3>}
+      {<h3 className={styles.title}>{title.toUpperCase()}</h3>}
       <FormFields {...{ fields, register, errors }} />
-      <ButtonRegular style={{ width: '30%', alignSelf: 'center' }}>Submit</ButtonRegular>
+      <ButtonRegular styles={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
       <p
         className={styles.successMessage}
         style={isSucces ? { display: 'block' } : { display: 'none' }}
@@ -51,4 +51,4 @@ export default function Form({ template, onSubmit }: FormProps) {
       </p>
     </form>
   );
-}
+};

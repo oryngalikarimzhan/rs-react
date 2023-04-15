@@ -1,0 +1,17 @@
+.grid {
+  width: 100%;
+  display: flex;
+  gap: 30px 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}

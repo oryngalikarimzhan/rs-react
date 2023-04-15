@@ -1,0 +1,42 @@
+.post-modal {
+  width: 60vw;
+
+  background-color: var(--secondary-color);
+
+  padding: 30px;
+
+  display: flex;
+  column-gap: 50px;
+  align-items: flex-start;
+}
+
+.post-image {
+  width: 35%;
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.postName {
+  font-size: 3rem;
+  color: var(--main-color);
+  margin: 0;
+}
+
+.info {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  padding: 10px;
+  margin: 0;
+  border-left: 3px solid var(--main-color);
+  color: var(--main-color);
+  background-color: rgba(lightcyan, 0.1);
+
+  span {
+    font-weight: normal;
+    color: rgba(black, 0.7);
+  }
+}

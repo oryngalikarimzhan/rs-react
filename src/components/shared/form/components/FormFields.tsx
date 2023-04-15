@@ -5,7 +5,7 @@ import SelectBasedField from './SelectBasedField';
 import CheckableInputBasedField from './CheckableInputBasedField';
 import RegularInputBasedField from './RegularInputBasedField';
 
-import { FormFieldProps, FormValues } from 'components/shared/index';
+import { FormFieldProps, FormValues } from 'components/shared';
 
 const FormFields = ({
   fields,
