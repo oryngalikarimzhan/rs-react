@@ -61,7 +61,7 @@ const Movies: React.FC = () => {
   }, [genresData]);
 
   useEffect(() => {
-    isAvailable && searchData();
+    isAvailable && onSearch();
   }, [isAvailable]);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Movies: React.FC = () => {
     }
   }, [moviesData, popularMoviesData]);
 
-  const searchData = () => {
+  const onSearch = () => {
     if (hasSearchValue && searchedMovie !== searchValue) {
       if (originalArgs === searchValue && moviesData) {
         setMoviesList(transformRowMovies(moviesData, genres));
@@ -94,7 +94,7 @@ const Movies: React.FC = () => {
           <ViewButtons {...{ view, setView }} />
 
           <SearchBar
-            {...{ searchData, isAvailable }}
+            {...{ onSearch, isAvailable }}
             isLoading={isFetching}
             errorMessage={isError && 'data' in error! && JSON.stringify(error.data)}
           />

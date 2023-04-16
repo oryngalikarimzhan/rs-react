@@ -11,14 +11,14 @@ import { useActions, useAppSelector } from 'store';
 
 interface SearchBarProps {
   isAvailable: boolean;
-  searchData: () => void;
+  onSearch: () => void;
   isLoading: boolean;
   errorMessage: string | false;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   isAvailable,
-  searchData,
+  onSearch,
   isLoading,
   errorMessage,
 }) => {
@@ -31,7 +31,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     e.preventDefault();
 
     if (isAvailable) {
-      searchData();
+      onSearch();
       addToHistory({ searchValue });
     }
   };

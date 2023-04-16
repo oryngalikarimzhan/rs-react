@@ -16,7 +16,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ handleSubmit, isLoading, setIsF
 
   return (
     <form
-      role="searchform"
+      role="search-form"
       onFocus={() => setIsFocusing(true)}
       className={searchForm}
       onSubmit={handleSubmit}
@@ -28,6 +28,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ handleSubmit, isLoading, setIsF
         value={searchValue}
         onChange={(e) => changeSearchValue({ searchValue: e.target.value })}
         disabled={isLoading}
+        role="search-input"
       ></input>
 
       <ButtonRegular isLoading={isLoading}>Search</ButtonRegular>

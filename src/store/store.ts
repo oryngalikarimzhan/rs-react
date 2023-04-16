@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -12,17 +12,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
-import { searchValueReducer } from './searchbar/searchValueSlice';
-import { searchHistoryReducer } from './searchbar/searchHistorySlice';
-import { usersReducer } from './users/usersSlice';
 import { theMovieDbApi } from './themoviedb-api/apiQueries';
-
-const rootReducer = combineReducers({
-  [theMovieDbApi.reducerPath]: theMovieDbApi.reducer,
-  searchValue: searchValueReducer,
-  searchHistory: searchHistoryReducer,
-  users: usersReducer,
-});
+import { rootReducer } from './reducers';
 
 const persistConfig = {
   key: 'root',
