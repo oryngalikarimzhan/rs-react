@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { card, border, title, infoBox, info } from './Card.module.scss';
+import styles from './Card.module.scss';
 
 import { CardModel } from 'models';
 import { camelCaseToWords, capitalizeText } from 'utils/helpers';
@@ -8,6 +8,8 @@ import { camelCaseToWords, capitalizeText } from 'utils/helpers';
 interface CardProps {
   data: CardModel;
 }
+
+const { card, border, title, infoBox, info } = styles;
 
 export const Card: React.FC<CardProps> = ({ data }) => {
   const [isHovered, setIsHovered] = useState(false);

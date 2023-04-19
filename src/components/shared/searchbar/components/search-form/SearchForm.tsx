@@ -1,6 +1,6 @@
 import React, { Dispatch, FormEvent } from 'react';
 
-import { searchForm, input } from './SearchForm.module.scss';
+import styles from './SearchForm.module.scss';
 import { ButtonRegular } from 'components/ui';
 import { useActions, useAppSelector } from 'store';
 
@@ -9,6 +9,8 @@ interface SearchFormProps {
   isLoading: boolean;
   setIsFocusing: Dispatch<React.SetStateAction<boolean>>;
 }
+
+const { searchForm, input } = styles;
 
 const SearchForm: React.FC<SearchFormProps> = ({ handleSubmit, isLoading, setIsFocusing }) => {
   const searchValue = useAppSelector((state) => state.searchValue.value);

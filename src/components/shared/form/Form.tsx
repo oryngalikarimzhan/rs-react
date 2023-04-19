@@ -42,7 +42,7 @@ export const Form: React.FC<FormProps> = ({ template, onSubmit }) => {
     <form noValidate onSubmit={handleSubmit(onValid)} className={styles.form} role="reusable-form">
       {<h3 className={styles.title}>{title.toUpperCase()}</h3>}
       <FormFields {...{ fields, register, errors }} />
-      <ButtonRegular styles={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
+      <ButtonRegular style={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
       <p
         className={styles.successMessage}
         style={isSuccess ? { display: 'block' } : { display: 'none' }}

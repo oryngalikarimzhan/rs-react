@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { post, order, thumbnail, title } from './Post.module.scss';
+import styles from './Post.module.scss';
 import PostModal from './components/PostModal';
 
 import { CardModel } from 'models';
@@ -10,6 +10,8 @@ interface PostProps {
   data: CardModel;
   index: number;
 }
+
+const { post, order, thumbnail, title } = styles;
 
 export const Post: React.FC<PostProps> = ({ data, index }) => {
   const [isOpen, setIsOpen] = useState(false);

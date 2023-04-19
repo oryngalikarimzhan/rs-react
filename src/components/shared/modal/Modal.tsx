@@ -2,7 +2,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { overlay, modal, closeButton, modalContent, modalClose } from './Modal.module.scss';
+import styles from './Modal.module.scss';
 
 import { ButtonRounded } from 'components/ui';
 
@@ -12,6 +12,7 @@ interface ModalProps {
   children: ReactNode | string;
 }
 
+const { overlay, modal, closeButton, modalContent, modalClose } = styles;
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 

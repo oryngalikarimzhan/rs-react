@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CSS from 'csstype';
 
-import { header } from './Header.module.scss';
+import styles from './Header.module.scss';
 import { routes } from 'utils/constants';
 import { NavBar } from 'components/shared';
 import { Wrapper } from 'components/ui';
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
   const pageName = (pathname in routes ? routes[pathname] : routes['*']).toUpperCase();
 
   return (
-    <header className={header}>
+    <header className={styles.header}>
       <Wrapper style={wrapperStyle}>
         <h1>{pageName}</h1>
 

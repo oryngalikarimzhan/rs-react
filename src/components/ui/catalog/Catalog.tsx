@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode } from 'react';
 import CSS from 'csstype';
 
-import { grid, list } from './Catalog.module.scss';
+import styles from './Catalog.module.scss';
 import { Card, Post } from 'components/shared';
 import { CardModel } from 'models';
 import { View } from 'utils/types';
@@ -11,6 +11,8 @@ interface ListProps<T extends CardModel> {
   view?: View;
   style?: CSS.Properties;
 }
+
+const { grid, list } = styles;
 
 export function Catalog<T extends CardModel>({ items, style, view = 'grid' }: ListProps<T>) {
   let render: (item: T, index?: number) => ReactNode;

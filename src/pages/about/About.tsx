@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { about, lorem } from './About.module.scss';
+import styles from './About.module.scss';
 import { loremIpsum } from 'data';
 
+const { about, lorem } = styles;
 export const About: React.FC = () => {
   return (
     <section className={about}>

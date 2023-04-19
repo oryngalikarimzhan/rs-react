@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FormEvent } from 'react';
 
-import { searchBar } from './SearchBar.module.scss';
+import styles from './SearchBar.module.scss';
 import SearchHistoryList from './components/search-history-list/SearchHistoryList';
 import SearchForm from './components/search-form/SearchForm';
 
@@ -37,7 +37,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <div className={searchBar} ref={ref as React.RefObject<HTMLDivElement>}>
+    <div className={styles.searchBar} ref={ref as React.RefObject<HTMLDivElement>}>
       {errorMessage && <span>{errorMessage}</span>}
 
       <Progress isLoading={isLoading} />

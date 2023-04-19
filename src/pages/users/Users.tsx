@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { formPage, userForm, title, userCards } from './Users.module.scss';
+import styles from './Users.module.scss';
 import { UserForm } from './features/userform/UserForm';
 
 import { Catalog, Wrapper } from 'components/ui';
 import { useAppSelector } from 'store';
 
 const wrapperStyle = { rowGap: '20px', width: '40%' };
+
+const { formPage, userForm, title, userCards } = styles;
 
 export const Users: React.FC = () => {
   const users = useAppSelector((state) => state.users.list);

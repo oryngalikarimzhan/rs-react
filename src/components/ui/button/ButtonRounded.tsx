@@ -29,7 +29,7 @@ export const ButtonRounded: React.FC<ButtonRoundedProps> = ({
 }) => {
   return (
     <ButtonRegular
-      styles={isActive ? activeRoundedButtonStyle : roundedButtonStyles}
+      style={isActive ? activeRoundedButtonStyle : roundedButtonStyles}
       onClick={onClick}
     >
       {children}

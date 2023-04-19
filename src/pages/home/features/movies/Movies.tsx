@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import CSS from 'csstype';
 
-import { moviesContainer, searchContainer } from './Movies.module.scss';
+import styles from './Movies.module.scss';
 import { ViewButtons } from './components/ViewButtons';
 
 import { Wrapper, Catalog } from 'components/ui';
@@ -23,6 +23,8 @@ const wrapperStyle: CSS.Properties = {
   alignItems: 'center',
   width: '100%',
 };
+
+const { moviesContainer, searchContainer } = styles;
 
 const transformRowMovies = (moviesData: Movie[], genres: Genre[]) => {
   return moviesData.map(
