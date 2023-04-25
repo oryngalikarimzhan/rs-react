@@ -1,4 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  buildCreateApi,
+  coreModule,
+  createApi,
+  fetchBaseQuery,
+  reactHooksModule,
+} from '@reduxjs/toolkit/query/react';
 
 import { Genre, TheMovieDbApiGenresResponse, Movie, TheMovieDbApiMoviesResponse } from 'models';
 import {
@@ -12,8 +18,18 @@ import {
   LANGUAGE_RU_QUERY_VALUE,
   POPULAR_MOVIES_ROUTE,
 } from './constants';
+import { isServer } from 'utils/helpers';
 
-export const theMovieDbApi = createApi({
+let createApiFunction = createApi;
+
+if (isServer) {
+  createApiFunction = buildCreateApi(
+    coreModule(),
+    reactHooksModule({ unstable__sideEffectsInRender: true })
+  );
+}
+
+export const theMovieDbApi = createApiFunction({
   reducerPath: 'themoviedb/api',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,

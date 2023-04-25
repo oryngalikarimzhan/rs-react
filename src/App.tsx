@@ -1,25 +1,21 @@
 import React from 'react';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
 import { Layout } from 'components/layout';
 import { About, Users, Home, NotFound } from 'pages';
-import { store } from './store/store';
+
+import './index.scss';
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="userform" element={<Users />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="userform" element={<Users />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 };
 

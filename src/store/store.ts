@@ -12,3 +12,13 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
+
+export type Store = typeof store;
+
+export function createStore(preloadedState?: RootState) {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(theMovieDbApi.middleware),
+    preloadedState,
+  });
+}

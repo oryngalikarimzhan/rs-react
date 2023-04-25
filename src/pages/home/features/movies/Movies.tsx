@@ -8,14 +8,14 @@ import { ViewButtons } from './components/ViewButtons';
 import { Wrapper, Catalog } from 'components/ui';
 import { SearchBar } from 'components/shared';
 import { View } from 'utils/types';
+import { transformRowMovies } from 'utils/helpers';
 import {
-  IMAGE_HOST_URL,
+  useActions,
   useAppSelector,
   useGetMovieGenresQuery,
   useGetPopularMoviesQuery,
   useLazySearchMoviesQuery,
 } from 'store';
-import { Genre, Movie, MovieCut } from 'models';
 
 const wrapperStyle: CSS.Properties = {
   flexDirection: 'row',
@@ -26,25 +26,14 @@ const wrapperStyle: CSS.Properties = {
 
 const { moviesContainer, searchContainer } = styles;
 
-const transformRowMovies = (moviesData: Movie[], genres: Genre[]) => {
-  return moviesData.map(
-    ({ genre_ids, title, release_date, poster_path, vote_average, overview }: Movie) => ({
-      name: title,
-      image: poster_path !== null ? IMAGE_HOST_URL + poster_path : '',
-      Жанры: genre_ids.map((i) => genres.find(({ id }: Genre) => id === i)?.name).join(', '),
-      'Дата релиза': release_date,
-      'Средняя оценка зрителей': vote_average !== 0 ? vote_average + ' из 10' : 'Отсутствует',
-      Описание: overview || 'Отсутствует',
-    })
-  );
-};
-
 const Movies: React.FC = () => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const { data: genresData } = useGetMovieGenresQuery(undefined, { skip: genres.length > 0 });
-  const searchValue = useAppSelector((state) => state.searchValue.value);
+  const { changeMovieList } = useActions();
 
-  const isAvailable = useMemo(() => genres.length > 0, [genres]);
+  const { data: genres } = useGetMovieGenresQuery();
+
+  const isAvailable = useMemo(() => !!genres, [genres]);
+
+  const searchValue = useAppSelector((state) => state.searchValue.value);
   const hasSearchValue = useMemo(() => searchValue.length > 0, [searchValue]);
 
   const { data: popularMoviesData } = useGetPopularMoviesQuery(undefined, {
@@ -53,38 +42,34 @@ const Movies: React.FC = () => {
 
   const [view, setView] = useState<View>('grid');
   const [searchedMovie, setSearchedMovie] = useState('');
-  const [moviesList, setMoviesList] = useState<MovieCut[]>([]);
+  const moviesList = useAppSelector((state) => state.movies.list);
 
   const [searchMovie, { data: moviesData, originalArgs, isFetching, isError, error }] =
     useLazySearchMoviesQuery();
-
-  useEffect(() => {
-    genresData && setGenres(genresData);
-  }, [genresData]);
 
   useEffect(() => {
     isAvailable && onSearch();
   }, [isAvailable]);
 
   useEffect(() => {
-    if (!hasSearchValue && popularMoviesData) {
-      setMoviesList(transformRowMovies(popularMoviesData, genres));
-    } else if (moviesData) {
-      setMoviesList(transformRowMovies(moviesData, genres));
+    if (!hasSearchValue && popularMoviesData && genres) {
+      changeMovieList(transformRowMovies(popularMoviesData, genres));
+    } else if (moviesData && genres) {
+      changeMovieList(transformRowMovies(moviesData, genres));
     }
   }, [moviesData, popularMoviesData]);
 
   const onSearch = () => {
     if (hasSearchValue && searchedMovie !== searchValue) {
-      if (originalArgs === searchValue && moviesData) {
-        setMoviesList(transformRowMovies(moviesData, genres));
+      if (originalArgs === searchValue && moviesData && genres) {
+        changeMovieList(transformRowMovies(moviesData, genres));
       } else {
         searchMovie(searchValue);
       }
 
       setSearchedMovie(searchValue);
-    } else if (!hasSearchValue && popularMoviesData) {
-      setMoviesList(transformRowMovies(popularMoviesData, genres));
+    } else if (!hasSearchValue && popularMoviesData && genres) {
+      changeMovieList(transformRowMovies(popularMoviesData, genres));
       setSearchedMovie('');
     }
   };

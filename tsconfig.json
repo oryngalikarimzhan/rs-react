@@ -5,6 +5,7 @@
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
+    "noEmit": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
