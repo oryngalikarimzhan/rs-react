@@ -2,7 +2,7 @@ import { Genre, Movie } from 'models';
 import { IMAGE_HOST_URL } from 'store';
 
 export const transformRowMovies = (moviesData: Movie[], genres: Genre[]) => {
-  return moviesData.map(
+  return moviesData?.map(
     ({ genre_ids, title, release_date, poster_path, vote_average, overview }: Movie) => ({
       name: title,
       image: poster_path !== null ? IMAGE_HOST_URL + poster_path : '',

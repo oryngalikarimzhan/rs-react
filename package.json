@@ -13,6 +13,9 @@
     "lint:fix": "npx eslint src --fix",
     "test": "vitest --run --coverage",
     "test:run": "vitest",
+    "cypress": "cypress open --e2e --browser chrome",
+    "test:e2e": "start-server-and-test dev http-get://localhost:3000 cypress",
+    "e2e:coverage": "npx nyc report --reporter=text-summary",
     "commit": "git add . && read -p '> To AMEND the previous commit press \"a\", otherwise skip it and press \"Enter\"\n> => ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit; fi"
   },
   "dependencies": {
@@ -25,10 +28,13 @@
     "serialize-javascript": "^6.0.1"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/compression": "^1.7.2",
+    "@types/cypress__code-coverage": "^3.10.0",
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.27",
@@ -41,6 +47,7 @@
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "csstype": "^3.1.1",
+    "cypress": "^12.10.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-import-resolver-typescript": "^3.5.3",
@@ -56,8 +63,10 @@
     "react-hook-form": "^7.43.9",
     "sass": "^1.59.2",
     "serve-static": "^1.15.0",
+    "start-server-and-test": "^2.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
+    "vite-plugin-istanbul": "^4.0.1",
     "vitest": "^0.29.2"
   },
   "lint-staged": {

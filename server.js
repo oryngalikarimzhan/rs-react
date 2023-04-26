@@ -57,7 +57,7 @@ export async function createServer(
 }
 
 createServer().then(({ app }) =>
-  app.listen(5173, () => {
-    console.log('Server: http://localhost:5173');
+  app.listen(3000, () => {
+    console.log('Server: http://localhost:3000');
   })
 );

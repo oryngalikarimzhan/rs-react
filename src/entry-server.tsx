@@ -57,7 +57,7 @@ export async function serverSideRenderer(
       </StaticRouter>
     </Provider>
   );
-
+  res.setHeader('Content-type', 'text/html');
   res.write(head);
 
   let didError = false;
