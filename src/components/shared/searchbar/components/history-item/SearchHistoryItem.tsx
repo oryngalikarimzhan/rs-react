@@ -15,6 +15,7 @@ const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({ searchValue }) =>
   return (
     <div className={history}>
       <span
+        data-testid="history-item"
         data-id={searchValue}
         className={text}
         onClick={() => changeSearchValue({ searchValue })}

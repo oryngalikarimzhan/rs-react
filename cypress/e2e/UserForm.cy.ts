@@ -3,6 +3,8 @@ describe('User Form Page', () => {
   it('render User Form page', () => {
     cy.visit('/userform');
 
+    cy.get('h1').should('have.text', 'USER FORM & CARDS');
+
     cy.get('#firstname').should('exist').should('not.have.value');
     cy.get('#lastname').should('exist').should('not.have.value');
     cy.get('#birthday').should('exist').should('not.have.value');

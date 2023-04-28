@@ -13,10 +13,10 @@ const { views, listView, gridView } = styles;
 export const ViewButtons: React.FC<ViewButtonProps> = ({ view, setView }) => {
   return (
     <div className={views}>
-      <ButtonRounded isActive={view === 'list'} onClick={() => setView('list')}>
+      <ButtonRounded id="list" isActive={view === 'list'} onClick={() => setView('list')}>
         <div className={listView} />
       </ButtonRounded>
-      <ButtonRounded isActive={view === 'grid'} onClick={() => setView('grid')}>
+      <ButtonRounded id="grid" isActive={view === 'grid'} onClick={() => setView('grid')}>
         <div className={gridView} />
       </ButtonRounded>
     </div>

@@ -13,16 +13,17 @@ interface ModalProps {
 }
 
 const { overlay, modal, closeButton, modalContent, modalClose } = styles;
+
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
     <Portal>
-      <div className={overlay} onClick={onClose} role="modal" />
-      <div className={modal}>
+      <div className={overlay} onClick={onClose} role="overlay" />
+      <div className={modal} role="modal">
         <div className={modalContent}>{children}</div>
         <div className={modalClose}>
-          <ButtonRounded onClick={onClose}>
+          <ButtonRounded id="close-modal" onClick={onClose}>
             <div className={closeButton} />
           </ButtonRounded>
         </div>

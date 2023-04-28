@@ -14,8 +14,9 @@
     "test": "vitest --run --coverage",
     "test:run": "vitest",
     "cypress": "cypress open --e2e --browser chrome",
-    "test:e2e": "start-server-and-test dev http-get://localhost:3000 cypress",
+    "cypress:run": "cypress run --e2e",
     "e2e:coverage": "npx nyc report --reporter=text-summary",
+    "test:e2e": "start-server-and-test dev http-get://localhost:3000 cypress:run && npm run e2e:coverage",
     "commit": "git add . && read -p '> To AMEND the previous commit press \"a\", otherwise skip it and press \"Enter\"\n> => ' choice && if [[ $choice == 'a' ]]; then git commit --amend --no-edit; else git commit; fi"
   },
   "dependencies": {
