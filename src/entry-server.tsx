@@ -6,7 +6,7 @@ import { Response } from 'express';
 import serialize from 'serialize-javascript';
 
 import App from './App';
-import { routes } from './routes';
+import { routes } from 'utils/constants';
 import { createStore, theMovieDbApi, movieActions, type Store } from 'store';
 import { Genre, Movie } from 'models';
 import { transformRowMovies } from 'utils/helpers';
@@ -25,7 +25,7 @@ export async function serverSideRenderer(
 ) {
   const store = createStore();
 
-  const activePath = routes.find((route) => route.path === url)?.path ?? '/*';
+  const activePath = routes.find((route) => route.path === url)?.path || '/*';
 
   if (url === '/') {
     await apiRequest(store);
@@ -57,14 +57,16 @@ export async function serverSideRenderer(
       </StaticRouter>
     </Provider>
   );
-  res.setHeader('Content-type', 'text/html');
+
+  res.setHeader('content-type', 'text/html');
   res.write(head);
 
+  const statusCode = activePath === '/*' ? 404 : 200;
   let didError = false;
 
   const stream = renderToPipeableStream(appJSX, {
     onShellReady() {
-      res.statusCode = didError ? 500 : 200;
+      res.statusCode = didError ? 500 : statusCode;
       stream.pipe(res);
     },
     onAllReady() {

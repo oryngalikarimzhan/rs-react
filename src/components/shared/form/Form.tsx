@@ -44,6 +44,7 @@ export const Form: React.FC<FormProps> = ({ template, onSubmit }) => {
       <FormFields {...{ fields, register, errors }} />
       <ButtonRegular style={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
       <p
+        id="success-msg"
         className={styles.successMessage}
         style={isSuccess ? { display: 'block' } : { display: 'none' }}
       >

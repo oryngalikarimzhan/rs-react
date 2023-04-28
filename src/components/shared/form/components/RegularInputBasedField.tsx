@@ -25,7 +25,9 @@ const RegularInputBasedField = ({
         role={`${type}-${name}`}
         {...registerReturn}
       />
-      <span className={styles.errorMessage}>{errorMessage}</span>
+      <span id={`${registerReturn.name}-error-msg`} className={styles.errorMessage}>
+        {errorMessage}
+      </span>
     </div>
   </div>
 );
