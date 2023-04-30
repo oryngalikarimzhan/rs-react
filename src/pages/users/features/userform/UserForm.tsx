@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Form, type FormFieldProps, type FormValues } from 'components/shared';
 import { countries } from 'data';
-import { UsersContext } from 'contexts';
+import { useActions } from '../../../../store';
 
 interface UserFormValues extends FormValues {
   firstname: string;
@@ -16,8 +16,8 @@ interface UserFormValues extends FormValues {
 
 const countryNames = countries.map((country) => country.name);
 
-export default function UserForm() {
-  const { addUser } = useContext(UsersContext);
+export const UserForm: React.FC = () => {
+  const { addUser } = useActions();
 
   const onSubmit = (data: FormValues) => {
     const { firstname, lastname, birthday, gender, image, country } = data as UserFormValues;
@@ -25,8 +25,8 @@ export default function UserForm() {
     const reader = new FileReader();
 
     reader.onload = () =>
-      addUser &&
       addUser({
+        id: crypto.randomUUID(),
         name: firstname,
         surname: lastname,
         birthday: birthday,
@@ -130,4 +130,4 @@ export default function UserForm() {
   };
 
   return <Form {...{ template, onSubmit }} />;
-}
+};

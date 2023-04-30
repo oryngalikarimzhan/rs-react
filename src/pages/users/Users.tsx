@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { formPage, userForm, title, userCards } from './User.module.scss';
-import UserForm from './components/UserForm';
+import { formPage, userForm, title, userCards } from './Users.module.scss';
+import { UserForm } from './features/userform/UserForm';
 
-import { UsersContext } from 'contexts';
 import { Catalog, Wrapper } from 'components/ui';
+import { useAppSelector } from 'store';
 
 const wrapperStyle = { rowGap: '20px', width: '40%' };
 
-function User() {
-  const { users } = useContext(UsersContext);
+export const Users: React.FC = () => {
+  const users = useAppSelector((state) => state.users.list);
 
   const hasUsers = users && users.length > 0;
 
@@ -36,6 +36,4 @@ function User() {
       </section>
     </article>
   );
-}
-
-export default User;
+};

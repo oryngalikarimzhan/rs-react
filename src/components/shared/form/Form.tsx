@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import styles from './Form.module.scss';
@@ -16,7 +16,7 @@ interface FormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-export const Form: FC<FormProps> = ({ template, onSubmit }) => {
+export const Form: React.FC<FormProps> = ({ template, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -25,15 +25,15 @@ export const Form: FC<FormProps> = ({ template, onSubmit }) => {
   } = useForm<FormValues>({ mode: 'onSubmit' });
   const { title, fields, successMessage } = template;
 
-  const [isSucces, setIsSucces] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const onValid: SubmitHandler<FormValues> = (data, e) => {
     e?.preventDefault();
     onSubmit(data);
 
-    setIsSucces(true);
+    setIsSuccess(true);
     setTimeout(() => {
-      setIsSucces(false);
+      setIsSuccess(false);
     }, 5000);
     reset();
   };
@@ -45,7 +45,7 @@ export const Form: FC<FormProps> = ({ template, onSubmit }) => {
       <ButtonRegular styles={{ width: '30%', alignSelf: 'center' }}>SUBMIT</ButtonRegular>
       <p
         className={styles.successMessage}
-        style={isSucces ? { display: 'block' } : { display: 'none' }}
+        style={isSuccess ? { display: 'block' } : { display: 'none' }}
       >
         {successMessage}
       </p>

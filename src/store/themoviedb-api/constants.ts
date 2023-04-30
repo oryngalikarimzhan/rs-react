@@ -1,0 +1,10 @@
+export const BASE_URL = 'https://api.themoviedb.org/3';
+export const MOVIE_SEARCH_ROUTE = '/search/movie';
+export const MOVIE_GENRES_ROUTE = '/genre/movie/list';
+export const SEARCH_QUERY_KEY = 'query';
+export const API_KEY_QUERY_KEY = 'api_key';
+export const API_KEY_QUERY_VALUE = 'bb58133110a66fed3c8da9053678f5b3';
+export const LANGUAGE_QUERY_KEY = 'language';
+export const LANGUAGE_RU_QUERY_VALUE = 'ru-RU';
+export const POPULAR_MOVIES_ROUTE = '/movie/popular';
+export const IMAGE_HOST_URL = 'https://image.tmdb.org/t/p/w500';

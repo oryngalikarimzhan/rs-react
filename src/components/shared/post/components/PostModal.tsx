@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import { postModal, postImage, postContent, postName, info } from './PostModal.module.scss';
 import { CardModel } from 'models';
@@ -8,7 +8,7 @@ interface PostModalProps {
   data: CardModel;
 }
 
-const PostModal: FC<PostModalProps> = ({ data }) => {
+const PostModal: React.FC<PostModalProps> = ({ data }) => {
   const { image, name, ...rest } = data;
 
   return (

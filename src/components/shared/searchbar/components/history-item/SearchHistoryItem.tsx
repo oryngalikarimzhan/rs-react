@@ -1,21 +1,30 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
+import { useActions } from 'store';
 
 import { history, text, deleteBtn } from './SearchHistoryItem.module.scss';
 
 interface SearchHistoryItemProps {
-  searchText: string;
-  onPick: (e: MouseEvent<HTMLSpanElement>) => void;
-  onDelete: (e: MouseEvent<HTMLButtonElement>) => void;
+  searchValue: string;
 }
 
-const SearchHistoryItem = ({ searchText, onPick, onDelete }: SearchHistoryItemProps) => {
+const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({ searchValue }) => {
+  const { deleteFromHistory, changeSearchValue } = useActions();
+
   return (
     <div className={history}>
-      <span data-id={searchText} className={text} onClick={(e) => onPick(e)}>
-        {searchText}
+      <span
+        data-id={searchValue}
+        className={text}
+        onClick={() => changeSearchValue({ searchValue })}
+      >
+        {searchValue}
       </span>
 
-      <button data-id={searchText} className={deleteBtn} onClick={(e) => onDelete(e)} />
+      <button
+        data-id={searchValue}
+        className={deleteBtn}
+        onClick={() => deleteFromHistory({ searchValue })}
+      />
     </div>
   );
 };

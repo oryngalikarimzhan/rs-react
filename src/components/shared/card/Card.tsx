@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { card, border, title, infoBox, info } from './Card.module.scss';
 
@@ -9,7 +9,7 @@ interface CardProps {
   data: CardModel;
 }
 
-export const Card: FC<CardProps> = ({ data }) => {
+export const Card: React.FC<CardProps> = ({ data }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { image, name, ...rest } = data;
 

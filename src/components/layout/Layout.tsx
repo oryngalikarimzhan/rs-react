@@ -1,18 +1,15 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { Header } from './header/Header';
-import { UsersContextProvider } from 'contexts';
 
-export const Layout: FC = () => {
+export const Layout: React.FC = () => {
   return (
     <>
       <Header />
 
       <main>
-        <UsersContextProvider>
-          <Outlet />
-        </UsersContextProvider>
+        <Outlet />
       </main>
     </>
   );

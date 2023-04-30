@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CSS from 'csstype';
 
@@ -13,7 +13,7 @@ const wrapperStyle: CSS.Properties = {
   alignItems: 'center',
 };
 
-export const Header: FC = () => {
+export const Header: React.FC = () => {
   const { pathname } = useLocation();
   const pageName = (pathname in routes ? routes[pathname] : routes['*']).toUpperCase();
 

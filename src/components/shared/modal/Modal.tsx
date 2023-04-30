@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { overlay, modal, closeButton, modalContent, modalClose } from './Modal.module.scss';
@@ -12,7 +12,7 @@ interface ModalProps {
   children: ReactNode | string;
 }
 
-export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -34,7 +34,7 @@ interface PortalProps {
   children: ReactNode | string;
 }
 
-const Portal: FC<PortalProps> = ({ children }) => {
+const Portal: React.FC<PortalProps> = ({ children }) => {
   const [portal] = useState(() => document.createElement('div'));
 
   useEffect(() => {

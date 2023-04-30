@@ -8,9 +8,8 @@ type WrapperProps = {
   style?: CSS.Properties;
 };
 
-const Wrapper = ({ children, style = {} }: WrapperProps) => (
+export const Wrapper: React.FC<WrapperProps> = ({ children, style = {} }) => (
   <div style={style} className={wrapper}>
     <>{children}</>
   </div>
 );
-export default Wrapper;

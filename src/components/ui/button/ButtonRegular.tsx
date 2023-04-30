@@ -7,16 +7,16 @@ type ButtonRegularProps = {
   children: string | ReactNode;
   styles?: CSS.Properties;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  isPending?: boolean;
+  isLoading?: boolean;
 };
 
-export const ButtonRegular = ({
+export const ButtonRegular: React.FC<ButtonRegularProps> = ({
   children = '',
   styles = {},
   onClick,
-  isPending,
-}: ButtonRegularProps) => (
-  <button className={buttonRegular} style={styles} onClick={onClick} disabled={isPending}>
+  isLoading,
+}) => (
+  <button className={buttonRegular} style={styles} onClick={onClick} disabled={isLoading}>
     {children}
   </button>
 );

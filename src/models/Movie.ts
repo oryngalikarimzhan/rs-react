@@ -2,14 +2,14 @@ import { CardModel } from 'models';
 
 export interface Movie {
   adult: boolean;
-  backdrop_path: string;
+  backdrop_path?: string;
   genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: string;
+  poster_path?: string;
   release_date: string;
   title: string;
   video: boolean;
@@ -17,9 +17,16 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface MovieCutted extends CardModel {
+export interface MovieCut extends CardModel {
   Жанры: string;
   'Дата релиза': string;
   'Средняя оценка зрителей': string;
   Описание: string;
+}
+
+export interface TheMovieDbApiMoviesResponse<T> {
+  page: number;
+  results: T[];
+  total_pages: number;
+  total_results: number;
 }

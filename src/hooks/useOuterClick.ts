@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useOuterClick = <T extends HTMLElement>() => {
+export const useOuterClick = <T extends HTMLElement>() => {
   const [isFocusing, setIsFocusing] = useState(false);
   const ref = useRef<T>(null);
 
@@ -18,5 +18,3 @@ const useOuterClick = <T extends HTMLElement>() => {
 
   return { isFocusing, setIsFocusing, ref };
 };
-
-export default useOuterClick;

@@ -1,27 +1,28 @@
-import React, { Fragment, MouseEvent } from 'react';
+import React, { Fragment } from 'react';
 
 import { histories } from './SearchHistoryList.module.scss';
 import SearchHistoryItem from '../history-item/SearchHistoryItem';
+import { useAppSelector } from 'store';
 
-type SeachHistoryProps = {
-  historyList: string[];
+type SearchHistoryProps = {
   isFocusing: boolean;
-  onPick: (e: MouseEvent<HTMLSpanElement>) => void;
-  onDelete: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const SearchHistoryList = ({ historyList, isFocusing, onPick, onDelete }: SeachHistoryProps) => (
-  <>
-    {historyList.length > 0 && isFocusing && (
-      <div role="histories" className={histories}>
-        {historyList.map((searchText) => (
-          <Fragment key={searchText}>
-            <SearchHistoryItem {...{ searchText, onPick, onDelete }} />
-          </Fragment>
-        ))}
-      </div>
-    )}
-  </>
-);
+const SearchHistoryList: React.FC<SearchHistoryProps> = ({ isFocusing }) => {
+  const historyList = useAppSelector((state) => state.searchHistory.list);
 
+  return (
+    <>
+      {historyList.length > 0 && isFocusing && (
+        <div role="histories" className={histories}>
+          {historyList.map((searchValue) => (
+            <Fragment key={searchValue}>
+              <SearchHistoryItem searchValue={searchValue} />
+            </Fragment>
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
 export default SearchHistoryList;
