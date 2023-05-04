@@ -27,7 +27,11 @@ const CheckableInputBasedField = ({
           <label htmlFor={k}>{v.toUpperCase()}</label>
         </Fragment>
       ))}
-      <span className={styles.errorMessage} style={{ top: '30px' }}>
+      <span
+        id={`${registerReturn.name}-error-msg`}
+        className={styles.errorMessage}
+        style={{ top: '30px' }}
+      >
         {errorMessage}
       </span>
     </div>

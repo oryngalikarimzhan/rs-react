@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { Layout } from 'components/layout';
-import { routes } from 'utils/constants';
 
 describe('Layout', () => {
   it('has header', () => {
@@ -33,6 +32,6 @@ describe('Layout', () => {
     const element = screen.getByRole('heading', { level: 1 });
 
     expect(element).toBeVisible();
-    expect(element).toHaveTextContent(routes['/'].toUpperCase());
+    expect(element).toHaveTextContent('MOVIES');
   });
 });

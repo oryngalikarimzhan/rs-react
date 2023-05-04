@@ -3,9 +3,19 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import istanbul from 'vite-plugin-istanbul';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
+  build: {
+    sourcemap: true,
+  },
   css: {
     modules: {
       localsConvention: 'camelCase',
@@ -39,5 +49,9 @@ export default defineConfig({
       reporter: ['text', 'html'],
       exclude: ['**/*.ts', 'index.tsx'],
     },
+  },
+  server: {
+    host: true,
+    port: 3000,
   },
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CSS from 'csstype';
 
-import { header } from './Header.module.scss';
+import styles from './Header.module.scss';
 import { routes } from 'utils/constants';
 import { NavBar } from 'components/shared';
 import { Wrapper } from 'components/ui';
@@ -15,12 +15,12 @@ const wrapperStyle: CSS.Properties = {
 
 export const Header: React.FC = () => {
   const { pathname } = useLocation();
-  const pageName = (pathname in routes ? routes[pathname] : routes['*']).toUpperCase();
+  const pageName = routes.find((route) => route.path === pathname)?.title || '404';
 
   return (
-    <header className={header}>
+    <header className={styles.header}>
       <Wrapper style={wrapperStyle}>
-        <h1>{pageName}</h1>
+        <h1>{pageName.toUpperCase()}</h1>
 
         <NavBar />
       </Wrapper>

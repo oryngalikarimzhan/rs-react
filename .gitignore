@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 .husky/*
-coverage/*
+.nyc_output
+coverage
+.vscode

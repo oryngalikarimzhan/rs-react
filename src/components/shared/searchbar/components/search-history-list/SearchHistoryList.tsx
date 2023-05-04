@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { histories } from './SearchHistoryList.module.scss';
+import styles from './SearchHistoryList.module.scss';
 import SearchHistoryItem from '../history-item/SearchHistoryItem';
 import { useAppSelector } from 'store';
 
@@ -14,7 +14,7 @@ const SearchHistoryList: React.FC<SearchHistoryProps> = ({ isFocusing }) => {
   return (
     <>
       {historyList.length > 0 && isFocusing && (
-        <div role="histories" className={histories}>
+        <div role="histories" className={styles.histories}>
           {historyList.map((searchValue) => (
             <Fragment key={searchValue}>
               <SearchHistoryItem searchValue={searchValue} />

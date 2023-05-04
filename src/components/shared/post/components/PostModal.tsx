@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { postModal, postImage, postContent, postName, info } from './PostModal.module.scss';
+import styles from './PostModal.module.scss';
 import { CardModel } from 'models';
 import { camelCaseToWords, capitalizeText } from 'utils/helpers';
 
 interface PostModalProps {
   data: CardModel;
 }
+
+const { postModal, postImage, postContent, postName, info } = styles;
 
 const PostModal: React.FC<PostModalProps> = ({ data }) => {
   const { image, name, ...rest } = data;

@@ -5,6 +5,7 @@
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
+    "noEmit": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
@@ -30,16 +31,7 @@
       "utils/constants": ["utils/constants/index"],
       "utils/helpers": ["utils/helpers/index"],
       "utils/types": ["utils/types/index"]
-    },
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules",
-        "options": {
-          "classnameTransform": "dashes",
-          "allowUnknownClassnames": true
-        }
-      }
-    ]
+    }
   },
   "include": ["src"]
 }

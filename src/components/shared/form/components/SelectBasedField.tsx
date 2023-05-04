@@ -24,7 +24,9 @@ const SelectBasedField = ({
           </option>
         ))}
       </select>
-      <span className={styles.errorMessage}>{errorMessage}</span>
+      <span id={`${registerReturn.name}-error-msg`} className={styles.errorMessage}>
+        {errorMessage}
+      </span>
     </div>
   </div>
 );

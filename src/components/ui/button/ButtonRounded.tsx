@@ -7,6 +7,7 @@ interface ButtonRoundedProps {
   children: ReactNode | string;
   onClick: () => void;
   isActive?: boolean;
+  id?: string;
 }
 
 const roundedButtonStyles: CSS.Properties = {
@@ -25,11 +26,13 @@ const activeRoundedButtonStyle: CSS.Properties = {
 export const ButtonRounded: React.FC<ButtonRoundedProps> = ({
   children,
   onClick,
+  id,
   isActive = false,
 }) => {
   return (
     <ButtonRegular
-      styles={isActive ? activeRoundedButtonStyle : roundedButtonStyles}
+      id={id}
+      style={isActive ? activeRoundedButtonStyle : roundedButtonStyles}
       onClick={onClick}
     >
       {children}

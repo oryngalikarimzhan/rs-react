@@ -1,11 +1,13 @@
 import React from 'react';
 import { useActions } from 'store';
 
-import { history, text, deleteBtn } from './SearchHistoryItem.module.scss';
+import styles from './SearchHistoryItem.module.scss';
 
 interface SearchHistoryItemProps {
   searchValue: string;
 }
+
+const { history, text, deleteBtn } = styles;
 
 const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({ searchValue }) => {
   const { deleteFromHistory, changeSearchValue } = useActions();
@@ -13,6 +15,7 @@ const SearchHistoryItem: React.FC<SearchHistoryItemProps> = ({ searchValue }) =>
   return (
     <div className={history}>
       <span
+        data-testid="history-item"
         data-id={searchValue}
         className={text}
         onClick={() => changeSearchValue({ searchValue })}

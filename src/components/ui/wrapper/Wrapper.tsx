@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import CSS from 'csstype';
 
-import { wrapper } from './Wrapper.module.scss';
+import styles from './Wrapper.module.scss';
 
 type WrapperProps = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type WrapperProps = {
 };
 
 export const Wrapper: React.FC<WrapperProps> = ({ children, style = {} }) => (
-  <div style={style} className={wrapper}>
+  <div style={style} className={styles.wrapper}>
     <>{children}</>
   </div>
 );

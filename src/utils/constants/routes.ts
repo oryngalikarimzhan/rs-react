@@ -1,7 +1,19 @@
-export const routes: { [key: string]: string } = {
-  '': 'movies',
-  '/': 'movies',
-  '/about': 'about us',
-  '/userform': 'user form & cards',
-  '*': '404',
-};
+import { About, Users, Home } from 'pages';
+
+export const routes = [
+  {
+    path: '/',
+    component: Home,
+    title: 'movies',
+  },
+  {
+    path: '/about',
+    component: About,
+    title: 'about us',
+  },
+  {
+    path: '/userform',
+    component: Users,
+    title: 'user form & cards',
+  },
+];
